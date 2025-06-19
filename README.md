@@ -157,7 +157,7 @@ Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detailny
 
 ---
 
-**Dibuat dengan cinta untuk komunitas fitness**
+**Dibuat dengan cinta untuk fitness community**
 
 *Ditingkatkan dengan Claude Code - asisten pengembangan bertenaga AI*
 <!-- Updated: 2025-05-03 -->
