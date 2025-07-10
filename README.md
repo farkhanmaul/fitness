@@ -39,7 +39,7 @@ Aplikasi kebugaran komprehensif yang mencakup latihan, program, pola gerakan, da
 ## **Memulai**
 
 ### Persyaratan
-- Node.js 18+ 
+- Node.js 18.0+ 
 - npm atau yarn
 
 ### Instalasi
