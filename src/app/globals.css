@@ -76,3 +76,41 @@ body {
     print-color-adjust: exact;
   }
 }
+
+/* Mobile interface improvements */
+@media (max-width: 640px) {
+  .mobile-text-base {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+  
+  .mobile-button-lg {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    min-height: 44px !important;
+  }
+  
+  .mobile-input-lg {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+    min-height: 44px !important;
+  }
+  
+  .mobile-card-p-lg {
+    padding: 1.5rem !important;
+  }
+  
+  .mobile-spacing-lg {
+    gap: 1rem !important;
+  }
+  
+  .mobile-icon-lg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+  
+  .mobile-touch-target {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+}
