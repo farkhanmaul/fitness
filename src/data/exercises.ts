@@ -10,6 +10,12 @@ export interface Exercise {
   instructions: string[];
   tips: string[];
   variations: string[];
+  progressions?: {
+    name: string;
+    description: string;
+    difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+    instructions: string[];
+  }[];
 }
 
 export const exercises: Exercise[] = [
@@ -35,7 +41,49 @@ export const exercises: Exercise[] = [
       'Breathe in on the way down, out on the way up',
       'Engage your glutes to maintain proper form'
     ],
-    variations: ['Incline Push-up', 'Decline Push-up', 'Diamond Push-up', 'Wide-grip Push-up']
+    variations: ['Incline Push-up', 'Decline Push-up', 'Diamond Push-up', 'Wide-grip Push-up'],
+    progressions: [
+      {
+        name: 'Wall Push-up',
+        description: 'Standing push-up against a wall for beginners',
+        difficulty: 'Beginner',
+        instructions: [
+          'Stand arm\'s length from wall',
+          'Place palms flat against wall at shoulder height',
+          'Lean in and push back with control'
+        ]
+      },
+      {
+        name: 'Incline Push-up',
+        description: 'Hands elevated on bench or step',
+        difficulty: 'Beginner',
+        instructions: [
+          'Place hands on elevated surface',
+          'Assume plank position',
+          'Perform push-up with reduced load'
+        ]
+      },
+      {
+        name: 'Standard Push-up',
+        description: 'Full push-up from toes',
+        difficulty: 'Intermediate',
+        instructions: [
+          'Full plank position on toes',
+          'Lower chest to ground',
+          'Push back to starting position'
+        ]
+      },
+      {
+        name: 'Archer Push-up',
+        description: 'Single arm focus push-up variation',
+        difficulty: 'Advanced',
+        instructions: [
+          'Start in wide push-up position',
+          'Shift weight to one side during descent',
+          'Push back up using primarily one arm'
+        ]
+      }
+    ]
   },
   {
     id: 'overhead-press',

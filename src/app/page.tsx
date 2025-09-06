@@ -28,8 +28,16 @@ export default function Home() {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [workoutProgress, setWorkoutProgress] = useState<{[key: string]: {completed: boolean, reps?: number, weight?: number, time?: number}}>({}); 
   const [currentWorkout, setCurrentWorkout] = useState<string | null>(null);
+  const [showSearchShortcuts, setShowSearchShortcuts] = useState(false);
+  const [workoutHistory, setWorkoutHistory] = useState<{date: string, workout: string, duration: number, exercises: {name: string, completed: boolean, reps?: number, weight?: number}[]}[]>([]);
+  const [showWorkoutHistory, setShowWorkoutHistory] = useState(false);
+  const [showWorkoutBuilder, setShowWorkoutBuilder] = useState(false);
+  const [customWorkout, setCustomWorkout] = useState<{name: string, exercises: {exerciseId: string, sets: number, reps: number, weight?: number, duration?: number}[]}>({
+    name: '',
+    exercises: []
+  });
 
-  // Load favorites and theme from localStorage
+  // Load favorites, theme and workout history from localStorage
   useEffect(() => {
     const savedFavorites = localStorage.getItem('fitness-favorites');
     if (savedFavorites) {
@@ -41,7 +49,58 @@ export default function Home() {
       setDarkMode(true);
       document.documentElement.classList.add('dark');
     }
+
+    const savedHistory = localStorage.getItem('fitness-workout-history');
+    if (savedHistory) {
+      setWorkoutHistory(JSON.parse(savedHistory));
+    }
   }, []);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd/Ctrl + K to focus search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.select();
+        }
+      }
+      
+      // Cmd/Ctrl + / to show shortcuts
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+        e.preventDefault();
+        setShowSearchShortcuts(!showSearchShortcuts);
+      }
+
+      // ESC to clear search or close modals
+      if (e.key === 'Escape') {
+        if (searchTerm) {
+          setSearchTerm('');
+        } else if (showSearchShortcuts) {
+          setShowSearchShortcuts(false);
+        } else if (selectedExercise || selectedProgram || selectedMovement || selectedPrinciple) {
+          resetSelections();
+        }
+      }
+
+      // Number keys for quick tab switching
+      if (e.key >= '1' && e.key <= '4' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tabIndex = parseInt(e.key) - 1;
+        const tabs: TabType[] = ['exercises', 'programs', 'movements', 'principles'];
+        if (tabs[tabIndex]) {
+          setActiveTab(tabs[tabIndex]);
+          resetSelections();
+          clearAllFilters();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [searchTerm, showSearchShortcuts, selectedExercise, selectedProgram, selectedMovement, selectedPrinciple]);
 
   // Save favorites to localStorage
   useEffect(() => {
@@ -98,6 +157,56 @@ export default function Home() {
     resetTimer();
     startTimer();
   };
+
+  const finishWorkout = () => {
+    if (!currentWorkout) return;
+    
+    const program = workoutPrograms.find(p => p.id === currentWorkout);
+    if (!program) return;
+
+    const completedExercises = program.workouts.flatMap((workout, workoutIndex) =>
+      workout.exercises.map((exercise, exerciseIndex) => {
+        const progressKey = `${currentWorkout}-${workoutIndex}-${exerciseIndex}`;
+        const progress = workoutProgress[progressKey];
+        return {
+          name: exercise.name,
+          completed: progress?.completed || false,
+          reps: progress?.reps,
+          weight: progress?.weight
+        };
+      })
+    );
+
+    const newWorkoutEntry = {
+      date: new Date().toISOString().split('T')[0],
+      workout: program.name,
+      duration: workoutTimer,
+      exercises: completedExercises
+    };
+
+    const updatedHistory = [newWorkoutEntry, ...workoutHistory].slice(0, 50); // Keep last 50 workouts
+    setWorkoutHistory(updatedHistory);
+    localStorage.setItem('fitness-workout-history', JSON.stringify(updatedHistory));
+    
+    // Reset workout state
+    setCurrentWorkout(null);
+    setWorkoutProgress({});
+    resetTimer();
+  };
+
+  // Save workout history to localStorage
+  useEffect(() => {
+    if (workoutHistory.length > 0) {
+      localStorage.setItem('fitness-workout-history', JSON.stringify(workoutHistory));
+    }
+  }, [workoutHistory]);
+
+  // Calculate stats
+  const totalWorkouts = workoutHistory.length;
+  const totalHours = Math.round(workoutHistory.reduce((sum, w) => sum + w.duration, 0) / 3600 * 10) / 10;
+  const completionRate = workoutHistory.length > 0 
+    ? Math.round(workoutHistory.reduce((sum, w) => sum + (w.exercises.filter(e => e.completed).length / w.exercises.length), 0) / workoutHistory.length * 100)
+    : 0;
 
   // Toggle favorite
   const toggleFavorite = (id: string) => {
@@ -208,8 +317,29 @@ export default function Home() {
                   >
                     🔄
                   </button>
+                  <button
+                    onClick={finishWorkout}
+                    className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700"
+                    title="Finish workout"
+                  >
+                    ✓ Finish
+                  </button>
                 </div>
               )}
+              <button
+                onClick={() => setShowWorkoutHistory(!showWorkoutHistory)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                title="Workout history and stats"
+              >
+                📊
+              </button>
+              <button
+                onClick={() => setShowWorkoutBuilder(!showWorkoutBuilder)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                title="Custom workout builder"
+              >
+                🏗️
+              </button>
               <button
                 onClick={toggleDarkMode}
                 className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -259,6 +389,283 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Workout History Modal */}
+      {showWorkoutHistory && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Workout History & Analytics</h2>
+                <button
+                  onClick={() => setShowWorkoutHistory(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-800 dark:text-blue-200">{totalWorkouts}</div>
+                  <div className="text-sm text-blue-600 dark:text-blue-400">Total Workouts</div>
+                </div>
+                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-green-800 dark:text-green-200">{totalHours}h</div>
+                  <div className="text-sm text-green-600 dark:text-green-400">Hours Trained</div>
+                </div>
+                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-800 dark:text-purple-200">{completionRate}%</div>
+                  <div className="text-sm text-purple-600 dark:text-purple-400">Completion Rate</div>
+                </div>
+              </div>
+
+              {/* Recent Workouts */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Recent Workouts</h3>
+                {workoutHistory.length === 0 ? (
+                  <p className="text-gray-500 dark:text-gray-400">No workouts completed yet. Start your first workout!</p>
+                ) : (
+                  <div className="space-y-3">
+                    {workoutHistory.slice(0, 10).map((workout, index) => (
+                      <div key={index} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h4 className="font-medium text-gray-900 dark:text-white">{workout.workout}</h4>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{workout.date}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-gray-900 dark:text-white">
+                              {Math.floor(workout.duration / 60)}:{(workout.duration % 60).toString().padStart(2, '0')}
+                            </div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400">
+                              {workout.exercises.filter(e => e.completed).length}/{workout.exercises.length} completed
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {workout.exercises.slice(0, 5).map((exercise, exIndex) => (
+                            <span
+                              key={exIndex}
+                              className={`px-2 py-1 text-xs rounded ${
+                                exercise.completed
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                                  : 'bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-400'
+                              }`}
+                            >
+                              {exercise.name}
+                              {exercise.reps && ` (${exercise.reps})`}
+                              {exercise.weight && ` @ ${exercise.weight}lbs`}
+                            </span>
+                          ))}
+                          {workout.exercises.length > 5 && (
+                            <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-400 rounded">
+                              +{workout.exercises.length - 5}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Workout Builder Modal */}
+      {showWorkoutBuilder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Custom Workout Builder</h2>
+                <button
+                  onClick={() => setShowWorkoutBuilder(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Workout Name Input */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Workout Name
+                </label>
+                <input
+                  type="text"
+                  value={customWorkout.name}
+                  onChange={(e) => setCustomWorkout({...customWorkout, name: e.target.value})}
+                  placeholder="Enter workout name..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                />
+              </div>
+
+              {/* Exercise Selection */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Add Exercises</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-60 overflow-y-auto border rounded p-4">
+                  {exercises.map(exercise => (
+                    <div
+                      key={exercise.id}
+                      onClick={() => {
+                        if (!customWorkout.exercises.find(e => e.exerciseId === exercise.id)) {
+                          setCustomWorkout({
+                            ...customWorkout,
+                            exercises: [...customWorkout.exercises, {
+                              exerciseId: exercise.id,
+                              sets: 3,
+                              reps: 10,
+                              weight: undefined,
+                              duration: undefined
+                            }]
+                          });
+                        }
+                      }}
+                      className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                        customWorkout.exercises.find(e => e.exerciseId === exercise.id)
+                          ? 'bg-blue-50 border-blue-300 dark:bg-blue-900/20 dark:border-blue-600'
+                          : 'hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <h4 className="font-medium text-gray-900 dark:text-white">{exercise.name}</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{exercise.category}</p>
+                      <div className="flex gap-1 mt-1">
+                        {exercise.primaryMuscles.slice(0, 2).map(muscle => (
+                          <span key={muscle} className="px-2 py-0.5 bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300 rounded text-xs">
+                            {muscle}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Selected Exercises */}
+              {customWorkout.exercises.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+                    Selected Exercises ({customWorkout.exercises.length})
+                  </h3>
+                  <div className="space-y-3">
+                    {customWorkout.exercises.map((workoutExercise, index) => {
+                      const exercise = exercises.find(e => e.id === workoutExercise.exerciseId);
+                      if (!exercise) return null;
+                      
+                      return (
+                        <div key={index} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                          <div className="flex justify-between items-start mb-3">
+                            <h4 className="font-medium text-gray-900 dark:text-white">{exercise.name}</h4>
+                            <button
+                              onClick={() => setCustomWorkout({
+                                ...customWorkout,
+                                exercises: customWorkout.exercises.filter((_, i) => i !== index)
+                              })}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
+                              <label className="block text-xs font-medium mb-1">Sets</label>
+                              <input
+                                type="number"
+                                value={workoutExercise.sets}
+                                onChange={(e) => {
+                                  const newExercises = [...customWorkout.exercises];
+                                  newExercises[index].sets = parseInt(e.target.value) || 1;
+                                  setCustomWorkout({...customWorkout, exercises: newExercises});
+                                }}
+                                min="1"
+                                className="w-full px-2 py-1 text-sm border rounded dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium mb-1">Reps</label>
+                              <input
+                                type="number"
+                                value={workoutExercise.reps}
+                                onChange={(e) => {
+                                  const newExercises = [...customWorkout.exercises];
+                                  newExercises[index].reps = parseInt(e.target.value) || 1;
+                                  setCustomWorkout({...customWorkout, exercises: newExercises});
+                                }}
+                                min="1"
+                                className="w-full px-2 py-1 text-sm border rounded dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium mb-1">Weight (lbs)</label>
+                              <input
+                                type="number"
+                                value={workoutExercise.weight || ''}
+                                onChange={(e) => {
+                                  const newExercises = [...customWorkout.exercises];
+                                  newExercises[index].weight = parseInt(e.target.value) || undefined;
+                                  setCustomWorkout({...customWorkout, exercises: newExercises});
+                                }}
+                                placeholder="Optional"
+                                className="w-full px-2 py-1 text-sm border rounded dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium mb-1">Duration (sec)</label>
+                              <input
+                                type="number"
+                                value={workoutExercise.duration || ''}
+                                onChange={(e) => {
+                                  const newExercises = [...customWorkout.exercises];
+                                  newExercises[index].duration = parseInt(e.target.value) || undefined;
+                                  setCustomWorkout({...customWorkout, exercises: newExercises});
+                                }}
+                                placeholder="Optional"
+                                className="w-full px-2 py-1 text-sm border rounded dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={() => {
+                    setCustomWorkout({name: '', exercises: []});
+                    setShowWorkoutBuilder(false);
+                  }}
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (customWorkout.name && customWorkout.exercises.length > 0) {
+                      // Start custom workout
+                      setCurrentWorkout(`custom-${Date.now()}`);
+                      resetTimer();
+                      startTimer();
+                      setShowWorkoutBuilder(false);
+                    }
+                  }}
+                  disabled={!customWorkout.name || customWorkout.exercises.length === 0}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  Start Workout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Mobile Sidebar Overlay */}
@@ -300,6 +707,46 @@ export default function Home() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
+              </div>
+
+              {/* Enhanced Search */}
+              <div className="mb-4 sm:mb-6">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search exercises, programs... (⌘K)"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <button
+                      onClick={() => setShowSearchShortcuts(!showSearchShortcuts)}
+                      className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                      title="Show keyboard shortcuts (⌘/)"
+                    >
+                      <span className="text-xs">⌘/</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Keyboard Shortcuts Modal */}
+                {showSearchShortcuts && (
+                  <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border text-xs">
+                    <div className="font-medium mb-2 text-gray-900 dark:text-white">Keyboard Shortcuts</div>
+                    <div className="space-y-1 text-gray-600 dark:text-gray-400">
+                      <div className="flex justify-between"><span>Search</span><code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">⌘K</code></div>
+                      <div className="flex justify-between"><span>Show shortcuts</span><code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">⌘/</code></div>
+                      <div className="flex justify-between"><span>Clear/Back</span><code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">ESC</code></div>
+                      <div className="flex justify-between"><span>Switch tabs</span><code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">1-4</code></div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Favorites Toggle */}
@@ -599,6 +1046,49 @@ export default function Home() {
                                 </div>
                               </div>
                             ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {selectedExercise.progressions && selectedExercise.progressions.length > 0 && (
+                        <div>
+                          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Difficulty Progressions</h4>
+                          <div className="space-y-3">
+                            {selectedExercise.progressions.map((progression, index) => (
+                              <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-lg">
+                                      {progression.difficulty === 'Beginner' ? '🟢' : 
+                                       progression.difficulty === 'Intermediate' ? '🟡' : '🔴'}
+                                    </span>
+                                    <h5 className="font-medium text-gray-900 dark:text-white">{progression.name}</h5>
+                                  </div>
+                                  <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                    progression.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                    progression.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                                    'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                                  }`}>
+                                    {progression.difficulty}
+                                  </span>
+                                </div>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{progression.description}</p>
+                                <div className="space-y-1">
+                                  {progression.instructions.map((instruction, instrIndex) => (
+                                    <div key={instrIndex} className="flex items-start space-x-2 text-xs sm:text-sm">
+                                      <span className="text-blue-500 mt-1">•</span>
+                                      <span className="text-gray-700 dark:text-gray-300">{instruction}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <div className="flex items-center space-x-2 text-sm text-blue-800 dark:text-blue-200">
+                              <span>💡</span>
+                              <p><strong>Progression Tip:</strong> Master each level before moving to the next. Consistency beats intensity.</p>
+                            </div>
                           </div>
                         </div>
                       )}
