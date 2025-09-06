@@ -24,6 +24,10 @@ export default function Home() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [workoutTimer, setWorkoutTimer] = useState<number>(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [workoutProgress, setWorkoutProgress] = useState<{[key: string]: {completed: boolean, reps?: number, weight?: number, time?: number}}>({}); 
+  const [currentWorkout, setCurrentWorkout] = useState<string | null>(null);
 
   // Load favorites and theme from localStorage
   useEffect(() => {
@@ -54,6 +58,45 @@ export default function Home() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('fitness-theme', 'light');
     }
+  };
+
+  // Timer functionality
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isTimerRunning) {
+      interval = setInterval(() => {
+        setWorkoutTimer(timer => timer + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isTimerRunning]);
+
+  const startTimer = () => setIsTimerRunning(true);
+  const pauseTimer = () => setIsTimerRunning(false);
+  const resetTimer = () => {
+    setWorkoutTimer(0);
+    setIsTimerRunning(false);
+  };
+
+  const formatTime = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Progress tracking
+  const updateProgress = (itemId: string, data: {completed?: boolean, reps?: number, weight?: number, time?: number}) => {
+    setWorkoutProgress(prev => ({
+      ...prev,
+      [itemId]: { ...prev[itemId], ...data }
+    }));
+  };
+
+  const startWorkout = (workoutId: string) => {
+    setCurrentWorkout(workoutId);
+    resetTimer();
+    startTimer();
   };
 
   // Toggle favorite
@@ -144,8 +187,29 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Theme toggle and mobile menu */}
+            {/* Workout Timer and controls */}
             <div className="flex items-center space-x-2">
+              {currentWorkout && (
+                <div className="hidden sm:flex items-center space-x-2 bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-lg">
+                  <span className="text-sm font-mono text-blue-800 dark:text-blue-200">
+                    {formatTime(workoutTimer)}
+                  </span>
+                  <button
+                    onClick={isTimerRunning ? pauseTimer : startTimer}
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+                    title={isTimerRunning ? "Pause timer" : "Start timer"}
+                  >
+                    {isTimerRunning ? '⏸️' : '▶️'}
+                  </button>
+                  <button
+                    onClick={resetTimer}
+                    className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
+                    title="Reset timer"
+                  >
+                    🔄
+                  </button>
+                </div>
+              )}
               <button
                 onClick={toggleDarkMode}
                 className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -551,12 +615,42 @@ export default function Home() {
                               </div>
                               <div className="space-y-1 sm:space-y-2">
                                 {workout.exercises.map((exercise, idx) => (
-                                  <div key={idx} className="flex flex-col sm:flex-row sm:justify-between text-xs sm:text-sm">
-                                    <span className="text-gray-700 dark:text-gray-300 font-medium">{exercise.name}</span>
-                                    <span className="text-gray-500 dark:text-gray-400">
-                                      {exercise.reps || exercise.distance || exercise.duration || ''}
-                                      {exercise.weight && ` @ ${exercise.weight}`}
-                                    </span>
+                                  <div key={idx} className="flex items-center justify-between text-xs sm:text-sm bg-gray-50 dark:bg-gray-800 p-2 rounded">
+                                    <div className="flex items-center space-x-2 flex-1">
+                                      <input
+                                        type="checkbox"
+                                        checked={workoutProgress[`${selectedProgram.id}-${index}-${idx}`]?.completed || false}
+                                        onChange={(e) => updateProgress(`${selectedProgram.id}-${index}-${idx}`, {completed: e.target.checked})}
+                                        className="rounded"
+                                      />
+                                      <span className="text-gray-700 dark:text-gray-300 font-medium">{exercise.name}</span>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      <span className="text-gray-500 dark:text-gray-400">
+                                        {exercise.reps || exercise.distance || exercise.duration || ''}
+                                        {exercise.weight && ` @ ${exercise.weight}`}
+                                      </span>
+                                      <div className="flex space-x-1">
+                                        {exercise.reps && (
+                                          <input
+                                            type="number"
+                                            placeholder="Reps"
+                                            value={workoutProgress[`${selectedProgram.id}-${index}-${idx}`]?.reps || ''}
+                                            onChange={(e) => updateProgress(`${selectedProgram.id}-${index}-${idx}`, {reps: parseInt(e.target.value) || 0})}
+                                            className="w-12 px-1 py-0.5 text-xs rounded border dark:bg-gray-700 dark:border-gray-600"
+                                          />
+                                        )}
+                                        {exercise.weight && (
+                                          <input
+                                            type="number"
+                                            placeholder="lbs"
+                                            value={workoutProgress[`${selectedProgram.id}-${index}-${idx}`]?.weight || ''}
+                                            onChange={(e) => updateProgress(`${selectedProgram.id}-${index}-${idx}`, {weight: parseInt(e.target.value) || 0})}
+                                            className="w-12 px-1 py-0.5 text-xs rounded border dark:bg-gray-700 dark:border-gray-600"
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
@@ -802,6 +896,13 @@ export default function Home() {
                           {program.name}
                         </h3>
                         <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => startWorkout(program.id)}
+                            className="px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-md text-xs font-medium hover:bg-green-200 dark:hover:bg-green-800"
+                            title="Start workout"
+                          >
+                            ▶️ Start
+                          </button>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
