@@ -175,7 +175,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50 print-hide">
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-6">
           <div className="flex items-center justify-between lg:justify-start">
             <div className="flex-1">
@@ -270,7 +270,7 @@ export default function Home() {
           )}
 
           {/* Sidebar */}
-          <div className={`lg:col-span-1 ${
+          <div className={`lg:col-span-1 print-hide ${
             showSidebar 
               ? 'fixed inset-y-0 left-0 w-80 bg-white dark:bg-gray-800 shadow-xl z-50 lg:relative lg:inset-auto lg:w-auto lg:shadow-none transform translate-x-0'
               : 'hidden lg:block'
@@ -481,6 +481,13 @@ export default function Home() {
                   </h2>
                   <div className="flex items-center space-x-2">
                     <button
+                      onClick={() => window.print()}
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      title="Print workout card"
+                    >
+                      🖨️
+                    </button>
+                    <button
                       onClick={() => {
                         const id = selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id;
                         if (id) toggleFavorite(id);
@@ -493,7 +500,7 @@ export default function Home() {
                     </button>
                     <button
                       onClick={resetSelections}
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0 print-hide"
                     >
                       ← Back
                     </button>
@@ -538,7 +545,25 @@ export default function Home() {
 
                     <div className="space-y-4 sm:space-y-6">
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Instructions</h4>
+                        <div className="flex items-center justify-between mb-3">
+                          <h4 className="font-semibold text-gray-900 dark:text-white">Instructions</h4>
+                          <div className="bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-lg text-xs font-medium">
+                            <span className="text-blue-800 dark:text-blue-200">📹 Video Demo Available</span>
+                          </div>
+                        </div>
+                        <div className="mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-center">
+                          <div className="w-full h-48 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="text-4xl mb-2">🎬</div>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                Exercise demonstration video
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                                Proper form and technique
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                         <ol className="list-decimal list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                           {selectedExercise.instructions.map((instruction, index) => (
                             <li key={index}>{instruction}</li>
@@ -560,11 +585,19 @@ export default function Home() {
                       {selectedExercise.variations.length > 0 && (
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Variations</h4>
-                          <div className="flex flex-wrap gap-1 sm:gap-2">
-                            {selectedExercise.variations.map(variation => (
-                              <span key={variation} className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-xs sm:text-sm">
-                                {variation}
-                              </span>
+                          <div className="grid gap-2 sm:gap-3">
+                            {selectedExercise.variations.map((variation, index) => (
+                              <div key={index} className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+                                <div className="flex items-center space-x-2 mb-2">
+                                  <span className="text-lg">🎯</span>
+                                  <p className="text-purple-800 dark:text-purple-200 text-sm sm:text-base font-medium">{variation}</p>
+                                </div>
+                                <div className="ml-6 bg-gray-100 dark:bg-gray-700 rounded p-2 text-center">
+                                  <div className="text-xs text-gray-600 dark:text-gray-400">
+                                    📐 Form animation guide
+                                  </div>
+                                </div>
+                              </div>
                             ))}
                           </div>
                         </div>
