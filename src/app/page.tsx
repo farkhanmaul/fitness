@@ -5,7 +5,10 @@ import { exercises, categories, Exercise, muscleGroups, equipment } from '@/data
 import { workoutPrograms, programCategories, WorkoutProgram } from '@/data/programs';
 import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
 import { trainingPrinciples, principleCategories, TrainingPrinciple } from '@/data/training-principles';
+import { bodyParts, muscleFocus, workoutGoals, BodyPart, MuscleFocus, WorkoutGoal } from '@/data/bodyParts';
+import { shareWorkout, downloadWorkoutPDF } from '@/utils/shareHelpers';
 import { Icon } from '@/components/ui/Icon';
+import { RestTimer } from '@/components/RestTimer';
 
 type TabType = 'exercises' | 'programs' | 'movements' | 'principles';
 type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
@@ -16,6 +19,9 @@ export default function Home() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>('All');
   const [selectedEquipment, setSelectedEquipment] = useState<string>('All');
   const [selectedMuscle, setSelectedMuscle] = useState<string>('All');
+  const [selectedBodyPart, setSelectedBodyPart] = useState<string>('All');
+  const [selectedMuscleFocus, setSelectedMuscleFocus] = useState<string>('All');
+  const [selectedWorkoutGoal, setSelectedWorkoutGoal] = useState<string>('All');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
   const [selectedMovement, setSelectedMovement] = useState<MovementPattern | null>(null);
@@ -37,6 +43,7 @@ export default function Home() {
     name: '',
     exercises: []
   });
+  const [showRestTimer, setShowRestTimer] = useState(false);
 
   // Load favorites, theme and workout history from localStorage
   useEffect(() => {
@@ -227,6 +234,56 @@ export default function Home() {
     const matchesMuscle = selectedMuscle === 'All' || 
                          exercise.primaryMuscles.includes(selectedMuscle) || 
                          exercise.secondaryMuscles?.includes(selectedMuscle);
+    
+    // Advanced filtering
+    const matchesBodyPart = selectedBodyPart === 'All' || (() => {
+      switch (selectedBodyPart) {
+        case 'Upper Body':
+          return exercise.category.includes('Upper Body') || 
+                 ['Chest', 'Shoulders', 'Triceps', 'Biceps', 'Back'].some(muscle => 
+                   exercise.primaryMuscles.includes(muscle));
+        case 'Lower Body':
+          return exercise.category.includes('Lower Body') || 
+                 ['Quadriceps', 'Hamstrings', 'Glutes', 'Calves'].some(muscle => 
+                   exercise.primaryMuscles.includes(muscle));
+        case 'Core':
+          return exercise.category.includes('Core') || 
+                 ['Core', 'Abs'].some(muscle => 
+                   exercise.primaryMuscles.includes(muscle));
+        case 'Full Body':
+          return exercise.category.includes('Full Body') || exercise.category.includes('CrossFit');
+        case 'Cardio':
+          return exercise.category.includes('Cardio') || exercise.name.toLowerCase().includes('cardio');
+        default:
+          return true;
+      }
+    })();
+
+    const matchesMuscleFocus = selectedMuscleFocus === 'All' || 
+                              exercise.primaryMuscles.includes(selectedMuscleFocus) ||
+                              exercise.secondaryMuscles?.includes(selectedMuscleFocus);
+
+    const matchesWorkoutGoal = selectedWorkoutGoal === 'All' || (() => {
+      switch (selectedWorkoutGoal) {
+        case 'Strength':
+          return exercise.difficulty === 'Advanced' || exercise.equipment.includes('Barbell') || exercise.equipment.includes('Dumbbell');
+        case 'Muscle Building':
+          return exercise.difficulty !== 'Beginner' && !exercise.category.includes('Cardio');
+        case 'Fat Loss':
+          return exercise.category.includes('Cardio') || exercise.category.includes('CrossFit');
+        case 'Endurance':
+          return exercise.category.includes('Cardio') || exercise.name.toLowerCase().includes('endurance');
+        case 'Power':
+          return exercise.category.includes('Olympic') || exercise.category.includes('Explosive');
+        case 'Flexibility':
+          return exercise.name.toLowerCase().includes('stretch') || exercise.category.includes('Flexibility');
+        case 'Sport Performance':
+          return exercise.category.includes('CrossFit') || exercise.category.includes('Hyrox');
+        default:
+          return true;
+      }
+    })();
+    
     const matchesSearch = exercise.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exercise.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exercise.primaryMuscles.some(muscle => 
@@ -234,7 +291,8 @@ export default function Home() {
                          );
     const matchesFavorites = !showFavoritesOnly || favorites.has(exercise.id);
     
-    return matchesCategory && matchesDifficulty && matchesEquipment && matchesMuscle && matchesSearch && matchesFavorites;
+    return matchesCategory && matchesDifficulty && matchesEquipment && matchesMuscle && 
+           matchesBodyPart && matchesMuscleFocus && matchesWorkoutGoal && matchesSearch && matchesFavorites;
   });
 
   const filteredPrograms = workoutPrograms.filter(program => {
@@ -278,6 +336,9 @@ export default function Home() {
     setSelectedDifficulty('All');
     setSelectedEquipment('All');
     setSelectedMuscle('All');
+    setSelectedBodyPart('All');
+    setSelectedMuscleFocus('All');
+    setSelectedWorkoutGoal('All');
     setSearchTerm('');
     setShowFavoritesOnly(false);
   };
@@ -330,33 +391,38 @@ export default function Home() {
               )}
               <button
                 onClick={() => setShowWorkoutHistory(!showWorkoutHistory)}
-                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
                 title="Workout history and stats"
               >
-                📊
+                <Icon name="analytics" size={20} />
               </button>
               <button
                 onClick={() => setShowWorkoutBuilder(!showWorkoutBuilder)}
-                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
                 title="Custom workout builder"
               >
-                🏗️
+                <Icon name="settings" size={20} />
+              </button>
+              <button
+                onClick={() => setShowRestTimer(!showRestTimer)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
+                title="Rest timer"
+              >
+                <Icon name="timer" size={20} />
               </button>
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
                 title="Toggle dark mode"
               >
-                {darkMode ? '☀️' : '🌙'}
+                <Icon name={darkMode ? "sun" : "moon"} size={20} />
               </button>
               
               <button
                 onClick={() => setShowSidebar(!showSidebar)}
-                className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <Icon name="menu" size={20} />
               </button>
             </div>
           </div>
@@ -776,10 +842,116 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Body Part Filter (Exercises only) */}
+              {activeTab === 'exercises' && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    <Icon name="target" size={18} className="inline mr-2" />
+                    Body Parts
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2">
+                    <button
+                      onClick={() => setSelectedBodyPart('All')}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                        selectedBodyPart === 'All'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      All Body Parts
+                    </button>
+                    {bodyParts.map(bodyPart => (
+                      <button
+                        key={bodyPart}
+                        onClick={() => setSelectedBodyPart(bodyPart)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedBodyPart === bodyPart
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {bodyPart}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Muscle Focus Filter (Exercises only) */}
+              {activeTab === 'exercises' && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    <Icon name="activity" size={18} className="inline mr-2" />
+                    Muscle Focus
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2 max-h-40 overflow-y-auto">
+                    <button
+                      onClick={() => setSelectedMuscleFocus('All')}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                        selectedMuscleFocus === 'All'
+                          ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      All Muscles
+                    </button>
+                    {muscleFocus.map(muscle => (
+                      <button
+                        key={muscle}
+                        onClick={() => setSelectedMuscleFocus(muscle)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedMuscleFocus === muscle
+                            ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {muscle}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Workout Goal Filter (Exercises only) */}
+              {activeTab === 'exercises' && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    <Icon name="trending" size={18} className="inline mr-2" />
+                    Workout Goals
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2">
+                    <button
+                      onClick={() => setSelectedWorkoutGoal('All')}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                        selectedWorkoutGoal === 'All'
+                          ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      All Goals
+                    </button>
+                    {workoutGoals.map(goal => (
+                      <button
+                        key={goal}
+                        onClick={() => setSelectedWorkoutGoal(goal)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedWorkoutGoal === goal
+                            ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {goal}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Categories - Dynamic based on active tab */}
               {(activeTab === 'exercises' || activeTab === 'programs' || activeTab === 'principles') && (
                 <div className="mb-4 sm:mb-6">
                   <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    <Icon name="filter" size={18} className="inline mr-2" />
                     Categories
                   </h3>
                   <div className="space-y-1 sm:space-y-2">
@@ -929,29 +1101,65 @@ export default function Home() {
                     {selectedExercise?.name || selectedProgram?.name || selectedMovement?.name || selectedPrinciple?.name}
                   </h2>
                   <div className="flex items-center space-x-2">
+                    {/* Share button */}
+                    <button
+                      onClick={async () => {
+                        const item = selectedExercise || selectedProgram || selectedMovement || selectedPrinciple;
+                        if (item) {
+                          const result = await shareWorkout(item as Exercise | WorkoutProgram, 'link');
+                          // Could show toast notification here
+                        }
+                      }}
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mobile-touch-target"
+                      title="Share workout"
+                    >
+                      <Icon name="user" size={16} />
+                    </button>
+                    
+                    {/* Download PDF button */}
+                    <button
+                      onClick={() => {
+                        const item = selectedExercise || selectedProgram;
+                        if (item) {
+                          downloadWorkoutPDF(item as Exercise | WorkoutProgram);
+                        }
+                      }}
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mobile-touch-target"
+                      title="Download PDF"
+                    >
+                      <Icon name="printer" size={16} />
+                    </button>
+                    
+                    {/* Print button */}
                     <button
                       onClick={() => window.print()}
-                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mobile-touch-target"
                       title="Print workout card"
                     >
-                      🖨️
+                      <Icon name="printer" size={16} />
                     </button>
+                    
+                    {/* Favorite button */}
                     <button
                       onClick={() => {
                         const id = selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id;
                         if (id) toggleFavorite(id);
                       }}
-                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mobile-touch-target"
                       title="Add to favorites"
                     >
-                      {favorites.has((selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id) || '') 
-                        ? '❤️' : '🤍'}
+                      <Icon 
+                        name={favorites.has((selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id) || '') ? "heart" : "heart"} 
+                        size={16} 
+                        className={favorites.has((selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id) || '') ? "text-red-500" : "text-gray-400"}
+                      />
                     </button>
                     <button
                       onClick={resetSelections}
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0 print-hide"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0 print-hide mobile-touch-target"
                     >
-                      ← Back
+                      <Icon name="back" size={16} className="inline mr-1" />
+                      Back
                     </button>
                   </div>
                 </div>
@@ -1557,6 +1765,12 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Rest Timer */}
+      <RestTimer 
+        isVisible={showRestTimer} 
+        onClose={() => setShowRestTimer(false)} 
+      />
 
       <style jsx>{`
         .line-clamp-2 {
