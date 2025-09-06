@@ -5,6 +5,7 @@ import { exercises, categories, Exercise, muscleGroups, equipment } from '@/data
 import { workoutPrograms, programCategories, WorkoutProgram } from '@/data/programs';
 import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
 import { trainingPrinciples, principleCategories, TrainingPrinciple } from '@/data/training-principles';
+import { Icon } from '@/components/ui/Icon';
 
 type TabType = 'exercises' | 'programs' | 'movements' | 'principles';
 type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
@@ -288,8 +289,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-6">
           <div className="flex items-center justify-between lg:justify-start">
             <div className="flex-1">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
-                💪 Complete Fitness Guide
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Icon name="activity" size={28} className="text-blue-600 dark:text-blue-400" />
+                Complete Fitness Guide
               </h1>
               <p className="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
                 Exercises, Programs, Movement Patterns & Training Principles
