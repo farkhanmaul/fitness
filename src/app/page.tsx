@@ -1,51 +1,114 @@
 'use client';
 
-import { useState } from 'react';
-import { exercises, categories, Exercise } from '@/data/exercises';
+import { useState, useEffect } from 'react';
+import { exercises, categories, Exercise, muscleGroups, equipment } from '@/data/exercises';
 import { workoutPrograms, programCategories, WorkoutProgram } from '@/data/programs';
 import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
 import { trainingPrinciples, principleCategories, TrainingPrinciple } from '@/data/training-principles';
 
 type TabType = 'exercises' | 'programs' | 'movements' | 'principles';
+type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>('exercises');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>('All');
+  const [selectedEquipment, setSelectedEquipment] = useState<string>('All');
+  const [selectedMuscle, setSelectedMuscle] = useState<string>('All');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
   const [selectedMovement, setSelectedMovement] = useState<MovementPattern | null>(null);
   const [selectedPrinciple, setSelectedPrinciple] = useState<TrainingPrinciple | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Load favorites and theme from localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('fitness-favorites');
+    if (savedFavorites) {
+      setFavorites(new Set(JSON.parse(savedFavorites)));
+    }
+    
+    const savedTheme = localStorage.getItem('fitness-theme');
+    if (savedTheme === 'dark') {
+      setDarkMode(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  // Save favorites to localStorage
+  useEffect(() => {
+    localStorage.setItem('fitness-favorites', JSON.stringify([...favorites]));
+  }, [favorites]);
+
+  // Toggle theme
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('fitness-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('fitness-theme', 'light');
+    }
+  };
+
+  // Toggle favorite
+  const toggleFavorite = (id: string) => {
+    const newFavorites = new Set(favorites);
+    if (newFavorites.has(id)) {
+      newFavorites.delete(id);
+    } else {
+      newFavorites.add(id);
+    }
+    setFavorites(newFavorites);
+  };
 
   const filteredExercises = exercises.filter(exercise => {
     const matchesCategory = selectedCategory === 'All' || exercise.category === selectedCategory;
+    const matchesDifficulty = selectedDifficulty === 'All' || exercise.difficulty === selectedDifficulty;
+    const matchesEquipment = selectedEquipment === 'All' || exercise.equipment.includes(selectedEquipment);
+    const matchesMuscle = selectedMuscle === 'All' || 
+                         exercise.primaryMuscles.includes(selectedMuscle) || 
+                         exercise.secondaryMuscles?.includes(selectedMuscle);
     const matchesSearch = exercise.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exercise.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          exercise.primaryMuscles.some(muscle => 
                            muscle.toLowerCase().includes(searchTerm.toLowerCase())
                          );
-    return matchesCategory && matchesSearch;
+    const matchesFavorites = !showFavoritesOnly || favorites.has(exercise.id);
+    
+    return matchesCategory && matchesDifficulty && matchesEquipment && matchesMuscle && matchesSearch && matchesFavorites;
   });
 
   const filteredPrograms = workoutPrograms.filter(program => {
     const matchesCategory = selectedCategory === 'All' || program.category === selectedCategory;
+    const matchesDifficulty = selectedDifficulty === 'All' || program.difficulty === selectedDifficulty;
     const matchesSearch = program.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          program.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+    const matchesFavorites = !showFavoritesOnly || favorites.has(program.id);
+    
+    return matchesCategory && matchesDifficulty && matchesSearch && matchesFavorites;
   });
 
   const filteredMovements = movementPatterns.filter(movement => {
     const matchesSearch = movement.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          movement.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
+    const matchesFavorites = !showFavoritesOnly || favorites.has(movement.id);
+    
+    return matchesSearch && matchesFavorites;
   });
 
   const filteredPrinciples = trainingPrinciples.filter(principle => {
     const matchesCategory = selectedCategory === 'All' || principle.category === selectedCategory;
     const matchesSearch = principle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          principle.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+    const matchesFavorites = !showFavoritesOnly || favorites.has(principle.id);
+    
+    return matchesCategory && matchesSearch && matchesFavorites;
   });
 
   const resetSelections = () => {
@@ -55,6 +118,15 @@ export default function Home() {
     setSelectedPrinciple(null);
     setSearchTerm('');
     setShowSidebar(false);
+  };
+
+  const clearAllFilters = () => {
+    setSelectedCategory('All');
+    setSelectedDifficulty('All');
+    setSelectedEquipment('All');
+    setSelectedMuscle('All');
+    setSearchTerm('');
+    setShowFavoritesOnly(false);
   };
 
   return (
@@ -72,15 +144,25 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setShowSidebar(!showSidebar)}
-              className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+            {/* Theme toggle and mobile menu */}
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                title="Toggle dark mode"
+              >
+                {darkMode ? '☀️' : '🌙'}
+              </button>
+              
+              <button
+                onClick={() => setShowSidebar(!showSidebar)}
+                className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
           
           {/* Navigation Tabs */}
@@ -96,7 +178,7 @@ export default function Home() {
                 onClick={() => {
                   setActiveTab(tab.id);
                   resetSelections();
-                  setSelectedCategory('All');
+                  clearAllFilters();
                 }}
                 className={`flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap min-w-0 flex-1 lg:flex-none ${
                   activeTab === tab.id
@@ -156,6 +238,31 @@ export default function Home() {
                 />
               </div>
 
+              {/* Favorites Toggle */}
+              <div className="mb-4 sm:mb-6">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showFavoritesOnly}
+                    onChange={(e) => setShowFavoritesOnly(e.target.checked)}
+                    className="rounded text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    ❤️ Show favorites only ({favorites.size})
+                  </span>
+                </label>
+              </div>
+
+              {/* Clear Filters */}
+              <div className="mb-4 sm:mb-6">
+                <button
+                  onClick={clearAllFilters}
+                  className="w-full px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md transition-colors"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+
               {/* Categories - Dynamic based on active tab */}
               {(activeTab === 'exercises' || activeTab === 'programs' || activeTab === 'principles') && (
                 <div className="mb-4 sm:mb-6">
@@ -204,24 +311,129 @@ export default function Home() {
                   </div>
                 </div>
               )}
+
+              {/* Difficulty Filter */}
+              {(activeTab === 'exercises' || activeTab === 'programs') && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    Difficulty
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2">
+                    {(['All', 'Beginner', 'Intermediate', 'Advanced'] as DifficultyFilter[]).map(difficulty => (
+                      <button
+                        key={difficulty}
+                        onClick={() => setSelectedDifficulty(difficulty)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedDifficulty === difficulty
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {difficulty === 'All' ? 'All Levels' : difficulty}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Equipment Filter (Exercises only) */}
+              {activeTab === 'exercises' && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    Equipment
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2">
+                    <button
+                      onClick={() => setSelectedEquipment('All')}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                        selectedEquipment === 'All'
+                          ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      All Equipment
+                    </button>
+                    {equipment.map(item => (
+                      <button
+                        key={item}
+                        onClick={() => setSelectedEquipment(item)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedEquipment === item
+                            ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Muscle Group Filter (Exercises only) */}
+              {activeTab === 'exercises' && (
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
+                    Muscle Groups
+                  </h3>
+                  <div className="space-y-1 sm:space-y-2">
+                    <button
+                      onClick={() => setSelectedMuscle('All')}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                        selectedMuscle === 'All'
+                          ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      All Muscles
+                    </button>
+                    {muscleGroups.map(muscle => (
+                      <button
+                        key={muscle}
+                        onClick={() => setSelectedMuscle(muscle)}
+                        className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
+                          selectedMuscle === muscle
+                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {muscle}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Main Content */}
           <div className="lg:col-span-2">
             {selectedExercise || selectedProgram || selectedMovement || selectedPrinciple ? (
-              /* Detail Views */
+              /* Detail Views - Add favorite button */
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6">
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
-                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white pr-4 leading-tight">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white pr-4 leading-tight flex-1">
                     {selectedExercise?.name || selectedProgram?.name || selectedMovement?.name || selectedPrinciple?.name}
                   </h2>
-                  <button
-                    onClick={resetSelections}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0"
-                  >
-                    ← Back
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => {
+                        const id = selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id;
+                        if (id) toggleFavorite(id);
+                      }}
+                      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      title="Add to favorites"
+                    >
+                      {favorites.has((selectedExercise?.id || selectedProgram?.id || selectedMovement?.id || selectedPrinciple?.id) || '') 
+                        ? '❤️' : '🤍'}
+                    </button>
+                    <button
+                      onClick={resetSelections}
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+                    >
+                      ← Back
+                    </button>
+                  </div>
                 </div>
 
                 {/* Exercise Detail */}
@@ -492,12 +704,13 @@ export default function Home() {
                 )}
               </div>
             ) : (
-              /* List Views */
+              /* List Views - Add favorite buttons to cards */
               <div>
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
                   <div>
                     <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-1">
-                      {selectedCategory === 'All' ? `All ${activeTab}` : selectedCategory}
+                      {showFavoritesOnly ? `Favorite ${activeTab}` : 
+                       selectedCategory === 'All' ? `All ${activeTab}` : selectedCategory}
                     </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       {activeTab === 'exercises' ? filteredExercises.length :
@@ -521,73 +734,105 @@ export default function Home() {
                 </div>
 
                 <div className="grid gap-3 sm:gap-4">
-                  {/* Exercises List */}
+                  {/* Exercises List with favorite buttons */}
                   {activeTab === 'exercises' && filteredExercises.map(exercise => (
                     <div
                       key={exercise.id}
-                      onClick={() => setSelectedExercise(exercise)}
                       className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
                       <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white pr-2 flex-1">
+                        <h3 
+                          className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white pr-2 flex-1"
+                          onClick={() => setSelectedExercise(exercise)}
+                        >
                           {exercise.name}
                         </h3>
-                        <span className={`px-2 py-1 rounded text-xs font-medium flex-shrink-0 ${
-                          exercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                          exercise.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-                          'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                        }`}>
-                          {exercise.difficulty}
-                        </span>
+                        <div className="flex items-center space-x-2 flex-shrink-0">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(exercise.id);
+                            }}
+                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                            title="Add to favorites"
+                          >
+                            {favorites.has(exercise.id) ? '❤️' : '🤍'}
+                          </button>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                            exercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                            exercise.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                          }`}>
+                            {exercise.difficulty}
+                          </span>
+                        </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-                        {exercise.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1 sm:gap-2">
-                        {exercise.primaryMuscles.slice(0, 3).map(muscle => (
-                          <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs">
-                            {muscle}
-                          </span>
-                        ))}
-                        {exercise.primaryMuscles.length > 3 && (
-                          <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400 rounded text-xs">
-                            +{exercise.primaryMuscles.length - 3}
-                          </span>
-                        )}
+                      <div onClick={() => setSelectedExercise(exercise)}>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                          {exercise.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
+                          {exercise.primaryMuscles.slice(0, 3).map(muscle => (
+                            <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs">
+                              {muscle}
+                            </span>
+                          ))}
+                          {exercise.primaryMuscles.length > 3 && (
+                            <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400 rounded text-xs">
+                              +{exercise.primaryMuscles.length - 3}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
 
+                  {/* Similar structure for programs, movements, and principles with favorite buttons */}
                   {/* Programs List */}
                   {activeTab === 'programs' && filteredPrograms.map(program => (
                     <div
                       key={program.id}
-                      onClick={() => setSelectedProgram(program)}
                       className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3">
-                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-0 sm:pr-4 flex-1">
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 
+                          className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white pr-4 flex-1"
+                          onClick={() => setSelectedProgram(program)}
+                        >
                           {program.name}
                         </h3>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-xs font-medium">
-                            {program.category}
-                          </span>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
-                            program.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                            program.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                          }`}>
-                            {program.difficulty}
-                          </span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(program.id);
+                            }}
+                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                          >
+                            {favorites.has(program.id) ? '❤️' : '🤍'}
+                          </button>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-xs font-medium">
+                              {program.category}
+                            </span>
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${
+                              program.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                              program.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                              'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                            }`}>
+                              {program.difficulty}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-                        {program.description}
-                      </p>
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 space-y-1 sm:space-y-0">
-                        <span>Duration: {program.duration}</span>
-                        <span>{program.workouts.length} workout{program.workouts.length !== 1 ? 's' : ''}</span>
+                      <div onClick={() => setSelectedProgram(program)}>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                          {program.description}
+                        </p>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 space-y-1 sm:space-y-0">
+                          <span>Duration: {program.duration}</span>
+                          <span>{program.workouts.length} workout{program.workouts.length !== 1 ? 's' : ''}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -596,21 +841,36 @@ export default function Home() {
                   {activeTab === 'movements' && filteredMovements.map(movement => (
                     <div
                       key={movement.id}
-                      onClick={() => setSelectedMovement(movement)}
                       className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                        {movement.name}
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-                        {movement.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1 sm:gap-2">
-                        {movement.primaryMuscles.slice(0, 4).map(muscle => (
-                          <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded text-xs">
-                            {muscle}
-                          </span>
-                        ))}
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 
+                          className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white flex-1"
+                          onClick={() => setSelectedMovement(movement)}
+                        >
+                          {movement.name}
+                        </h3>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorite(movement.id);
+                          }}
+                          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                        >
+                          {favorites.has(movement.id) ? '❤️' : '🤍'}
+                        </button>
+                      </div>
+                      <div onClick={() => setSelectedMovement(movement)}>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                          {movement.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
+                          {movement.primaryMuscles.slice(0, 4).map(muscle => (
+                            <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded text-xs">
+                              {muscle}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -619,20 +879,35 @@ export default function Home() {
                   {activeTab === 'principles' && filteredPrinciples.map(principle => (
                     <div
                       key={principle.id}
-                      onClick={() => setSelectedPrinciple(principle)}
                       className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3">
-                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-0 sm:pr-4 flex-1">
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 
+                          className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white pr-4 flex-1"
+                          onClick={() => setSelectedPrinciple(principle)}
+                        >
                           {principle.name}
                         </h3>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs font-medium self-start">
-                          {principle.category}
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(principle.id);
+                            }}
+                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                          >
+                            {favorites.has(principle.id) ? '❤️' : '🤍'}
+                          </button>
+                          <span className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs font-medium">
+                            {principle.category}
+                          </span>
+                        </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
-                        {principle.description}
-                      </p>
+                      <div onClick={() => setSelectedPrinciple(principle)}>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
+                          {principle.description}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -647,7 +922,7 @@ export default function Home() {
                       No {activeTab} found
                     </p>
                     <p className="text-gray-400 dark:text-gray-500 text-sm">
-                      Try adjusting your search {activeTab !== 'movements' ? 'or category filter' : ''}
+                      Try adjusting your search or filters
                     </p>
                   </div>
                 )}
