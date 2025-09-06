@@ -16,6 +16,7 @@ export default function Home() {
   const [selectedMovement, setSelectedMovement] = useState<MovementPattern | null>(null);
   const [selectedPrinciple, setSelectedPrinciple] = useState<TrainingPrinciple | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const filteredExercises = exercises.filter(exercise => {
     const matchesCategory = selectedCategory === 'All' || exercise.category === selectedCategory;
@@ -53,27 +54,42 @@ export default function Home() {
     setSelectedMovement(null);
     setSelectedPrinciple(null);
     setSearchTerm('');
+    setShowSidebar(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            💪 Complete Fitness Guide
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Exercises, Programs, Movement Patterns & Training Principles
-          </p>
+      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-6">
+          <div className="flex items-center justify-between lg:justify-start">
+            <div className="flex-1">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                💪 Complete Fitness Guide
+              </h1>
+              <p className="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
+                Exercises, Programs, Movement Patterns & Training Principles
+              </p>
+            </div>
+            
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setShowSidebar(!showSidebar)}
+              className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
           
           {/* Navigation Tabs */}
-          <div className="flex space-x-1 mt-6 bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+          <div className="flex space-x-0.5 sm:space-x-1 mt-3 sm:mt-6 bg-gray-100 dark:bg-gray-700 p-1 rounded-lg overflow-x-auto">
             {[
-              { id: 'exercises' as TabType, label: 'Exercises', icon: '🏋️' },
-              { id: 'programs' as TabType, label: 'Programs', icon: '📋' },
-              { id: 'movements' as TabType, label: 'Movement Patterns', icon: '🤸' },
-              { id: 'principles' as TabType, label: 'Training Principles', icon: '🧠' }
+              { id: 'exercises' as TabType, label: 'Exercises', icon: '🏋️', shortLabel: 'Exercises' },
+              { id: 'programs' as TabType, label: 'Programs', icon: '📋', shortLabel: 'Programs' },
+              { id: 'movements' as TabType, label: 'Movement Patterns', icon: '🤸', shortLabel: 'Movements' },
+              { id: 'principles' as TabType, label: 'Training Principles', icon: '🧠', shortLabel: 'Principles' }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -82,46 +98,77 @@ export default function Home() {
                   resetSelections();
                   setSelectedCategory('All');
                 }}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap min-w-0 flex-1 lg:flex-none ${
                   activeTab === tab.id
                     ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
                     : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
-                <span>{tab.icon}</span>
-                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="text-sm sm:text-base">{tab.icon}</span>
+                <span className="hidden xs:inline lg:hidden text-xs">{tab.shortLabel}</span>
+                <span className="hidden lg:inline">{tab.label}</span>
               </button>
             ))}
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+          {/* Mobile Sidebar Overlay */}
+          {showSidebar && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+              onClick={() => setShowSidebar(false)}
+            />
+          )}
+
           {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div className={`lg:col-span-1 ${
+            showSidebar 
+              ? 'fixed inset-y-0 left-0 w-80 bg-white dark:bg-gray-800 shadow-xl z-50 lg:relative lg:inset-auto lg:w-auto lg:shadow-none transform translate-x-0'
+              : 'hidden lg:block'
+          }`}>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 h-full overflow-y-auto">
+              {/* Mobile close button */}
+              <div className="flex items-center justify-between mb-4 lg:hidden">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Filters
+                </h3>
+                <button
+                  onClick={() => setShowSidebar(false)}
+                  className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
               {/* Search */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <input
                   type="text"
                   placeholder={`Search ${activeTab}...`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
               </div>
 
               {/* Categories - Dynamic based on active tab */}
               {(activeTab === 'exercises' || activeTab === 'programs' || activeTab === 'principles') && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
                     Categories
                   </h3>
-                  <div className="space-y-2">
+                  <div className="space-y-1 sm:space-y-2">
                     <button
-                      onClick={() => setSelectedCategory('All')}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                      onClick={() => {
+                        setSelectedCategory('All');
+                        setShowSidebar(false);
+                      }}
+                      className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
                         selectedCategory === 'All'
                           ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                           : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
@@ -140,8 +187,11 @@ export default function Home() {
                       return (
                         <button
                           key={category}
-                          onClick={() => setSelectedCategory(category)}
-                          className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                          onClick={() => {
+                            setSelectedCategory(category);
+                            setShowSidebar(false);
+                          }}
+                          className={`w-full text-left px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm transition-colors ${
                             selectedCategory === category
                               ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                               : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
@@ -161,23 +211,23 @@ export default function Home() {
           <div className="lg:col-span-2">
             {selectedExercise || selectedProgram || selectedMovement || selectedPrinciple ? (
               /* Detail Views */
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-4 sm:mb-6">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white pr-4 leading-tight">
                     {selectedExercise?.name || selectedProgram?.name || selectedMovement?.name || selectedPrinciple?.name}
                   </h2>
                   <button
                     onClick={resetSelections}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0"
                   >
-                    ← Back to List
+                    ← Back
                   </button>
                 </div>
 
                 {/* Exercise Detail */}
                 {selectedExercise && (
                   <div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                       <div>
                         <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
                           selectedExercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
@@ -186,23 +236,23 @@ export default function Home() {
                         }`}>
                           {selectedExercise.difficulty}
                         </span>
-                        <p className="text-gray-600 dark:text-gray-400 mt-3">
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-3">
                           {selectedExercise.description}
                         </p>
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Primary Muscles</h4>
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                           {selectedExercise.primaryMuscles.map(muscle => (
-                            <span key={muscle} className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-sm">
+                            <span key={muscle} className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs sm:text-sm">
                               {muscle}
                             </span>
                           ))}
                         </div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Equipment</h4>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
                           {selectedExercise.equipment.map(item => (
-                            <span key={item} className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-sm">
+                            <span key={item} className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-xs sm:text-sm">
                               {item}
                             </span>
                           ))}
@@ -210,10 +260,10 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Instructions</h4>
-                        <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                        <ol className="list-decimal list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                           {selectedExercise.instructions.map((instruction, index) => (
                             <li key={index}>{instruction}</li>
                           ))}
@@ -223,7 +273,7 @@ export default function Home() {
                       {selectedExercise.tips.length > 0 && (
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Tips</h4>
-                          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                          <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                             {selectedExercise.tips.map((tip, index) => (
                               <li key={index}>{tip}</li>
                             ))}
@@ -234,9 +284,9 @@ export default function Home() {
                       {selectedExercise.variations.length > 0 && (
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Variations</h4>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1 sm:gap-2">
                             {selectedExercise.variations.map(variation => (
-                              <span key={variation} className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-sm">
+                              <span key={variation} className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-xs sm:text-sm">
                                 {variation}
                               </span>
                             ))}
@@ -250,7 +300,7 @@ export default function Home() {
                 {/* Program Detail */}
                 {selectedProgram && (
                   <div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                       <div>
                         <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
                           selectedProgram.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
@@ -259,13 +309,13 @@ export default function Home() {
                         }`}>
                           {selectedProgram.difficulty} • {selectedProgram.duration}
                         </span>
-                        <p className="text-gray-600 dark:text-gray-400 mt-3">
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-3">
                           {selectedProgram.description}
                         </p>
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Objectives</h4>
-                        <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300 text-sm">
+                        <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
                           {selectedProgram.objectives.map((obj, index) => (
                             <li key={index}>{obj}</li>
                           ))}
@@ -273,24 +323,24 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Sample Workouts</h4>
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           {selectedProgram.workouts.slice(0, 3).map((workout, index) => (
-                            <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-                              <div className="flex justify-between items-center mb-3">
-                                <h5 className="font-medium text-gray-900 dark:text-white">
+                            <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 sm:p-4">
+                              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 sm:mb-3">
+                                <h5 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">
                                   Day {workout.day}: {workout.name}
                                 </h5>
-                                <span className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-sm">
+                                <span className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-xs sm:text-sm mt-1 sm:mt-0 self-start">
                                   {workout.type}
                                 </span>
                               </div>
-                              <div className="space-y-2">
+                              <div className="space-y-1 sm:space-y-2">
                                 {workout.exercises.map((exercise, idx) => (
-                                  <div key={idx} className="flex justify-between text-sm">
-                                    <span className="text-gray-700 dark:text-gray-300">{exercise.name}</span>
+                                  <div key={idx} className="flex flex-col sm:flex-row sm:justify-between text-xs sm:text-sm">
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">{exercise.name}</span>
                                     <span className="text-gray-500 dark:text-gray-400">
                                       {exercise.reps || exercise.distance || exercise.duration || ''}
                                       {exercise.weight && ` @ ${exercise.weight}`}
@@ -311,7 +361,7 @@ export default function Home() {
                       {selectedProgram.notes && (
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Program Notes</h4>
-                          <p className="text-gray-600 dark:text-gray-300">{selectedProgram.notes}</p>
+                          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{selectedProgram.notes}</p>
                         </div>
                       )}
                     </div>
@@ -321,14 +371,14 @@ export default function Home() {
                 {/* Movement Pattern Detail */}
                 {selectedMovement && (
                   <div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                       {selectedMovement.description}
                     </p>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Key Principles</h4>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                        <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                           {selectedMovement.keyPrinciples.map((principle, index) => (
                             <li key={index}>{principle}</li>
                           ))}
@@ -337,7 +387,7 @@ export default function Home() {
 
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Form Cues</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 gap-2 sm:gap-3">
                           {selectedMovement.formCues.map((cue, index) => (
                             <div key={index} className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
                               <p className="text-blue-800 dark:text-blue-200 font-medium text-sm">{cue}</p>
@@ -359,9 +409,9 @@ export default function Home() {
 
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Progressions</h4>
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           {selectedMovement.progressions.map((progression, index) => (
-                            <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                            <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 sm:p-4">
                               <div className="flex items-center space-x-2 mb-2">
                                 <span className={`px-2 py-1 rounded text-xs font-medium ${
                                   progression.level === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
@@ -371,10 +421,10 @@ export default function Home() {
                                   {progression.level}
                                 </span>
                               </div>
-                              <p className="text-gray-700 dark:text-gray-300 mb-3">{progression.description}</p>
-                              <div className="flex flex-wrap gap-2">
+                              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-3">{progression.description}</p>
+                              <div className="flex flex-wrap gap-1 sm:gap-2">
                                 {progression.exercises.map(exercise => (
-                                  <span key={exercise} className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-sm">
+                                  <span key={exercise} className="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded text-xs sm:text-sm">
                                     {exercise}
                                   </span>
                                 ))}
@@ -390,19 +440,19 @@ export default function Home() {
                 {/* Training Principle Detail */}
                 {selectedPrinciple && (
                   <div>
-                    <div className="mb-6">
+                    <div className="mb-4 sm:mb-6">
                       <span className="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm font-medium">
                         {selectedPrinciple.category}
                       </span>
-                      <p className="text-gray-600 dark:text-gray-400 mt-3">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-3">
                         {selectedPrinciple.description}
                       </p>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Key Points</h4>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                        <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                           {selectedPrinciple.keyPoints.map((point, index) => (
                             <li key={index}>{point}</li>
                           ))}
@@ -411,7 +461,7 @@ export default function Home() {
 
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Application</h4>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                        <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                           {selectedPrinciple.application.map((app, index) => (
                             <li key={index}>{app}</li>
                           ))}
@@ -423,7 +473,7 @@ export default function Home() {
                         <div className="grid grid-cols-1 gap-2">
                           {selectedPrinciple.examples.map((example, index) => (
                             <div key={index} className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                              <p className="text-green-800 dark:text-green-200 text-sm font-mono">{example}</p>
+                              <p className="text-green-800 dark:text-green-200 text-xs sm:text-sm font-mono break-words">{example}</p>
                             </div>
                           ))}
                         </div>
@@ -431,7 +481,7 @@ export default function Home() {
 
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Common Mistakes</h4>
-                        <ul className="list-disc list-inside space-y-2 text-red-700 dark:text-red-300">
+                        <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-red-700 dark:text-red-300">
                           {selectedPrinciple.commonMistakes.map((mistake, index) => (
                             <li key={index}>{mistake}</li>
                           ))}
@@ -444,35 +494,45 @@ export default function Home() {
             ) : (
               /* List Views */
               <div>
-                <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {selectedCategory === 'All' ? `All ${activeTab}` : selectedCategory}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {activeTab === 'exercises' ? filteredExercises.length :
-                     activeTab === 'programs' ? filteredPrograms.length :
-                     activeTab === 'movements' ? filteredMovements.length :
-                     filteredPrinciples.length} {activeTab.slice(0, -1)}{(
-                      activeTab === 'exercises' ? filteredExercises.length :
-                      activeTab === 'programs' ? filteredPrograms.length :
-                      activeTab === 'movements' ? filteredMovements.length :
-                      filteredPrinciples.length) !== 1 ? 's' : ''} found
-                  </p>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-1">
+                      {selectedCategory === 'All' ? `All ${activeTab}` : selectedCategory}
+                    </h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {activeTab === 'exercises' ? filteredExercises.length :
+                       activeTab === 'programs' ? filteredPrograms.length :
+                       activeTab === 'movements' ? filteredMovements.length :
+                       filteredPrinciples.length} {activeTab.slice(0, -1)}{(
+                        activeTab === 'exercises' ? filteredExercises.length :
+                        activeTab === 'programs' ? filteredPrograms.length :
+                        activeTab === 'movements' ? filteredMovements.length :
+                        filteredPrinciples.length) !== 1 ? 's' : ''} found
+                    </p>
+                  </div>
+                  
+                  {/* Mobile filter button */}
+                  <button
+                    onClick={() => setShowSidebar(true)}
+                    className="lg:hidden px-3 py-1.5 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-md text-sm font-medium"
+                  >
+                    Filter
+                  </button>
                 </div>
 
-                <div className="grid gap-4">
+                <div className="grid gap-3 sm:gap-4">
                   {/* Exercises List */}
                   {activeTab === 'exercises' && filteredExercises.map(exercise => (
                     <div
                       key={exercise.id}
                       onClick={() => setSelectedExercise(exercise)}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 cursor-pointer hover:shadow-md transition-shadow"
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
                       <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white pr-2 flex-1">
                           {exercise.name}
                         </h3>
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        <span className={`px-2 py-1 rounded text-xs font-medium flex-shrink-0 ${
                           exercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
                           exercise.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
                           'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
@@ -480,18 +540,18 @@ export default function Home() {
                           {exercise.difficulty}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                         {exercise.description}
                       </p>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {exercise.primaryMuscles.slice(0, 3).map(muscle => (
-                          <span key={muscle} className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs">
+                          <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs">
                             {muscle}
                           </span>
                         ))}
                         {exercise.primaryMuscles.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400 rounded text-xs">
-                            +{exercise.primaryMuscles.length - 3} more
+                          <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400 rounded text-xs">
+                            +{exercise.primaryMuscles.length - 3}
                           </span>
                         )}
                       </div>
@@ -503,13 +563,13 @@ export default function Home() {
                     <div
                       key={program.id}
                       onClick={() => setSelectedProgram(program)}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 cursor-pointer hover:shadow-md transition-shadow"
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-0 sm:pr-4 flex-1">
                           {program.name}
                         </h3>
-                        <div className="flex space-x-2">
+                        <div className="flex flex-wrap gap-2">
                           <span className="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded text-xs font-medium">
                             {program.category}
                           </span>
@@ -522,16 +582,12 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                         {program.description}
                       </p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                          Duration: {program.duration}
-                        </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                          {program.workouts.length} workout{program.workouts.length !== 1 ? 's' : ''}
-                        </span>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 space-y-1 sm:space-y-0">
+                        <span>Duration: {program.duration}</span>
+                        <span>{program.workouts.length} workout{program.workouts.length !== 1 ? 's' : ''}</span>
                       </div>
                     </div>
                   ))}
@@ -541,17 +597,17 @@ export default function Home() {
                     <div
                       key={movement.id}
                       onClick={() => setSelectedMovement(movement)}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 cursor-pointer hover:shadow-md transition-shadow"
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3">
                         {movement.name}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-3">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                         {movement.description}
                       </p>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {movement.primaryMuscles.slice(0, 4).map(muscle => (
-                          <span key={muscle} className="px-2 py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded text-xs">
+                          <span key={muscle} className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded text-xs">
                             {muscle}
                           </span>
                         ))}
@@ -564,17 +620,17 @@ export default function Home() {
                     <div
                       key={principle.id}
                       onClick={() => setSelectedPrinciple(principle)}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 cursor-pointer hover:shadow-md transition-shadow"
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow"
                     >
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-0 sm:pr-4 flex-1">
                           {principle.name}
                         </h3>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs font-medium">
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs font-medium self-start">
                           {principle.category}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
                         {principle.description}
                       </p>
                     </div>
@@ -586,11 +642,11 @@ export default function Home() {
                   (activeTab === 'programs' && filteredPrograms.length === 0) ||
                   (activeTab === 'movements' && filteredMovements.length === 0) ||
                   (activeTab === 'principles' && filteredPrinciples.length === 0)) && (
-                  <div className="text-center py-12">
-                    <p className="text-gray-500 dark:text-gray-400 text-lg mb-4">
+                  <div className="text-center py-8 sm:py-12">
+                    <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg mb-2 sm:mb-4">
                       No {activeTab} found
                     </p>
-                    <p className="text-gray-400 dark:text-gray-500">
+                    <p className="text-gray-400 dark:text-gray-500 text-sm">
                       Try adjusting your search {activeTab !== 'movements' ? 'or category filter' : ''}
                     </p>
                   </div>
@@ -600,6 +656,15 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .line-clamp-2 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      `}</style>
     </div>
   );
 }
