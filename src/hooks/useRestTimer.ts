@@ -4,7 +4,7 @@ export function useRestTimer() {
   const [restTime, setRestTime] = useState(0);
   const [isResting, setIsResting] = useState(false);
   const [targetRestTime, setTargetRestTime] = useState(60); // default 60 seconds
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isResting && restTime > 0) {
@@ -18,10 +18,12 @@ export function useRestTimer() {
         });
       }, 1000);
     } else {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     }
 
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isResting, restTime]);
 
   const startRest = (duration: number = targetRestTime) => {

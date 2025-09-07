@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 export function useTimer() {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isRunning) {
@@ -11,10 +11,12 @@ export function useTimer() {
         setTime(prevTime => prevTime + 1);
       }, 1000);
     } else {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     }
 
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isRunning]);
 
   const start = () => setIsRunning(true);
