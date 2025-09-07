@@ -86,7 +86,7 @@ export async function shareWorkout(workout: WorkoutProgram | Exercise, type: 'li
   }
 
   try {
-    let shareData: ShareData = {
+    const shareData: ShareData = {
       title: workout.name,
       text: workout.description,
     };

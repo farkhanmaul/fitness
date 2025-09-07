@@ -9,6 +9,10 @@ import { bodyParts, muscleFocus, workoutGoals, BodyPart, MuscleFocus, WorkoutGoa
 import { shareWorkout, downloadWorkoutPDF } from '@/utils/shareHelpers';
 import { Icon } from '@/components/ui/Icon';
 import { RestTimer } from '@/components/RestTimer';
+import { WorkoutCalendar } from '@/components/WorkoutCalendar';
+import { ExerciseForm } from '@/components/ExerciseForm';
+import { NutritionGuide } from '@/components/NutritionGuide';
+import { AchievementSystem } from '@/components/AchievementSystem';
 
 type TabType = 'exercises' | 'programs' | 'movements' | 'principles';
 type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
@@ -44,6 +48,11 @@ export default function Home() {
     exercises: []
   });
   const [showRestTimer, setShowRestTimer] = useState(false);
+  const [showWorkoutCalendar, setShowWorkoutCalendar] = useState(false);
+  const [showExerciseForm, setShowExerciseForm] = useState(false);
+  const [selectedExerciseForLog, setSelectedExerciseForLog] = useState<Exercise | null>(null);
+  const [showNutritionGuide, setShowNutritionGuide] = useState(false);
+  const [showAchievements, setShowAchievements] = useState(false);
 
   // Load favorites, theme and workout history from localStorage
   useEffect(() => {
@@ -409,6 +418,27 @@ export default function Home() {
                 title="Rest timer"
               >
                 <Icon name="timer" size={20} />
+              </button>
+              <button
+                onClick={() => setShowWorkoutCalendar(!showWorkoutCalendar)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
+                title="Workout calendar"
+              >
+                <Icon name="calendar" size={20} />
+              </button>
+              <button
+                onClick={() => setShowNutritionGuide(!showNutritionGuide)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
+                title="Nutrition guide & meal plans"
+              >
+                <Icon name="apple" size={20} />
+              </button>
+              <button
+                onClick={() => setShowAchievements(!showAchievements)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
+                title="Achievements & badges"
+              >
+                <Icon name="trophy" size={20} />
               </button>
               <button
                 onClick={toggleDarkMode}
@@ -916,7 +946,7 @@ export default function Home() {
               {activeTab === 'exercises' && (
                 <div className="mb-4 sm:mb-6">
                   <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
-                    <Icon name="trending" size={18} className="inline mr-2" />
+                    <Icon name="trendingUp" size={18} className="inline mr-2" />
                     Workout Goals
                   </h3>
                   <div className="space-y-1 sm:space-y-2">
@@ -1158,7 +1188,7 @@ export default function Home() {
                       onClick={resetSelections}
                       className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm sm:text-base whitespace-nowrap flex-shrink-0 print-hide mobile-touch-target"
                     >
-                      <Icon name="back" size={16} className="inline mr-1" />
+                      <Icon name="arrowLeft" size={16} className="inline mr-1" />
                       Back
                     </button>
                   </div>
@@ -1578,12 +1608,24 @@ export default function Home() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
+                              setSelectedExerciseForLog(exercise);
+                              setShowExerciseForm(true);
+                            }}
+                            className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded text-xs font-medium hover:bg-blue-200 dark:hover:bg-blue-800 mobile-button-lg"
+                            title="Log this exercise"
+                          >
+                            <Icon name="plus" size={12} className="mr-1" />
+                            Log
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
                               toggleFavorite(exercise.id);
                             }}
-                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded mobile-touch-target"
                             title="Add to favorites"
                           >
-                            {favorites.has(exercise.id) ? '❤️' : '🤍'}
+                            <Icon name={favorites.has(exercise.id) ? 'heart' : 'heart'} size={16} className={favorites.has(exercise.id) ? 'text-red-500' : 'text-gray-400'} />
                           </button>
                           <span className={`px-2 py-1 rounded text-xs font-medium ${
                             exercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
@@ -1770,6 +1812,51 @@ export default function Home() {
       <RestTimer 
         isVisible={showRestTimer} 
         onClose={() => setShowRestTimer(false)} 
+      />
+
+      {/* Workout Calendar */}
+      <WorkoutCalendar 
+        isVisible={showWorkoutCalendar} 
+        onClose={() => setShowWorkoutCalendar(false)} 
+      />
+
+      {/* Exercise Form */}
+      {showExerciseForm && selectedExerciseForLog && (
+        <ExerciseForm
+          exerciseName={selectedExerciseForLog.name}
+          onSubmit={(formData) => {
+            const logEntry = {
+              date: new Date().toISOString(),
+              exerciseId: selectedExerciseForLog.id,
+              exerciseName: selectedExerciseForLog.name,
+              ...formData
+            };
+            
+            const savedLogs = localStorage.getItem('fitness-exercise-logs');
+            const logs = savedLogs ? JSON.parse(savedLogs) : [];
+            logs.push(logEntry);
+            localStorage.setItem('fitness-exercise-logs', JSON.stringify(logs));
+            
+            setShowExerciseForm(false);
+            setSelectedExerciseForLog(null);
+          }}
+          onCancel={() => {
+            setShowExerciseForm(false);
+            setSelectedExerciseForLog(null);
+          }}
+        />
+      )}
+
+      {/* Nutrition Guide */}
+      <NutritionGuide
+        isVisible={showNutritionGuide}
+        onClose={() => setShowNutritionGuide(false)}
+      />
+
+      {/* Achievement System */}
+      <AchievementSystem
+        isVisible={showAchievements}
+        onClose={() => setShowAchievements(false)}
       />
 
       <style jsx>{`
