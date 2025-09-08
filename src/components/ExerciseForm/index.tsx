@@ -3,15 +3,17 @@ import { Icon } from '../ui/Icon';
 import { ExerciseFormData, ExerciseFormErrors, ExerciseFormTip } from '@/types/exercise';
 import { validateExerciseForm, getFieldValidationMessage } from '@/utils/exerciseValidation';
 import { getExerciseTips, getHighPriorityTips } from '@/data/exerciseTips';
+import { useProgression } from '@/hooks/useProgression';
 
 interface ExerciseFormProps {
   exerciseName: string;
+  exerciseId?: string;
   initialData?: Partial<ExerciseFormData>;
   onSubmit: (data: ExerciseFormData) => void;
   onCancel: () => void;
 }
 
-export function ExerciseForm({ exerciseName, initialData, onSubmit, onCancel }: ExerciseFormProps) {
+export function ExerciseForm({ exerciseName, exerciseId, initialData, onSubmit, onCancel }: ExerciseFormProps) {
   const [formData, setFormData] = useState<ExerciseFormData>({
     sets: initialData?.sets || 3,
     reps: initialData?.reps || 10,
@@ -25,9 +27,19 @@ export function ExerciseForm({ exerciseName, initialData, onSubmit, onCancel }: 
   const [errors, setErrors] = useState<ExerciseFormErrors>({});
   const [showTips, setShowTips] = useState(false);
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
+  const [rpe, setRpe] = useState<number>(7); // Rate of Perceived Exertion
 
   const tips = getExerciseTips(exerciseName);
   const highPriorityTips = getHighPriorityTips(exerciseName);
+  const { getRecommendedStats, recordWorkout } = useProgression();
+
+  // Get progression recommendations if we have an exercise ID
+  const recommendedStats = exerciseId ? getRecommendedStats(exerciseId, {
+    sets: formData.sets,
+    reps: formData.reps,
+    weight: formData.weight,
+    duration: formData.duration
+  }) : null;
 
   useEffect(() => {
     const fieldErrors = validateExerciseForm(formData);
@@ -63,7 +75,20 @@ export function ExerciseForm({ exerciseName, initialData, onSubmit, onCancel }: 
       return;
     }
 
-    onSubmit(formData);
+    // Record workout for progression tracking
+    if (exerciseId) {
+      recordWorkout(exerciseId, {
+        weight: formData.weight,
+        reps: formData.reps,
+        sets: formData.sets,
+        duration: formData.duration,
+        rpe: rpe,
+        success: true, // Assume success when completing the form
+        notes: formData.notes
+      });
+    }
+
+    onSubmit({ ...formData, rpe } as ExerciseFormData & { rpe: number });
   };
 
   const getTipIcon = (type: ExerciseFormTip['type']) => {
@@ -102,6 +127,53 @@ export function ExerciseForm({ exerciseName, initialData, onSubmit, onCancel }: 
               <Icon name="close" size={20} />
             </button>
           </div>
+
+          {/* Progression Recommendations */}
+          {recommendedStats && (
+            <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="trendingUp" size={16} className="text-green-600 dark:text-green-400" />
+                <span className="font-medium text-green-800 dark:text-green-200">Recommended for Your Level</span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                <div className="text-center">
+                  <div className="font-semibold text-green-800 dark:text-green-200">{recommendedStats.sets}</div>
+                  <div className="text-green-600 dark:text-green-400">Sets</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-semibold text-green-800 dark:text-green-200">{recommendedStats.reps}</div>
+                  <div className="text-green-600 dark:text-green-400">Reps</div>
+                </div>
+                {recommendedStats.weight && (
+                  <div className="text-center">
+                    <div className="font-semibold text-green-800 dark:text-green-200">{recommendedStats.weight}kg</div>
+                    <div className="text-green-600 dark:text-green-400">Weight</div>
+                  </div>
+                )}
+                {recommendedStats.duration && (
+                  <div className="text-center">
+                    <div className="font-semibold text-green-800 dark:text-green-200">{Math.round(recommendedStats.duration)}s</div>
+                    <div className="text-green-600 dark:text-green-400">Duration</div>
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    sets: recommendedStats.sets || prev.sets,
+                    reps: recommendedStats.reps || prev.reps,
+                    weight: recommendedStats.weight || prev.weight,
+                    duration: recommendedStats.duration || prev.duration
+                  }));
+                }}
+                className="mt-2 text-xs text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+              >
+                Apply Recommendations
+              </button>
+            </div>
+          )}
 
           {/* High Priority Tips */}
           {highPriorityTips.length > 0 && (
@@ -260,6 +332,38 @@ export function ExerciseForm({ exerciseName, initialData, onSubmit, onCancel }: 
                 {errors.distance && (
                   <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.distance}</p>
                 )}
+              </div>
+            </div>
+
+            {/* RPE (Rate of Perceived Exertion) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                RPE (Rate of Perceived Exertion)
+                <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">1 = Very Easy, 10 = Maximum Effort</span>
+              </label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={rpe}
+                  onChange={(e) => setRpe(parseInt(e.target.value))}
+                  className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                />
+                <div className={`min-w-[3rem] text-center px-3 py-2 rounded-md font-medium ${
+                  rpe <= 3 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                  rpe <= 6 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                  rpe <= 8 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' :
+                  'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                }`}>
+                  {rpe}
+                </div>
+              </div>
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                {rpe <= 3 && 'Very Easy - Could do many more reps'}
+                {rpe >= 4 && rpe <= 6 && 'Moderate - Could do a few more reps'}
+                {rpe >= 7 && rpe <= 8 && 'Hard - Could do 1-3 more reps'}
+                {rpe >= 9 && 'Very Hard - Could do 0-1 more reps'}
               </div>
             </div>
 

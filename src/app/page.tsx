@@ -1,158 +1,90 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { exercises, categories, Exercise, muscleGroups, equipment } from '@/data/exercises';
 import { workoutPrograms, programCategories, WorkoutProgram } from '@/data/programs';
 import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
 import { trainingPrinciples, principleCategories, TrainingPrinciple } from '@/data/training-principles';
-import { bodyParts, muscleFocus, workoutGoals, BodyPart, MuscleFocus, WorkoutGoal } from '@/data/bodyParts';
+import { bodyParts, muscleFocus, workoutGoals } from '@/data/bodyParts';
 import { shareWorkout, downloadWorkoutPDF } from '@/utils/shareHelpers';
+
+// Components
 import { Icon } from '@/components/ui/Icon';
 import { RestTimer } from '@/components/RestTimer';
 import { WorkoutCalendar } from '@/components/WorkoutCalendar';
 import { ExerciseForm } from '@/components/ExerciseForm';
 import { NutritionGuide } from '@/components/NutritionGuide';
 import { AchievementSystem } from '@/components/AchievementSystem';
+import { ProgressionTracker } from '@/components/ProgressionTracker';
+import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
+import WorkoutBuilder from '@/components/WorkoutBuilder';
+import { Toolbar } from '@/components/common/Toolbar';
+import { TabNavigation } from '@/components/common/TabNavigation';
+import { FilterBar } from '@/components/common/FilterBar';
 
-type TabType = 'exercises' | 'programs' | 'movements' | 'principles';
-type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
+// Custom Hooks
+import { useModalManager } from '@/hooks/useModalManager';
+import { useFilters, type TabType, type DifficultyFilter } from '@/hooks/useFilters';
+import { useSelections } from '@/hooks/useSelections';
+import { useWorkoutManager } from '@/hooks/useWorkoutManager';
+import { useUserPreferences } from '@/hooks/useUserPreferences';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 export default function Home() {
+  // Tab state (keeping local since it's simple)
   const [activeTab, setActiveTab] = useState<TabType>('exercises');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>('All');
-  const [selectedEquipment, setSelectedEquipment] = useState<string>('All');
-  const [selectedMuscle, setSelectedMuscle] = useState<string>('All');
-  const [selectedBodyPart, setSelectedBodyPart] = useState<string>('All');
-  const [selectedMuscleFocus, setSelectedMuscleFocus] = useState<string>('All');
-  const [selectedWorkoutGoal, setSelectedWorkoutGoal] = useState<string>('All');
-  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
-  const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
-  const [selectedMovement, setSelectedMovement] = useState<MovementPattern | null>(null);
-  const [selectedPrinciple, setSelectedPrinciple] = useState<TrainingPrinciple | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
-  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [workoutTimer, setWorkoutTimer] = useState<number>(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [workoutProgress, setWorkoutProgress] = useState<{[key: string]: {completed: boolean, reps?: number, weight?: number, time?: number}}>({}); 
-  const [currentWorkout, setCurrentWorkout] = useState<string | null>(null);
-  const [showSearchShortcuts, setShowSearchShortcuts] = useState(false);
-  const [workoutHistory, setWorkoutHistory] = useState<{date: string, workout: string, duration: number, exercises: {name: string, completed: boolean, reps?: number, weight?: number}[]}[]>([]);
-  const [showWorkoutHistory, setShowWorkoutHistory] = useState(false);
-  const [showWorkoutBuilder, setShowWorkoutBuilder] = useState(false);
-  const [customWorkout, setCustomWorkout] = useState<{name: string, exercises: {exerciseId: string, sets: number, reps: number, weight?: number, duration?: number}[]}>({
-    name: '',
-    exercises: []
-  });
-  const [showRestTimer, setShowRestTimer] = useState(false);
-  const [showWorkoutCalendar, setShowWorkoutCalendar] = useState(false);
-  const [showExerciseForm, setShowExerciseForm] = useState(false);
-  const [selectedExerciseForLog, setSelectedExerciseForLog] = useState<Exercise | null>(null);
-  const [showNutritionGuide, setShowNutritionGuide] = useState(false);
-  const [showAchievements, setShowAchievements] = useState(false);
 
-  // Load favorites, theme and workout history from localStorage
-  useEffect(() => {
-    const savedFavorites = localStorage.getItem('fitness-favorites');
-    if (savedFavorites) {
-      setFavorites(new Set(JSON.parse(savedFavorites)));
-    }
-    
-    const savedTheme = localStorage.getItem('fitness-theme');
-    if (savedTheme === 'dark') {
-      setDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-
-    const savedHistory = localStorage.getItem('fitness-workout-history');
-    if (savedHistory) {
-      setWorkoutHistory(JSON.parse(savedHistory));
-    }
-  }, []);
+  // Custom hooks for state management
+  const { modals, openModal, closeModal, toggleModal } = useModalManager();
+  const { filters, updateFilter, clearAllFilters } = useFilters();
+  const { selections, setSelection, resetSelections } = useSelections();
+  const workoutManager = useWorkoutManager();
+  const { favorites, darkMode, toggleFavorite, toggleDarkMode } = useUserPreferences();
 
   // Keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Cmd/Ctrl + K to focus search
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
+  const shortcuts = [
+    {
+      key: 'k',
+      ctrlKey: true,
+      callback: () => {
         const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
         if (searchInput) {
           searchInput.focus();
           searchInput.select();
         }
-      }
-      
-      // Cmd/Ctrl + / to show shortcuts
-      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
-        e.preventDefault();
-        setShowSearchShortcuts(!showSearchShortcuts);
-      }
-
-      // ESC to clear search or close modals
-      if (e.key === 'Escape') {
-        if (searchTerm) {
-          setSearchTerm('');
-        } else if (showSearchShortcuts) {
-          setShowSearchShortcuts(false);
-        } else if (selectedExercise || selectedProgram || selectedMovement || selectedPrinciple) {
+      },
+      description: 'Focus search'
+    },
+    {
+      key: '/',
+      ctrlKey: true,
+      callback: () => toggleModal('showSearchShortcuts'),
+      description: 'Show shortcuts'
+    },
+    {
+      key: 'Escape',
+      callback: () => {
+        if (filters.searchTerm) {
+          updateFilter('searchTerm', '');
+        } else if (modals.showSearchShortcuts) {
+          closeModal('showSearchShortcuts');
+        } else if (selections.selectedExercise || selections.selectedProgram || selections.selectedMovement || selections.selectedPrinciple) {
           resetSelections();
         }
-      }
-
-      // Number keys for quick tab switching
-      if (e.key >= '1' && e.key <= '4' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        const tabIndex = parseInt(e.key) - 1;
-        const tabs: TabType[] = ['exercises', 'programs', 'movements', 'principles'];
-        if (tabs[tabIndex]) {
-          setActiveTab(tabs[tabIndex]);
-          resetSelections();
-          clearAllFilters();
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [searchTerm, showSearchShortcuts, selectedExercise, selectedProgram, selectedMovement, selectedPrinciple]);
-
-  // Save favorites to localStorage
-  useEffect(() => {
-    localStorage.setItem('fitness-favorites', JSON.stringify([...favorites]));
-  }, [favorites]);
-
-  // Toggle theme
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (!darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('fitness-theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('fitness-theme', 'light');
+      },
+      description: 'Clear/Close'
     }
+  ];
+
+  useKeyboardShortcuts(shortcuts);
+
+  // Helper functions
+  const handleTabSwitch = (tab: TabType) => {
+    setActiveTab(tab);
+    resetSelections();
+    clearAllFilters();
   };
 
-  // Timer functionality
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isTimerRunning) {
-      interval = setInterval(() => {
-        setWorkoutTimer(timer => timer + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isTimerRunning]);
-
-  const startTimer = () => setIsTimerRunning(true);
-  const pauseTimer = () => setIsTimerRunning(false);
-  const resetTimer = () => {
-    setWorkoutTimer(0);
-    setIsTimerRunning(false);
-  };
 
   const formatTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
@@ -218,31 +150,14 @@ export default function Home() {
     }
   }, [workoutHistory]);
 
-  // Calculate stats
-  const totalWorkouts = workoutHistory.length;
-  const totalHours = Math.round(workoutHistory.reduce((sum, w) => sum + w.duration, 0) / 3600 * 10) / 10;
-  const completionRate = workoutHistory.length > 0 
-    ? Math.round(workoutHistory.reduce((sum, w) => sum + (w.exercises.filter(e => e.completed).length / w.exercises.length), 0) / workoutHistory.length * 100)
-    : 0;
-
-  // Toggle favorite
-  const toggleFavorite = (id: string) => {
-    const newFavorites = new Set(favorites);
-    if (newFavorites.has(id)) {
-      newFavorites.delete(id);
-    } else {
-      newFavorites.add(id);
-    }
-    setFavorites(newFavorites);
-  };
 
   const filteredExercises = exercises.filter(exercise => {
-    const matchesCategory = selectedCategory === 'All' || exercise.category === selectedCategory;
-    const matchesDifficulty = selectedDifficulty === 'All' || exercise.difficulty === selectedDifficulty;
-    const matchesEquipment = selectedEquipment === 'All' || exercise.equipment.includes(selectedEquipment);
-    const matchesMuscle = selectedMuscle === 'All' || 
-                         exercise.primaryMuscles.includes(selectedMuscle) || 
-                         exercise.secondaryMuscles?.includes(selectedMuscle);
+    const matchesCategory = filters.selectedCategory === 'All' || exercise.category === filters.selectedCategory;
+    const matchesDifficulty = filters.selectedDifficulty === 'All' || exercise.difficulty === filters.selectedDifficulty;
+    const matchesEquipment = filters.selectedEquipment === 'All' || exercise.equipment.includes(filters.selectedEquipment);
+    const matchesMuscle = filters.selectedMuscle === 'All' || 
+                         exercise.primaryMuscles.includes(filters.selectedMuscle) || 
+                         exercise.secondaryMuscles?.includes(filters.selectedMuscle);
     
     // Advanced filtering
     const matchesBodyPart = selectedBodyPart === 'All' || (() => {
@@ -399,18 +314,18 @@ export default function Home() {
                 </div>
               )}
               <button
-                onClick={() => setShowWorkoutHistory(!showWorkoutHistory)}
+                onClick={() => setShowAnalytics(!showAnalytics)}
                 className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
-                title="Workout history and stats"
+                title="Advanced analytics dashboard"
               >
                 <Icon name="analytics" size={20} />
               </button>
               <button
-                onClick={() => setShowWorkoutBuilder(!showWorkoutBuilder)}
+                onClick={() => setShowWorkoutBuilderModal(!showWorkoutBuilderModal)}
                 className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
                 title="Custom workout builder"
               >
-                <Icon name="settings" size={20} />
+                <Icon name="dumbbell" size={20} />
               </button>
               <button
                 onClick={() => setShowRestTimer(!showRestTimer)}
@@ -439,6 +354,13 @@ export default function Home() {
                 title="Achievements & badges"
               >
                 <Icon name="trophy" size={20} />
+              </button>
+              <button
+                onClick={() => setShowProgression(!showProgression)}
+                className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mobile-touch-target"
+                title="Progression tracking"
+              >
+                <Icon name="trendingUp" size={20} />
               </button>
               <button
                 onClick={toggleDarkMode}
@@ -487,8 +409,14 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Workout History Modal */}
-      {showWorkoutHistory && (
+      {/* Analytics Dashboard */}
+      <AnalyticsDashboard
+        isVisible={showWorkoutHistory}
+        onClose={() => setShowWorkoutHistory(false)}
+      />
+
+      {/* Legacy Workout History Modal - keeping for reference */}
+      {false && showWorkoutHistory && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
             <div className="p-6">
@@ -1620,6 +1548,17 @@ export default function Home() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
+                              setSelectedExerciseForLog(exercise);
+                              setShowProgression(true);
+                            }}
+                            className="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded text-xs font-medium hover:bg-green-200 dark:hover:bg-green-800 mobile-button-lg"
+                            title="View progression"
+                          >
+                            <Icon name="trendingUp" size={12} />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
                               toggleFavorite(exercise.id);
                             }}
                             className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded mobile-touch-target"
@@ -1824,6 +1763,7 @@ export default function Home() {
       {showExerciseForm && selectedExerciseForLog && (
         <ExerciseForm
           exerciseName={selectedExerciseForLog.name}
+          exerciseId={selectedExerciseForLog.id}
           onSubmit={(formData) => {
             const logEntry = {
               date: new Date().toISOString(),
@@ -1857,6 +1797,25 @@ export default function Home() {
       <AchievementSystem
         isVisible={showAchievements}
         onClose={() => setShowAchievements(false)}
+      />
+
+      {/* Progression Tracker */}
+      <ProgressionTracker
+        isVisible={showProgression}
+        onClose={() => setShowProgression(false)}
+        exercise={selectedExerciseForLog}
+      />
+
+      {/* Analytics Dashboard */}
+      <AnalyticsDashboard
+        isVisible={showAnalytics}
+        onClose={() => setShowAnalytics(false)}
+      />
+
+      {/* Workout Builder */}
+      <WorkoutBuilder
+        isOpen={showWorkoutBuilderModal}
+        onClose={() => setShowWorkoutBuilderModal(false)}
       />
 
       <style jsx>{`
