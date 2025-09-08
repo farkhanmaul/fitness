@@ -48,7 +48,13 @@ import {
   User,
   Download,
   Printer,
-  Minus
+  Minus,
+  Save,
+  Edit,
+  Copy,
+  Trash,
+  GripVertical,
+  TrendingDown
 } from 'lucide-react';
 
 export const Icons = {
@@ -102,6 +108,14 @@ export const Icons = {
   download: Download,
   printer: Printer,
   minus: Minus,
+  x: X,
+  save: Save,
+  edit: Edit,
+  copy: Copy,
+  trash: Trash,
+  gripVertical: GripVertical,
+  trendingDown: TrendingDown,
+  zap: Zap
 } as const;
 
 export type IconName = keyof typeof Icons;
