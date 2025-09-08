@@ -34,8 +34,8 @@ export const achievements: Achievement[] = [
   // Consistency Achievements
   {
     id: 'first-workout',
-    name: 'First Steps',
-    description: 'Complete your first workout',
+    name: 'Langkah Pertama',
+    description: 'Selesaikan workout pertama Anda',
     icon: 'play',
     category: 'milestone',
     rarity: 'common',
@@ -45,13 +45,13 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 10,
-      title: 'Beginner'
+      title: 'Pemula'
     }
   },
   {
     id: 'streak-7',
-    name: 'Week Warrior',
-    description: 'Maintain a 7-day workout streak',
+    name: 'Pejuang Minggu',
+    description: 'Pertahankan streak workout 7 hari',
     icon: 'fire',
     category: 'consistency',
     rarity: 'common',
@@ -61,13 +61,13 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 50,
-      title: 'Consistent'
+      title: 'Konsisten'
     }
   },
   {
     id: 'streak-30',
-    name: 'Monthly Master',
-    description: 'Maintain a 30-day workout streak',
+    name: 'Master Bulanan',
+    description: 'Pertahankan streak workout 30 hari',
     icon: 'fire',
     category: 'consistency',
     rarity: 'rare',
@@ -77,13 +77,13 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 200,
-      title: 'Dedicated'
+      title: 'Berdedikasi'
     }
   },
   {
     id: 'streak-100',
-    name: 'Century Club',
-    description: 'Maintain a 100-day workout streak',
+    name: 'Klub Seratus',
+    description: 'Pertahankan streak workout 100 hari',
     icon: 'flame',
     category: 'consistency',
     rarity: 'epic',
@@ -93,13 +93,13 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 500,
-      title: 'Unstoppable'
+      title: 'Tak Terhentikan'
     }
   },
   {
     id: 'streak-365',
-    name: 'Year Round',
-    description: 'Maintain a 365-day workout streak',
+    name: 'Sepanjang Tahun',
+    description: 'Pertahankan streak workout 365 hari',
     icon: 'crown',
     category: 'consistency',
     rarity: 'legendary',
@@ -109,15 +109,15 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 1000,
-      title: 'Legend'
+      title: 'Legenda'
     }
   },
 
   // Milestone Achievements
   {
     id: 'workouts-10',
-    name: 'Getting Started',
-    description: 'Complete 10 workouts',
+    name: 'Memulai Perjalanan',
+    description: 'Selesaikan 10 workout',
     icon: 'target',
     category: 'milestone',
     rarity: 'common',
@@ -131,8 +131,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'workouts-50',
-    name: 'Half Century',
-    description: 'Complete 50 workouts',
+    name: 'Setengah Abad',
+    description: 'Selesaikan 50 workout',
     icon: 'award',
     category: 'milestone',
     rarity: 'rare',
@@ -147,7 +147,7 @@ export const achievements: Achievement[] = [
   {
     id: 'workouts-100',
     name: 'Centurion',
-    description: 'Complete 100 workouts',
+    description: 'Selesaikan 100 workout',
     icon: 'trophy',
     category: 'milestone',
     rarity: 'epic',
@@ -161,8 +161,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'exercises-100',
-    name: 'Exercise Explorer',
-    description: 'Log 100 exercises',
+    name: 'Penjelajah Latihan',
+    description: 'Catat 100 latihan',
     icon: 'compass',
     category: 'exploration',
     rarity: 'common',
@@ -176,8 +176,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'exercises-500',
-    name: 'Movement Master',
-    description: 'Log 500 exercises',
+    name: 'Master Gerakan',
+    description: 'Catat 500 latihan',
     icon: 'star',
     category: 'exploration',
     rarity: 'rare',
@@ -193,8 +193,8 @@ export const achievements: Achievement[] = [
   // Strength Achievements
   {
     id: 'weight-1000',
-    name: 'Thousand Pounds',
-    description: 'Lift a total of 1,000kg across all exercises',
+    name: 'Seribu Kilogram',
+    description: 'Angkat total 1,000kg di semua latihan',
     icon: 'dumbbell',
     category: 'strength',
     rarity: 'rare',
@@ -204,13 +204,13 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 100,
-      title: 'Strong'
+      title: 'Kuat'
     }
   },
   {
     id: 'weight-5000',
-    name: 'Five Ton Club',
-    description: 'Lift a total of 5,000kg across all exercises',
+    name: 'Klub Lima Ton',
+    description: 'Angkat total 5,000kg di semua latihan',
     icon: 'dumbbell',
     category: 'strength',
     rarity: 'epic',
@@ -220,15 +220,15 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 300,
-      title: 'Powerlifter'
+      title: 'Atlet Angkat Beban'
     }
   },
 
   // Endurance Achievements
   {
     id: 'time-10h',
-    name: 'Ten Hour Hero',
-    description: 'Train for a total of 10 hours',
+    name: 'Pahlawan Sepuluh Jam',
+    description: 'Berlatih total 10 jam',
     icon: 'clock',
     category: 'endurance',
     rarity: 'common',
@@ -242,8 +242,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'time-100h',
-    name: 'Century Timer',
-    description: 'Train for a total of 100 hours',
+    name: 'Penghitung Abad',
+    description: 'Berlatih total 100 jam',
     icon: 'clock',
     category: 'endurance',
     rarity: 'rare',
@@ -253,15 +253,15 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 200,
-      title: 'Endurance Athlete'
+      title: 'Atlet Daya Tahan'
     }
   },
 
   // Exploration Achievements
   {
     id: 'all-categories',
-    name: 'Jack of All Trades',
-    description: 'Try exercises from all categories',
+    name: 'Ahli Segalanya',
+    description: 'Coba latihan dari semua kategori',
     icon: 'grid',
     category: 'exploration',
     rarity: 'rare',
@@ -271,15 +271,15 @@ export const achievements: Achievement[] = [
     },
     reward: {
       points: 120,
-      title: 'Well-Rounded'
+      title: 'Serba Bisa'
     }
   },
 
   // Special Achievements
   {
     id: 'early-bird',
-    name: 'Early Bird',
-    description: 'Complete a workout before 6 AM',
+    name: 'Si Pagi',
+    description: 'Selesaikan workout sebelum jam 6 pagi',
     icon: 'sunrise',
     category: 'milestone',
     rarity: 'common',
@@ -293,8 +293,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'night-owl',
-    name: 'Night Owl',
-    description: 'Complete a workout after 10 PM',
+    name: 'Si Malam',
+    description: 'Selesaikan workout setelah jam 10 malam',
     icon: 'moon',
     category: 'milestone',
     rarity: 'common',
@@ -308,8 +308,8 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'weekend-warrior',
-    name: 'Weekend Warrior',
-    description: 'Complete workouts on both Saturday and Sunday',
+    name: 'Pejuang Akhir Pekan',
+    description: 'Selesaikan workout di Sabtu dan Minggu',
     icon: 'calendar',
     category: 'consistency',
     rarity: 'common',

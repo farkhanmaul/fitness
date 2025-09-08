@@ -30,120 +30,120 @@ export interface MealPlan {
 export const nutritionTips: NutritionTip[] = [
   {
     id: 'pre-1',
-    title: 'Fuel Up 30-60 Minutes Before',
-    description: 'Eat a light meal with carbs and moderate protein 30-60 minutes before your workout for optimal energy.',
+    title: 'Isi Energi 30-60 Menit Sebelumnya',
+    description: 'Makan makanan ringan dengan karbohidrat dan protein sedang 30-60 menit sebelum workout untuk energi optimal.',
     category: 'pre-workout',
     priority: 'high',
-    timing: '30-60 minutes before workout'
+    timing: '30-60 menit sebelum workout'
   },
   {
     id: 'pre-2',
-    title: 'Avoid Heavy Fats Before Training',
-    description: 'Skip high-fat foods before workouts as they take longer to digest and may cause discomfort.',
+    title: 'Hindari Lemak Berat Sebelum Latihan',
+    description: 'Lewati makanan berlemak tinggi sebelum workout karena butuh waktu lama dicerna dan dapat menyebabkan ketidaknyamanan.',
     category: 'pre-workout',
     priority: 'medium',
-    timing: '2-3 hours before workout'
+    timing: '2-3 jam sebelum workout'
   },
   {
     id: 'pre-3',
-    title: 'Quick Energy Sources',
-    description: 'Good pre-workout snacks: banana with honey, oatmeal, or a small energy bar.',
+    title: 'Sumber Energi Cepat',
+    description: 'Camilan pre-workout yang baik: pisang dengan madu, oatmeal, atau energy bar kecil.',
     category: 'pre-workout',
     priority: 'medium',
-    timing: '15-30 minutes before workout'
+    timing: '15-30 menit sebelum workout'
   },
   {
     id: 'post-1',
-    title: 'Protein Within 30 Minutes',
-    description: 'Consume 20-40g of protein within 30 minutes after training to maximize muscle protein synthesis.',
+    title: 'Protein dalam 30 Menit',
+    description: 'Konsumsi 20-40g protein dalam 30 menit setelah latihan untuk memaksimalkan sintesis protein otot.',
     category: 'post-workout',
     priority: 'high',
-    timing: 'Within 30 minutes post-workout'
+    timing: 'Dalam 30 menit setelah workout'
   },
   {
     id: 'post-2',
-    title: 'Carb Replenishment',
-    description: 'Include carbohydrates post-workout to replenish glycogen stores, especially after intense training.',
+    title: 'Pengisian Karbohidrat',
+    description: 'Sertakan karbohidrat setelah workout untuk mengisi kembali cadangan glikogen, terutama setelah latihan intensif.',
     category: 'post-workout',
     priority: 'high',
-    timing: 'Within 2 hours post-workout'
+    timing: 'Dalam 2 jam setelah workout'
   },
   {
     id: 'post-3',
-    title: 'Recovery Meal Ideas',
-    description: 'Great post-workout meals: protein shake with fruit, chicken with rice, or Greek yogurt with berries.',
+    title: 'Ide Makanan Pemulihan',
+    description: 'Makanan post-workout yang bagus: protein shake dengan buah, ayam dengan nasi, atau Greek yogurt dengan berry.',
     category: 'post-workout',
     priority: 'medium',
-    timing: 'Within 1-2 hours post-workout'
+    timing: 'Dalam 1-2 jam setelah workout'
   },
   {
     id: 'hydration-1',
-    title: 'Drink Water Throughout the Day',
-    description: 'Aim for at least 8-10 glasses of water daily, more if you\'re training intensely or in hot weather.',
+    title: 'Minum Air Sepanjang Hari',
+    description: 'Targetkan minimal 8-10 gelas air harian, lebih banyak jika latihan intensif atau cuaca panas.',
     category: 'hydration',
     priority: 'high'
   },
   {
     id: 'hydration-2',
-    title: 'Pre-Hydrate',
-    description: 'Drink 16-20oz of water 2-3 hours before exercise and 8oz 15-20 minutes before.',
+    title: 'Hidrasi Awal',
+    description: 'Minum 500-600ml air 2-3 jam sebelum olahraga dan 250ml 15-20 menit sebelumnya.',
     category: 'hydration',
     priority: 'high',
-    timing: '2-3 hours before workout'
+    timing: '2-3 jam sebelum workout'
   },
   {
     id: 'hydration-3',
-    title: 'Electrolyte Balance',
-    description: 'For workouts longer than 60 minutes or intense sweating, consider electrolyte replacement.',
+    title: 'Keseimbangan Elektrolit',
+    description: 'Untuk workout lebih dari 60 menit atau berkeringat intensif, pertimbangkan penggantian elektrolit.',
     category: 'hydration',
     priority: 'medium'
   },
   {
     id: 'general-1',
-    title: 'Eat the Rainbow',
-    description: 'Include a variety of colorful fruits and vegetables to ensure adequate micronutrient intake.',
+    title: 'Makan Beraneka Warna',
+    description: 'Sertakan berbagai buah dan sayuran berwarna untuk memastikan asupan mikronutrien yang cukup.',
     category: 'general',
     priority: 'high'
   },
   {
     id: 'general-2',
-    title: 'Prioritize Whole Foods',
-    description: 'Base your diet on whole, minimally processed foods for better nutrient density and satiety.',
+    title: 'Prioritaskan Makanan Utuh',
+    description: 'Basarkan diet pada makanan utuh dan minim proses untuk kepadatan nutrisi dan rasa kenyang yang lebih baik.',
     category: 'general',
     priority: 'high'
   },
   {
     id: 'general-3',
-    title: 'Meal Timing Consistency',
-    description: 'Try to eat at consistent times daily to regulate metabolism and energy levels.',
+    title: 'Konsistensi Waktu Makan',
+    description: 'Usahakan makan pada waktu yang konsisten setiap hari untuk mengatur metabolisme dan tingkat energi.',
     category: 'general',
     priority: 'medium'
   },
   {
     id: 'general-4',
-    title: 'Don\'t Skip Breakfast',
-    description: 'Start your day with a balanced breakfast including protein to kickstart your metabolism.',
+    title: 'Jangan Lewatkan Sarapan',
+    description: 'Mulai hari dengan sarapan seimbang termasuk protein untuk memulai metabolisme.',
     category: 'general',
     priority: 'medium'
   },
   {
     id: 'supplements-1',
-    title: 'Creatine for Power',
-    description: '3-5g of creatine monohydrate daily can improve strength and power output in high-intensity training.',
+    title: 'Kreatin untuk Daya',
+    description: '3-5g kreatin monohidrat harian dapat meningkatkan kekuatan dan output daya pada latihan intensitas tinggi.',
     category: 'supplements',
     priority: 'medium'
   },
   {
     id: 'supplements-2',
-    title: 'Vitamin D for Recovery',
-    description: 'Many athletes are deficient in Vitamin D, which is crucial for bone health and immune function.',
+    title: 'Vitamin D untuk Pemulihan',
+    description: 'Banyak atlet kekurangan Vitamin D, yang penting untuk kesehatan tulang dan fungsi imun.',
     category: 'supplements',
     priority: 'medium'
   },
   {
     id: 'supplements-3',
-    title: 'Food First Approach',
-    description: 'Try to get nutrients from whole foods first before considering supplementation.',
+    title: 'Pendekatan Makanan Pertama',
+    description: 'Usahakan mendapatkan nutrisi dari makanan utuh terlebih dahulu sebelum mempertimbangkan suplementasi.',
     category: 'supplements',
     priority: 'high'
   }
@@ -152,8 +152,8 @@ export const nutritionTips: NutritionTip[] = [
 export const mealPlans: MealPlan[] = [
   {
     id: 'performance-1',
-    name: 'Athletic Performance Plan',
-    description: 'High-energy meal plan designed for intense training and optimal performance',
+    name: 'Rencana Performa Atletik',
+    description: 'Rencana makan berenergi tinggi dirancang untuk latihan intensif dan performa optimal',
     type: 'performance',
     duration: '1 week',
     calories: 2800,
@@ -164,53 +164,53 @@ export const mealPlans: MealPlan[] = [
     },
     meals: [
       {
-        name: 'Breakfast',
+        name: 'Sarapan',
         time: '7:00 AM',
-        foods: ['Oatmeal with banana and berries', 'Greek yogurt', 'Honey', 'Almonds'],
+        foods: ['Oatmeal dengan pisang dan berry', 'Greek yogurt', 'Madu', 'Almond'],
         calories: 520
       },
       {
-        name: 'Pre-Workout Snack',
+        name: 'Camilan Pre-Workout',
         time: '9:30 AM',
-        foods: ['Banana', 'Small coffee'],
+        foods: ['Pisang', 'Kopi kecil'],
         calories: 120
       },
       {
         name: 'Post-Workout',
         time: '11:30 AM',
-        foods: ['Protein shake', 'Apple'],
+        foods: ['Protein shake', 'Apel'],
         calories: 280
       },
       {
-        name: 'Lunch',
+        name: 'Makan Siang',
         time: '1:00 PM',
-        foods: ['Grilled chicken breast', 'Brown rice', 'Mixed vegetables', 'Olive oil'],
+        foods: ['Dada ayam panggang', 'Nasi merah', 'Sayuran campuran', 'Minyak zaitun'],
         calories: 650
       },
       {
-        name: 'Afternoon Snack',
+        name: 'Camilan Sore',
         time: '4:00 PM',
-        foods: ['Greek yogurt with nuts'],
+        foods: ['Greek yogurt dengan kacang'],
         calories: 200
       },
       {
-        name: 'Dinner',
+        name: 'Makan Malam',
         time: '7:00 PM',
-        foods: ['Salmon fillet', 'Sweet potato', 'Broccoli', 'Avocado'],
+        foods: ['Fillet salmon', 'Ubi jalar', 'Brokoli', 'Alpukat'],
         calories: 720
       },
       {
-        name: 'Evening Snack',
+        name: 'Camilan Malam',
         time: '9:00 PM',
-        foods: ['Casein protein shake', 'Berries'],
+        foods: ['Casein protein shake', 'Berry'],
         calories: 310
       }
     ]
   },
   {
     id: 'cutting-1',
-    name: 'Fat Loss Plan',
-    description: 'Calorie-controlled plan for fat loss while maintaining muscle mass',
+    name: 'Rencana Penurunan Lemak',
+    description: 'Rencana terkontrol kalori untuk penurunan lemak sambil mempertahankan massa otot',
     type: 'cutting',
     duration: '4 weeks',
     calories: 2000,
@@ -221,27 +221,27 @@ export const mealPlans: MealPlan[] = [
     },
     meals: [
       {
-        name: 'Breakfast',
+        name: 'Sarapan',
         time: '7:00 AM',
-        foods: ['Egg whites with vegetables', 'Whole grain toast', 'Avocado slice'],
+        foods: ['Putih telur dengan sayuran', 'Roti gandum utuh', 'Irisan alpukat'],
         calories: 350
       },
       {
-        name: 'Mid-Morning',
+        name: 'Pagi Tengah',
         time: '10:00 AM',
-        foods: ['Protein shake', 'Handful of berries'],
+        foods: ['Protein shake', 'Segenggam berry'],
         calories: 200
       },
       {
-        name: 'Lunch',
+        name: 'Makan Siang',
         time: '1:00 PM',
-        foods: ['Grilled chicken salad', 'Olive oil dressing', 'Quinoa'],
+        foods: ['Salad ayam panggang', 'Dressing minyak zaitun', 'Quinoa'],
         calories: 450
       },
       {
         name: 'Pre-Workout',
         time: '4:00 PM',
-        foods: ['Apple with almond butter'],
+        foods: ['Apel dengan selai almond'],
         calories: 180
       },
       {
@@ -251,23 +251,23 @@ export const mealPlans: MealPlan[] = [
         calories: 150
       },
       {
-        name: 'Dinner',
+        name: 'Makan Malam',
         time: '8:00 PM',
-        foods: ['Lean fish', 'Steamed vegetables', 'Small sweet potato'],
+        foods: ['Ikan tanpa lemak', 'Sayuran kukus', 'Ubi jalar kecil'],
         calories: 480
       },
       {
-        name: 'Evening',
+        name: 'Malam',
         time: '10:00 PM',
-        foods: ['Greek yogurt with cinnamon'],
+        foods: ['Greek yogurt dengan kayu manis'],
         calories: 190
       }
     ]
   },
   {
     id: 'bulking-1',
-    name: 'Muscle Building Plan',
-    description: 'High-calorie plan focused on muscle growth and strength gains',
+    name: 'Rencana Pembentukan Otot',
+    description: 'Rencana kalori tinggi fokus pada pertumbuhan otot dan peningkatan kekuatan',
     type: 'bulking',
     duration: '8 weeks',
     calories: 3200,
@@ -278,39 +278,39 @@ export const mealPlans: MealPlan[] = [
     },
     meals: [
       {
-        name: 'Breakfast',
+        name: 'Sarapan',
         time: '7:00 AM',
-        foods: ['Large bowl of oatmeal', 'Whole milk', 'Banana', 'Peanut butter', 'Protein powder'],
+        foods: ['Mangkuk besar oatmeal', 'Susu murni', 'Pisang', 'Selai kacang', 'Protein powder'],
         calories: 680
       },
       {
-        name: 'Mid-Morning',
+        name: 'Pagi Tengah',
         time: '10:00 AM',
-        foods: ['Trail mix', 'Protein bar'],
+        foods: ['Campuran kacang', 'Protein bar'],
         calories: 400
       },
       {
-        name: 'Lunch',
+        name: 'Makan Siang',
         time: '1:00 PM',
-        foods: ['Large chicken breast', 'Brown rice', 'Black beans', 'Cheese', 'Vegetables'],
+        foods: ['Dada ayam besar', 'Nasi merah', 'Kacang hitam', 'Keju', 'Sayuran'],
         calories: 750
       },
       {
         name: 'Pre-Workout',
         time: '4:00 PM',
-        foods: ['Banana', 'Dates', 'Coffee'],
+        foods: ['Pisang', 'Kurma', 'Kopi'],
         calories: 200
       },
       {
         name: 'Post-Workout',
         time: '6:30 PM',
-        foods: ['Protein shake with milk', 'Fruit'],
+        foods: ['Protein shake dengan susu', 'Buah'],
         calories: 350
       },
       {
-        name: 'Dinner',
+        name: 'Makan Malam',
         time: '8:00 PM',
-        foods: ['Lean beef', 'Pasta', 'Marinara sauce', 'Garlic bread', 'Salad'],
+        foods: ['Daging sapi tanpa lemak', 'Pasta', 'Saus marinara', 'Roti bawang putih', 'Salad'],
         calories: 820
       }
     ]

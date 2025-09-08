@@ -26,7 +26,7 @@ export function RestTimer({ isVisible, onClose }: RestTimerProps) {
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
           <Icon name="timer" size={18} />
-          Rest Timer
+          Timer Istirahat
         </h3>
         <button
           onClick={onClose}
@@ -45,7 +45,7 @@ export function RestTimer({ isVisible, onClose }: RestTimerProps) {
         
         {isFinished && (
           <div className="text-green-600 dark:text-green-400 font-medium">
-            Rest Complete! 🎉
+            Istirahat Selesai! 🎉
           </div>
         )}
       </div>
@@ -97,30 +97,30 @@ export function RestTimer({ isVisible, onClose }: RestTimerProps) {
             <button
               onClick={() => addTime(-15)}
               className="p-2 text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded mobile-touch-target"
-              title="Remove 15s"
+              title="Kurangi 15s"
             >
               <Icon name="minus" size={16} />
             </button>
             <button
               onClick={isResting ? pauseRest : resumeRest}
               className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded mobile-touch-target"
-              title={isResting ? "Pause" : "Resume"}
+              title={isResting ? "Jeda" : "Lanjut"}
             >
               <Icon name={isResting ? "pause" : "play"} size={16} />
             </button>
             <button
               onClick={() => addTime(15)}
               className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded mobile-touch-target"
-              title="Add 15s"
+              title="Tambah 15s"
             >
               <Icon name="plus" size={16} />
             </button>
             <button
               onClick={skipRest}
               className="px-3 py-1 bg-gray-500 text-white hover:bg-gray-600 rounded text-sm mobile-button-lg"
-              title="Skip rest"
+              title="Lewat istirahat"
             >
-              Skip
+              Lewat
             </button>
           </>
         )}

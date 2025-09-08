@@ -1,46 +1,46 @@
 export const bodyParts = [
-  'Upper Body',
-  'Lower Body', 
+  'Tubuh Bagian Atas',
+  'Tubuh Bagian Bawah', 
   'Core',
-  'Full Body',
-  'Cardio'
+  'Seluruh Tubuh',
+  'Kardio'
 ] as const;
 
 export const muscleFocus = [
   // Upper Body
-  'Chest',
-  'Back',
-  'Shoulders', 
-  'Arms',
+  'Dada',
+  'Punggung',
+  'Bahu', 
+  'Lengan',
   'Triceps',
   'Biceps',
   
   // Lower Body
-  'Legs',
+  'Kaki',
   'Quadriceps',
-  'Hamstrings',
+  'Hamstring',
   'Glutes',
-  'Calves',
+  'Betis',
   
   // Core
-  'Abs',
-  'Obliques',
-  'Lower Back',
+  'Perut',
+  'Oblique',
+  'Punggung Bawah',
   
   // Full Body
-  'Functional Movement',
-  'Power',
-  'Endurance'
+  'Gerakan Fungsional',
+  'Daya',
+  'Daya Tahan'
 ] as const;
 
 export const workoutGoals = [
-  'Strength',
-  'Muscle Building',
-  'Fat Loss',
-  'Endurance',
-  'Power',
-  'Flexibility',
-  'Sport Performance'
+  'Kekuatan',
+  'Pembentukan Otot',
+  'Penurunan Lemak',
+  'Daya Tahan',
+  'Daya',
+  'Fleksibilitas',
+  'Performa Olahraga'
 ] as const;
 
 export type BodyPart = typeof bodyParts[number];

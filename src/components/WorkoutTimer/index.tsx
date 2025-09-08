@@ -19,24 +19,24 @@ export function WorkoutTimer({ isVisible, onFinish }: WorkoutTimerProps) {
       <button
         onClick={isRunning ? pause : start}
         className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 mobile-touch-target"
-        title={isRunning ? "Pause timer" : "Start timer"}
+        title={isRunning ? "Jeda timer" : "Mulai timer"}
       >
         <Icon name={isRunning ? "pause" : "play"} size={16} />
       </button>
       <button
         onClick={reset}
         className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200 mobile-touch-target"
-        title="Reset timer"
+        title="Ulang timer"
       >
         <Icon name="reset" size={16} />
       </button>
       <button
         onClick={onFinish}
         className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 mobile-button-lg"
-        title="Finish workout"
+        title="Selesai latihan"
       >
         <Icon name="check" size={12} className="mr-1" />
-        Finish
+        Selesai
       </button>
     </div>
   );

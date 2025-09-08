@@ -1,7 +1,7 @@
 export interface TrainingPrinciple {
   id: string;
   name: string;
-  category: 'Progressive Overload' | 'Periodization' | 'Recovery' | 'Adaptation' | 'Programming' | 'Nutrition';
+  category: 'Beban Progresif' | 'Periodisasi' | 'Pemulihan' | 'Adaptasi' | 'Pemrograman' | 'Nutrisi';
   description: string;
   keyPoints: string[];
   application: string[];
@@ -13,310 +13,310 @@ export interface TrainingPrinciple {
 export const trainingPrinciples: TrainingPrinciple[] = [
   {
     id: 'progressive-overload',
-    name: 'Progressive Overload',
-    category: 'Progressive Overload',
-    description: 'The fundamental principle that to continue making gains, you must gradually increase the demands placed on your body over time.',
+    name: 'Beban Progresif',
+    category: 'Beban Progresif',
+    description: 'Prinsip dasar bahwa untuk terus mengalami peningkatan, Anda harus secara bertahap meningkatkan tuntutan yang diberikan pada tubuh dari waktu ke waktu.',
     keyPoints: [
-      'Gradual increase in training stimulus',
-      'Can be achieved through multiple variables',
-      'Must be consistent and systematic',
-      'Forms the foundation of all training adaptations',
-      'Prevents plateaus and promotes continuous improvement'
+      'Peningkatan stimulus latihan secara bertahap',
+      'Dapat dicapai melalui berbagai variabel',
+      'Harus konsisten dan sistematis',
+      'Membentuk fondasi dari semua adaptasi latihan',
+      'Mencegah plateau dan meningkatkan kemajuan berkelanjutan'
     ],
     application: [
-      'Increase weight by 2.5-5lbs per week for beginners',
-      'Add 1-2 reps per set when possible',
-      'Decrease rest periods between sets',
-      'Increase training volume (sets x reps)',
-      'Improve range of motion or time under tension',
-      'Increase training frequency'
+      'Tingkatkan beban 1-2 kg per minggu untuk pemula',
+      'Tambahkan 1-2 repetisi per set bila memungkinkan',
+      'Kurangi waktu istirahat antar set',
+      'Tingkatkan volume latihan (set x repetisi)',
+      'Perbaiki rentang gerak atau waktu di bawah tekanan',
+      'Tingkatkan frekuensi latihan'
     ],
     examples: [
-      'Week 1: Bench Press 3x8 @ 135lbs',
-      'Week 2: Bench Press 3x8 @ 140lbs',
-      'Week 3: Bench Press 3x9 @ 140lbs',
-      'Week 4: Bench Press 3x8 @ 145lbs',
-      'Bodyweight: Week 1: 10 push-ups, Week 2: 12 push-ups',
-      'Running: Week 1: 2 miles, Week 2: 2.2 miles'
+      'Minggu 1: Bench Press 3x8 @ 60kg',
+      'Minggu 2: Bench Press 3x8 @ 62,5kg',
+      'Minggu 3: Bench Press 3x9 @ 62,5kg',
+      'Minggu 4: Bench Press 3x8 @ 65kg',
+      'Bodyweight: Minggu 1: 10 push-up, Minggu 2: 12 push-up',
+      'Lari: Minggu 1: 3 km, Minggu 2: 3,5 km'
     ],
     commonMistakes: [
-      'Increasing load too quickly (more than 10% per week)',
-      'Only focusing on weight, ignoring other variables',
-      'Not tracking progress properly',
-      'Skipping deload weeks',
-      'Adding volume and intensity simultaneously',
-      'Ignoring form degradation for heavier weights'
+      'Meningkatkan beban terlalu cepat (lebih dari 10% per minggu)',
+      'Hanya fokus pada beban, mengabaikan variabel lain',
+      'Tidak melacak kemajuan dengan benar',
+      'Melewatkan minggu deload',
+      'Menambah volume dan intensitas bersamaan',
+      'Mengabaikan penurunan teknik demi beban lebih berat'
     ],
-    relatedPrinciples: ['Specificity', 'Recovery', 'Individual Variation']
+    relatedPrinciples: ['Spesifisitas', 'Pemulihan', 'Variasi Individual']
   },
   {
     id: 'specificity',
-    name: 'Specificity (SAID Principle)',
-    category: 'Adaptation',
-    description: 'Specific Adaptations to Imposed Demands - your body adapts specifically to the type of stress you place on it.',
+    name: 'Spesifisitas (Prinsip SAID)',
+    category: 'Adaptasi',
+    description: 'Adaptasi Spesifik terhadap Tuntutan yang Diberikan - tubuh Anda beradaptasi secara khusus terhadap jenis stres yang Anda berikan padanya.',
     keyPoints: [
-      'Adaptations are specific to the training stimulus',
-      'Energy system specificity is crucial',
-      'Movement pattern specificity matters',
-      'Velocity and load specificity applies',
-      'Training must match your goals'
+      'Adaptasi spesifik terhadap stimulus latihan',
+      'Spesifisitas sistem energi sangat penting',
+      'Spesifisitas pola gerakan sangat berpengaruh',
+      'Spesifisitas kecepatan dan beban berlaku',
+      'Latihan harus sesuai dengan tujuan Anda'
     ],
     application: [
-      'Train the movement patterns you want to improve',
-      'Use similar energy systems to your sport/goal',
-      'Practice at speeds relevant to your activity',
-      'Include sport-specific skills in training',
-      'Match training loads to performance demands'
+      'Latih pola gerakan yang ingin Anda tingkatkan',
+      'Gunakan sistem energi yang mirip dengan olahraga/tujuan Anda',
+      'Berlatih pada kecepatan yang relevan dengan aktivitas Anda',
+      'Sertakan keterampilan khusus olahraga dalam latihan',
+      'Sesuaikan beban latihan dengan tuntutan performa'
     ],
     examples: [
-      'Marathon runners focus on aerobic base building',
-      'Powerlifters train the squat, bench, deadlift specifically',
-      'Swimmers spend most time in the pool',
-      'Basketball players practice jumping and quick direction changes',
-      'CrossFit athletes train varied, high-intensity movements'
+      'Pelari maraton fokus pada pembangunan dasar aerobik',
+      'Powerlifter berlatih squat, bench press, deadlift secara khusus',
+      'Perenang menghabiskan sebagian besar waktu di kolam',
+      'Pemain basket berlatih lompat dan perubahan arah cepat',
+      'Atlet CrossFit berlatih gerakan bervariasi intensitas tinggi'
     ],
     commonMistakes: [
-      'Training general fitness when specific goals exist',
-      'Only training in one rep range for strength goals',
-      'Ignoring movement quality for complex skills',
-      'Not practicing competition conditions',
-      'Focusing on weaknesses while neglecting strengths'
+      'Berlatih kebugaran umum padahal ada tujuan spesifik',
+      'Hanya berlatih dalam satu rentang repetisi untuk tujuan kekuatan',
+      'Mengabaikan kualitas gerakan untuk keterampilan kompleks',
+      'Tidak berlatih dalam kondisi kompetisi',
+      'Fokus pada kelemahan sambil mengabaikan kekuatan'
     ],
-    relatedPrinciples: ['Progressive Overload', 'Individual Variation']
+    relatedPrinciples: ['Beban Progresif', 'Variasi Individual']
   },
   {
     id: 'recovery',
-    name: 'Recovery and Supercompensation',
-    category: 'Recovery',
-    description: 'Adaptations occur during rest periods. Proper recovery allows the body to rebuild stronger than before.',
+    name: 'Pemulihan dan Superkompensasi',
+    category: 'Pemulihan',
+    description: 'Adaptasi terjadi selama periode istirahat. Pemulihan yang tepat memungkinkan tubuh membangun kembali lebih kuat dari sebelumnya.',
     keyPoints: [
-      'Growth happens during rest, not training',
-      'Supercompensation requires adequate recovery time',
-      'Sleep is the most important recovery tool',
-      'Nutrition timing affects recovery',
-      'Active recovery can enhance adaptation'
+      'Pertumbuhan terjadi saat istirahat, bukan saat latihan',
+      'Superkompensasi memerlukan waktu pemulihan yang cukup',
+      'Tidur adalah alat pemulihan paling penting',
+      'Waktu nutrisi mempengaruhi pemulihan',
+      'Pemulihan aktif dapat meningkatkan adaptasi'
     ],
     application: [
-      'Get 7-9 hours of quality sleep nightly',
-      'Plan rest days between intense sessions',
-      'Use active recovery (walking, light movement)',
-      'Manage life stress to improve training recovery',
-      'Time post-workout nutrition within 2 hours',
-      'Listen to your body\'s fatigue signals'
+      'Tidur berkualitas 7-9 jam setiap malam',
+      'Rencanakan hari istirahat di antara sesi intensif',
+      'Gunakan pemulihan aktif (jalan kaki, gerakan ringan)',
+      'Kelola stres hidup untuk meningkatkan pemulihan latihan',
+      'Atur nutrisi pasca latihan dalam 2 jam',
+      'Dengarkan sinyal kelelahan tubuh Anda'
     ],
     examples: [
-      'Sleep 8+ hours for optimal hormone production',
-      'Take 48-72 hours between training same muscle groups',
-      'Light yoga or walking on off days',
-      'Post-workout meal with protein and carbs',
-      'Reduce training volume during high life stress'
+      'Tidur 8+ jam untuk produksi hormon optimal',
+      'Beri jeda 48-72 jam antara latihan kelompok otot yang sama',
+      'Yoga ringan atau jalan kaki pada hari libur',
+      'Makanan pasca latihan dengan protein dan karbohidrat',
+      'Kurangi volume latihan saat stres hidup tinggi'
     ],
     commonMistakes: [
-      'Training through fatigue without proper rest',
-      'Sleeping less than 6 hours regularly',
-      'Doing high-intensity work every day',
-      'Ignoring stress from life outside the gym',
-      'Not eating enough to support recovery',
-      'Confusing soreness with effective training'
+      'Berlatih meski lelah tanpa istirahat yang cukup',
+      'Tidur kurang dari 6 jam secara teratur',
+      'Melakukan latihan intensitas tinggi setiap hari',
+      'Mengabaikan stres dari kehidupan di luar gym',
+      'Tidak makan cukup untuk mendukung pemulihan',
+      'Mengira nyeri otot sama dengan latihan yang efektif'
     ],
-    relatedPrinciples: ['Progressive Overload', 'Individual Variation']
+    relatedPrinciples: ['Beban Progresif', 'Variasi Individual']
   },
   {
     id: 'periodization',
-    name: 'Periodization',
-    category: 'Periodization',
-    description: 'Systematic planning of training that varies intensity, volume, and specificity over time to optimize performance and prevent overtraining.',
+    name: 'Periodisasi',
+    category: 'Periodisasi',
+    description: 'Perencanaan latihan sistematis yang memvariasikan intensitas, volume, dan spesifisitas dari waktu ke waktu untuk mengoptimalkan performa dan mencegah overtraining.',
     keyPoints: [
-      'Varies training stimulus over time',
-      'Prevents staleness and plateaus',
-      'Peaks performance for specific times',
-      'Manages fatigue accumulation',
-      'Balances stress and recovery cycles'
+      'Memvariasikan stimulus latihan dari waktu ke waktu',
+      'Mencegah kejenuhan dan plateau',
+      'Memuncakkan performa untuk waktu tertentu',
+      'Mengelola akumulasi kelelahan',
+      'Menyeimbangkan siklus stres dan pemulihan'
     ],
     application: [
-      'Plan training in mesocycles (4-6 weeks)',
-      'Vary intensity and volume inversely',
-      'Include deload weeks every 4-6 weeks',
-      'Peak for competitions or testing',
-      'Use different training phases (hypertrophy, strength, power)',
-      'Adjust training based on life circumstances'
+      'Rencanakan latihan dalam mesosiklus (4-6 minggu)',
+      'Variasikan intensitas dan volume secara terbalik',
+      'Sertakan minggu deload setiap 4-6 minggu',
+      'Puncak untuk kompetisi atau tes',
+      'Gunakan fase latihan berbeda (hipertrofi, kekuatan, power)',
+      'Sesuaikan latihan berdasarkan keadaan hidup'
     ],
     examples: [
-      'Block 1: High volume, moderate intensity (hypertrophy)',
-      'Block 2: Moderate volume, high intensity (strength)',
-      'Block 3: Low volume, very high intensity (peaking)',
-      'Week 1-3: Build, Week 4: Deload (reduce volume 40-60%)',
-      'Off-season: General fitness, In-season: Sport-specific'
+      'Blok 1: Volume tinggi, intensitas sedang (hipertrofi)',
+      'Blok 2: Volume sedang, intensitas tinggi (kekuatan)',
+      'Blok 3: Volume rendah, intensitas sangat tinggi (puncak)',
+      'Minggu 1-3: Membangun, Minggu 4: Deload (kurangi volume 40-60%)',
+      'Off-season: Kebugaran umum, In-season: Spesifik olahraga'
     ],
     commonMistakes: [
-      'Training at high intensity year-round',
-      'Never taking deload weeks',
-      'Not planning peaks for important events',
-      'Randomly changing programs without purpose',
-      'Ignoring volume-intensity relationship'
+      'Berlatih dengan intensitas tinggi sepanjang tahun',
+      'Tidak pernah mengambil minggu deload',
+      'Tidak merencanakan puncak untuk acara penting',
+      'Mengubah program secara acak tanpa tujuan',
+      'Mengabaikan hubungan volume-intensitas'
     ],
-    relatedPrinciples: ['Progressive Overload', 'Recovery', 'Individual Variation']
+    relatedPrinciples: ['Beban Progresif', 'Pemulihan', 'Variasi Individual']
   },
   {
     id: 'individual-variation',
-    name: 'Individual Variation',
-    category: 'Programming',
-    description: 'Everyone responds differently to training based on genetics, experience, lifestyle, and recovery capacity.',
+    name: 'Variasi Individual',
+    category: 'Pemrograman',
+    description: 'Setiap orang merespon latihan secara berbeda berdasarkan genetik, pengalaman, gaya hidup, dan kapasitas pemulihan.',
     keyPoints: [
-      'No single program works for everyone',
-      'Recovery needs vary significantly',
-      'Training age affects adaptation rate',
-      'Genetics influence response to different stimuli',
-      'Lifestyle factors impact training capacity'
+      'Tidak ada satu program yang cocok untuk semua orang',
+      'Kebutuhan pemulihan sangat bervariasi',
+      'Usia latihan mempengaruhi tingkat adaptasi',
+      'Genetik mempengaruhi respon terhadap stimulus berbeda',
+      'Faktor gaya hidup mempengaruhi kapasitas latihan'
     ],
     application: [
-      'Start conservative and adjust based on response',
-      'Track individual metrics (sleep, stress, performance)',
-      'Modify programs based on life circumstances',
-      'Consider training history when programming',
-      'Account for individual strengths and weaknesses',
-      'Adjust recovery needs based on age and experience'
+      'Mulai konservatif dan sesuaikan berdasarkan respon',
+      'Lacak metrik individual (tidur, stres, performa)',
+      'Modifikasi program berdasarkan keadaan hidup',
+      'Pertimbangkan riwayat latihan saat programming',
+      'Perhitungkan kekuatan dan kelemahan individual',
+      'Sesuaikan kebutuhan pemulihan berdasarkan usia dan pengalaman'
     ],
     examples: [
-      'Beginner: Gains with 3x/week, Advanced: Needs 5-6x/week',
-      'Some respond better to higher volume, others to higher intensity',
-      'Stress from work may require reduced training load',
-      'Older athletes need more recovery time',
-      'Different body types excel at different exercises'
+      'Pemula: Kemajuan dengan 3x/minggu, Lanjutan: Butuh 5-6x/minggu',
+      'Beberapa merespon lebih baik pada volume tinggi, lainnya pada intensitas tinggi',
+      'Stres dari pekerjaan mungkin memerlukan pengurangan beban latihan',
+      'Atlet yang lebih tua membutuhkan lebih banyak waktu pemulihan',
+      'Tipe tubuh berbeda unggul dalam latihan berbeda'
     ],
     commonMistakes: [
-      'Following programs without modification',
-      'Comparing your progress to others',
-      'Not adjusting for life stress or age',
-      'Ignoring individual strengths and weaknesses',
-      'Using same program regardless of experience level'
+      'Mengikuti program tanpa modifikasi',
+      'Membandingkan kemajuan Anda dengan orang lain',
+      'Tidak menyesuaikan dengan stres hidup atau usia',
+      'Mengabaikan kekuatan dan kelemahan individual',
+      'Menggunakan program yang sama tanpa mempertimbangkan tingkat pengalaman'
     ],
-    relatedPrinciples: ['Recovery', 'Progressive Overload', 'Periodization']
+    relatedPrinciples: ['Pemulihan', 'Beban Progresif', 'Periodisasi']
   },
   {
     id: 'reversibility',
-    name: 'Reversibility (Use It or Lose It)',
-    category: 'Adaptation',
-    description: 'Training adaptations are reversible. When you stop training, you lose the adaptations you gained.',
+    name: 'Reversibilitas (Gunakan atau Hilang)',
+    category: 'Adaptasi',
+    description: 'Adaptasi latihan bersifat reversibel. Ketika Anda berhenti berlatih, Anda akan kehilangan adaptasi yang telah diperoleh.',
     keyPoints: [
-      'Adaptations fade without continued stimulus',
-      'Different qualities fade at different rates',
-      'Complete cessation causes faster decline',
-      'Maintenance requires less volume than building',
-      'Some adaptations are more resistant to loss'
+      'Adaptasi memudar tanpa stimulus berkelanjutan',
+      'Kualitas berbeda memudar pada tingkat berbeda',
+      'Penghentian total menyebabkan penurunan lebih cepat',
+      'Pemeliharaan memerlukan volume lebih sedikit daripada membangun',
+      'Beberapa adaptasi lebih tahan terhadap kehilangan'
     ],
     application: [
-      'Plan maintenance phases during breaks',
-      'Use minimum effective dose during busy periods',
-      'Prioritize movement quality during low-volume phases',
-      'Plan brief training sessions over complete breaks',
-      'Focus on maintaining strength and movement patterns'
+      'Rencanakan fase pemeliharaan selama istirahat',
+      'Gunakan dosis efektif minimum selama periode sibuk',
+      'Prioritaskan kualitas gerakan selama fase volume rendah',
+      'Rencanakan sesi latihan singkat daripada istirahat total',
+      'Fokus pada mempertahankan kekuatan dan pola gerakan'
     ],
     examples: [
-      'Strength decreases 10-15% after 2 weeks off',
-      'Cardio fitness declines faster than strength',
-      'Skill-based adaptations fade quickly without practice',
-      '1-2 sessions/week can maintain most adaptations',
-      'Movement quality deteriorates without regular practice'
+      'Kekuatan menurun 10-15% setelah 2 minggu tidak latihan',
+      'Kebugaran kardio menurun lebih cepat daripada kekuatan',
+      'Adaptasi berbasis keterampilan memudar cepat tanpa latihan',
+      '1-2 sesi/minggu dapat mempertahankan sebagian besar adaptasi',
+      'Kualitas gerakan memburuk tanpa latihan teratur'
     ],
     commonMistakes: [
-      'Taking extended breaks without maintenance training',
-      'Assuming you can quickly return to previous levels',
-      'Not planning for life circumstances that interrupt training',
-      'All-or-nothing mentality (train hard or not at all)',
-      'Ignoring the importance of movement maintenance'
+      'Mengambil istirahat panjang tanpa latihan pemeliharaan',
+      'Mengasumsikan dapat kembali ke level sebelumnya dengan cepat',
+      'Tidak merencanakan keadaan hidup yang mengganggu latihan',
+      'Mentalitas semua atau tidak sama sekali (latihan keras atau tidak sama sekali)',
+      'Mengabaikan pentingnya pemeliharaan gerakan'
     ],
-    relatedPrinciples: ['Progressive Overload', 'Specificity']
+    relatedPrinciples: ['Beban Progresif', 'Spesifisitas']
   },
   {
     id: 'minimum-effective-dose',
-    name: 'Minimum Effective Dose',
-    category: 'Programming',
-    description: 'The smallest amount of training that produces the desired adaptation. More is not always better.',
+    name: 'Dosis Efektif Minimum',
+    category: 'Pemrograman',
+    description: 'Jumlah latihan terkecil yang menghasilkan adaptasi yang diinginkan. Lebih banyak tidak selalu lebih baik.',
     keyPoints: [
-      'Quality over quantity in training',
-      'Excessive volume can impair recovery',
-      'Efficiency allows for other life priorities',
-      'Individual minimum dose varies',
-      'Focus on highest-impact activities'
+      'Kualitas lebih penting daripada kuantitas dalam latihan',
+      'Volume berlebihan dapat mengganggu pemulihan',
+      'Efisiensi memungkinkan prioritas hidup lainnya',
+      'Dosis minimum individual bervariasi',
+      'Fokus pada aktivitas berdampak tertinggi'
     ],
     application: [
-      'Start with basic compound movements',
-      'Use 80/20 rule - focus on exercises with biggest impact',
-      'Prioritize consistency over perfection',
-      'Begin with 2-3 training days per week',
-      'Focus on progressive overload over training volume',
-      'Allow adequate recovery between sessions'
+      'Mulai dengan gerakan compound dasar',
+      'Gunakan aturan 80/20 - fokus pada latihan berdampak terbesar',
+      'Prioritaskan konsistensi daripada kesempurnaan',
+      'Mulai dengan 2-3 hari latihan per minggu',
+      'Fokus pada beban progresif daripada volume latihan',
+      'Beri pemulihan yang cukup antar sesi'
     ],
     examples: [
-      '2-3 full-body sessions/week for beginners',
-      '3-5 compound movements per session',
-      '45-60 minutes including warm-up and cool-down',
-      'Strength: 3x5 major lifts, 2-3x/week',
-      'Cardio: 20-30 minutes, 2-3x/week'
+      '2-3 sesi full-body/minggu untuk pemula',
+      '3-5 gerakan compound per sesi',
+      '45-60 menit termasuk pemanasan dan pendinginan',
+      'Kekuatan: 3x5 lift utama, 2-3x/minggu',
+      'Kardio: 20-30 menit, 2-3x/minggu'
     ],
     commonMistakes: [
-      'Thinking more training is always better',
-      'Adding volume before mastering basics',
-      'Training through fatigue consistently',
-      'Copying advanced athlete programs as a beginner',
-      'Not allowing time for adaptation to occur'
+      'Berpikir lebih banyak latihan selalu lebih baik',
+      'Menambah volume sebelum menguasai dasar-dasar',
+      'Berlatih meski lelah secara konsisten',
+      'Menyalin program atlet lanjutan sebagai pemula',
+      'Tidak memberi waktu untuk adaptasi terjadi'
     ],
-    relatedPrinciples: ['Recovery', 'Individual Variation']
+    relatedPrinciples: ['Pemulihan', 'Variasi Individual']
   },
   {
     id: 'nutrition-timing',
-    name: 'Nutrition for Training',
-    category: 'Nutrition',
-    description: 'Proper nutrition timing and composition support training adaptations, performance, and recovery.',
+    name: 'Nutrisi untuk Latihan',
+    category: 'Nutrisi',
+    description: 'Waktu dan komposisi nutrisi yang tepat mendukung adaptasi latihan, performa, dan pemulihan.',
     keyPoints: [
-      'Fuel performance and recovery through food',
-      'Timing matters for optimization',
-      'Protein intake supports muscle development',
-      'Carbohydrates fuel high-intensity exercise',
-      'Hydration affects performance significantly'
+      'Bahan bakar performa dan pemulihan melalui makanan',
+      'Waktu penting untuk optimisasi',
+      'Asupan protein mendukung perkembangan otot',
+      'Karbohidrat menjadi bahan bakar latihan intensitas tinggi',
+      'Hidrasi mempengaruhi performa secara signifikan'
     ],
     application: [
-      'Eat protein throughout the day (20-30g per meal)',
-      'Consume carbs around training sessions',
-      'Post-workout meal within 2 hours of training',
-      'Stay hydrated before, during, and after exercise',
-      'Adjust calories to match training demands and goals'
+      'Makan protein sepanjang hari (20-30g per makanan)',
+      'Konsumsi karbohidrat di sekitar sesi latihan',
+      'Makanan pasca latihan dalam 2 jam setelah latihan',
+      'Tetap terhidrasi sebelum, selama, dan setelah olahraga',
+      'Sesuaikan kalori dengan tuntutan latihan dan tujuan'
     ],
     examples: [
-      'Pre-workout: Banana and coffee 30-60 min before',
-      'Post-workout: Protein shake and carbs within 30 min',
-      'Daily: 1g protein per lb bodyweight',
-      'Training days: More carbs, recovery days: more fats',
-      'Hydration: Clear urine as hydration indicator'
+      'Pra-latihan: Pisang dan kopi 30-60 menit sebelumnya',
+      'Pasca-latihan: Protein shake dan karbohidrat dalam 30 menit',
+      'Harian: 2,2g protein per kg berat badan',
+      'Hari latihan: Lebih banyak karbohidrat, hari pemulihan: lebih banyak lemak',
+      'Hidrasi: Urin jernih sebagai indikator hidrasi'
     ],
     commonMistakes: [
-      'Training fasted when performance matters',
-      'Not eating enough to support training demands',
-      'Ignoring post-workout nutrition window',
-      'Inadequate protein intake for muscle building',
-      'Dehydration affecting performance and recovery'
+      'Berlatih dalam keadaan puasa saat performa penting',
+      'Tidak makan cukup untuk mendukung tuntutan latihan',
+      'Mengabaikan jendela nutrisi pasca latihan',
+      'Asupan protein tidak cukup untuk pembentukan otot',
+      'Dehidrasi mempengaruhi performa dan pemulihan'
     ],
-    relatedPrinciples: ['Recovery', 'Individual Variation']
+    relatedPrinciples: ['Pemulihan', 'Variasi Individual']
   }
 ];
 
 export const principleCategories = [
-  'Progressive Overload',
-  'Periodization', 
-  'Recovery',
-  'Adaptation',
-  'Programming',
-  'Nutrition'
+  'Beban Progresif',
+  'Periodisasi', 
+  'Pemulihan',
+  'Adaptasi',
+  'Pemrograman',
+  'Nutrisi'
 ];
 
 export const trainingTips = [
-  'Start with bodyweight movements before adding external load',
-  'Master form before increasing intensity',
-  'Track your workouts to ensure progressive overload',
-  'Listen to your body and adjust training accordingly',
-  'Consistency beats perfection every time',
-  'Focus on compound movements for maximum benefit',
-  'Plan deload weeks to prevent overtraining',
-  'Prioritize sleep and nutrition for optimal results'
+  'Mulai dengan gerakan bodyweight sebelum menambah beban eksternal',
+  'Kuasai teknik sebelum meningkatkan intensitas',
+  'Lacak latihan Anda untuk memastikan beban progresif',
+  'Dengarkan tubuh Anda dan sesuaikan latihan sesuai kebutuhan',
+  'Konsistensi mengalahkan kesempurnaan setiap saat',
+  'Fokus pada gerakan compound untuk manfaat maksimal',
+  'Rencanakan minggu deload untuk mencegah overtraining',
+  'Prioritaskan tidur dan nutrisi untuk hasil optimal'
 ];
