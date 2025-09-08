@@ -1,34 +1,34 @@
-# 🏋️ Complete Fitness Guide
+# Complete Fitness Guide
 
 A comprehensive fitness application covering exercises, programs, movement patterns, and training principles for CrossFit, Hyrox, Military training, and more.
 
-## 🌟 Features
+## **Features**
 
-### 💪 Exercise Library
+### **Exercise Library**
 - **25+ Comprehensive Exercises** - Detailed instructions, tips, and variations
 - **Multiple Categories** - CrossFit, Hyrox, Military, Olympic lifting, Gymnastics
 - **Difficulty Progression System** - Step-by-step progressions from beginner to advanced
 - **Muscle Group Targeting** - Filter by primary and secondary muscles
 - **Equipment-Based Filtering** - Find exercises based on available equipment
 
-### 🏃 Workout Programs
+### **Workout Programs**
 - **Pre-built Programs** - CrossFit WODs (Murph, Fran, Cindy), Hyrox training, Navy SEAL PST prep
 - **Custom Workout Builder** - Create personalized workouts with exercise selection
 - **Workout Timer & Progress Tracking** - Built-in timer with start/pause/reset functionality
 - **Progress Logging** - Track reps, weights, and completion status
 
-### 📊 Analytics & History
+### **Analytics & History**
 - **Workout History** - Complete tracking of past workouts with detailed stats
 - **Performance Analytics** - Completion rates, total training hours, workout counts
 - **Progress Visualization** - Track improvement over time
 - **Export Capabilities** - Print workout cards for offline use
 
-### 🎯 Training Science
+### **Training Science**
 - **Movement Patterns** - Six fundamental patterns (Squat, Hinge, Push, Pull, Carry, Rotation)
 - **Training Principles** - Progressive overload, periodization, recovery, specificity
 - **Form Cues & Common Mistakes** - Educational content for proper technique
 
-### 🔧 User Experience
+### **User Experience**
 - **Advanced Search** - Keyboard shortcuts (⌘K, ⌘/, ESC, 1-4) for quick navigation
 - **Favorites System** - Save preferred exercises and programs
 - **Dark Mode** - Toggle between light and dark themes
@@ -36,7 +36,7 @@ A comprehensive fitness application covering exercises, programs, movement patte
 - **PWA Support** - Install as standalone app with offline capabilities
 - **Professional Icons** - Lucide React icon library for clean, consistent UI
 
-## 🚀 Getting Started
+## **Getting Started**
 
 ### Prerequisites
 - Node.js 18+ 
@@ -69,7 +69,7 @@ npm run build
 npm run start
 ```
 
-## 🏗️ Architecture
+## **Architecture**
 
 ### Clean Code Principles
 - **DRY** (Don't Repeat Yourself) - Reusable components and utilities
@@ -92,7 +92,7 @@ src/
 └── app/                # Next.js app router pages
 ```
 
-## 🎨 Tech Stack
+## **Tech Stack**
 
 - **Framework**: Next.js 15 with TypeScript
 - **Styling**: Tailwind CSS v3
@@ -102,7 +102,7 @@ src/
 - **PWA**: Service worker with offline caching
 - **Deployment**: GitHub Actions → GitHub Pages
 
-## 📱 Features in Detail
+## **Features in Detail**
 
 ### Keyboard Shortcuts
 - `⌘K` or `Ctrl+K` - Focus search
@@ -122,7 +122,7 @@ src/
 - Color contrast compliance
 - Screen reader compatibility
 
-## 🔄 Deployment
+## **Deployment**
 
 The application is automatically deployed to GitHub Pages via GitHub Actions:
 
@@ -134,7 +134,7 @@ npm run build
 npm run export
 ```
 
-## 🤝 Contributing
+## **Contributing**
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -142,11 +142,11 @@ npm run export
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## **License**
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+## **Acknowledgments**
 
 - **CrossFit** - For workout methodologies and exercise variations
 - **Hyrox** - For functional fitness training principles  
@@ -157,6 +157,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**Built with ❤️ for the fitness community**
+**Built with love for the fitness community**
 
-*🤖 Enhanced with Claude Code - AI-powered development assistant*
+*Enhanced with Claude Code - AI-powered development assistant*
