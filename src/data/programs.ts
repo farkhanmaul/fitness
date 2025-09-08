@@ -1,9 +1,9 @@
 export interface WorkoutProgram {
   id: string;
   name: string;
-  category: 'CrossFit' | 'Hyrox' | 'Navy SEAL' | 'Military' | 'Strength' | 'Endurance';
+  category: 'CrossFit' | 'Hyrox' | 'Navy SEAL' | 'Militer' | 'Kekuatan' | 'Daya Tahan';
   duration: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty: 'Pemula' | 'Menengah' | 'Lanjutan';
   description: string;
   objectives: string[];
   workouts: Workout[];
@@ -14,7 +14,7 @@ export interface WorkoutProgram {
 export interface Workout {
   day: number;
   name: string;
-  type: 'AMRAP' | 'For Time' | 'EMOM' | 'Tabata' | 'Strength' | 'Endurance' | 'Circuit';
+  type: 'AMRAP' | 'Untuk Waktu' | 'EMOM' | 'Tabata' | 'Kekuatan' | 'Daya Tahan' | 'Sirkuit';
   duration?: string;
   rounds?: number;
   exercises: WorkoutExercise[];
@@ -37,59 +37,59 @@ export const workoutPrograms: WorkoutProgram[] = [
     id: 'murph',
     name: 'Murph',
     category: 'CrossFit',
-    duration: 'Single Workout',
-    difficulty: 'Advanced',
-    description: 'Classic Hero WOD honoring Navy Lieutenant Michael Murphy. One of the most challenging CrossFit benchmarks.',
-    objectives: ['Build mental toughness', 'Improve muscular endurance', 'Honor fallen heroes'],
-    equipment: ['Pull-up Bar', 'Weighted Vest (optional)'],
+    duration: 'Latihan Tunggal',
+    difficulty: 'Lanjutan',
+    description: 'WOD Pahlawan klasik untuk menghormati Letnan Angkatan Laut Michael Murphy. Salah satu benchmark CrossFit paling menantang.',
+    objectives: ['Membangun ketahanan mental', 'Meningkatkan daya tahan otot', 'Menghormati pahlawan yang gugur'],
+    equipment: ['Pull-up Bar', 'Rompi Berbeban (opsional)'],
     workouts: [
       {
         day: 1,
         name: 'Murph',
-        type: 'For Time',
+        type: 'Untuk Waktu',
         exercises: [
-          { name: 'Run', distance: '1 mile' },
+          { name: 'Lari', distance: '1 mil' },
           { name: 'Pull-ups', reps: '100' },
           { name: 'Push-ups', reps: '200' },
           { name: 'Air Squats', reps: '300' },
-          { name: 'Run', distance: '1 mile' }
+          { name: 'Lari', distance: '1 mil' }
         ],
-        notes: 'Partition the pull-ups, push-ups, and squats as needed. 20lb vest for men, 14lb for women (optional).'
+        notes: 'Bagi pull-ups, push-ups, dan squats sesuai kebutuhan. Rompi 20lb untuk pria, 14lb untuk wanita (opsional).'
       }
     ],
-    notes: 'Scale by reducing reps or removing weighted vest. Common partition: 20 rounds of 5 pull-ups, 10 push-ups, 15 squats.'
+    notes: 'Sesuaikan dengan mengurangi repetisi atau melepas rompi berbeban. Pembagian umum: 20 ronde 5 pull-ups, 10 push-ups, 15 squats.'
   },
   {
     id: 'fran',
     name: 'Fran',
     category: 'CrossFit',
-    duration: 'Single Workout',
-    difficulty: 'Intermediate',
-    description: 'Fast, intense benchmark WOD combining thrusters and pull-ups. A true test of power and technique under fatigue.',
-    objectives: ['Develop power endurance', 'Master thruster technique', 'Build lactate tolerance'],
-    equipment: ['Barbell', 'Plates', 'Pull-up Bar'],
+    duration: 'Latihan Tunggal',
+    difficulty: 'Menengah',
+    description: 'WOD benchmark cepat dan intens yang menggabungkan thrusters dan pull-ups. Ujian sebenarnya untuk kekuatan dan teknik dalam kondisi lelah.',
+    objectives: ['Mengembangkan daya tahan kekuatan', 'Menguasai teknik thruster', 'Membangun toleransi laktat'],
+    equipment: ['Barbell', 'Pelat Beban', 'Pull-up Bar'],
     workouts: [
       {
         day: 1,
         name: 'Fran',
-        type: 'For Time',
+        type: 'Untuk Waktu',
         exercises: [
           { name: 'Thrusters', reps: '21-15-9', weight: '95lb/65lb' },
           { name: 'Pull-ups', reps: '21-15-9' }
         ],
-        notes: 'Complete 21 thrusters then 21 pull-ups, then 15 of each, then 9 of each. Goal time: under 5 minutes for elite athletes.'
+        notes: 'Selesaikan 21 thrusters kemudian 21 pull-ups, lalu 15 dari masing-masing, kemudian 9 dari masing-masing. Target waktu: di bawah 5 menit untuk atlet elit.'
       }
     ],
-    notes: 'Scale weight and substitute pull-ups with jumping pull-ups or ring rows if needed.'
+    notes: 'Sesuaikan beban dan ganti pull-ups dengan jumping pull-ups atau ring rows jika diperlukan.'
   },
   {
     id: 'cindy',
     name: 'Cindy',
     category: 'CrossFit',
-    duration: 'Single Workout',
-    difficulty: 'Beginner',
-    description: 'Classic bodyweight AMRAP that builds endurance and teaches pacing. Perfect introduction to CrossFit methodology.',
-    objectives: ['Build aerobic capacity', 'Master bodyweight movements', 'Learn pacing strategies'],
+    duration: 'Latihan Tunggal',
+    difficulty: 'Pemula',
+    description: 'AMRAP (Sebanyak Mungkin Repetisi) bodyweight klasik yang membangun daya tahan dan mengajarkan pacing. Pengenalan sempurna untuk metodologi CrossFit.',
+    objectives: ['Membangun kapasitas aerobik', 'Menguasai gerakan bodyweight', 'Mempelajari strategi pacing'],
     equipment: ['Pull-up Bar'],
     workouts: [
       {
@@ -102,53 +102,53 @@ export const workoutPrograms: WorkoutProgram[] = [
           { name: 'Push-ups', reps: '10' },
           { name: 'Air Squats', reps: '15' }
         ],
-        notes: 'Complete as many rounds as possible in 20 minutes. Good score: 15+ rounds.'
+        notes: 'Selesaikan sebanyak mungkin ronde dalam 20 menit. Skor bagus: 15+ ronde.'
       }
     ],
-    notes: 'Scale pull-ups to jumping pull-ups or ring rows. Push-ups can be done from knees.'
+    notes: 'Sesuaikan pull-ups menjadi jumping pull-ups atau ring rows. Push-ups dapat dilakukan dari lutut.'
   },
 
   // Hyrox Training
   {
     id: 'hyrox-prep-8week',
-    name: 'Hyrox Preparation 8-Week',
+    name: 'Persiapan Hyrox 8 Minggu',
     category: 'Hyrox',
-    duration: '8 Weeks',
-    difficulty: 'Intermediate',
-    description: 'Comprehensive 8-week program designed to prepare for Hyrox competition. Focuses on the specific movements and energy systems.',
-    objectives: ['Master Hyrox movements', 'Build hybrid fitness', 'Improve pacing strategy'],
+    duration: '8 Minggu',
+    difficulty: 'Menengah',
+    description: 'Program komprehensif 8 minggu yang dirancang untuk mempersiapkan kompetisi Hyrox. Fokus pada gerakan spesifik dan sistem energi.',
+    objectives: ['Menguasai gerakan Hyrox', 'Membangun kebugaran hybrid', 'Meningkatkan strategi pacing'],
     equipment: ['Ski Erg', 'Sled', 'Burpees', 'Rowing Machine', 'Farmers Carry', 'Sandbag', 'Wall Balls', 'Kettlebells'],
     workouts: [
       {
         day: 1,
-        name: 'Hyrox Simulation (Week 1)',
-        type: 'Circuit',
+        name: 'Simulasi Hyrox (Minggu 1)',
+        type: 'Sirkuit',
         exercises: [
           { name: 'Ski Erg', distance: '500m' },
-          { name: 'Sled Push', distance: '25m', weight: 'Light' },
+          { name: 'Sled Push', distance: '25m', weight: 'Ringan' },
           { name: 'Burpee Broad Jumps', reps: '20' },
           { name: 'Rowing', distance: '500m' },
-          { name: 'Farmers Carry', distance: '100m', weight: 'Light' },
+          { name: 'Farmers Carry', distance: '100m', weight: 'Ringan' },
           { name: 'Sandbag Lunges', distance: '50m' },
           { name: 'Wall Balls', reps: '50', weight: '20lb/14lb' },
-          { name: 'Run', distance: '200m' }
+          { name: 'Lari', distance: '200m' }
         ],
-        notes: 'Complete circuit with 2-3 minutes rest between stations. Focus on technique over speed.'
+        notes: 'Selesaikan sirkuit dengan istirahat 2-3 menit antar stasiun. Fokus pada teknik daripada kecepatan.'
       },
       {
         day: 2,
-        name: 'Running Intervals',
-        type: 'Endurance',
+        name: 'Interval Lari',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Run', distance: '1km' },
-          { name: 'Interval Run', distance: '400m x 6', notes: '90s rest between intervals' },
-          { name: 'Cool-down Run', distance: '1km' }
+          { name: 'Lari Pemanasan', distance: '1km' },
+          { name: 'Lari Interval', distance: '400m x 6', notes: 'Istirahat 90 detik antar interval' },
+          { name: 'Lari Pendinginan', distance: '1km' }
         ]
       },
       {
         day: 3,
-        name: 'Strength Focus',
-        type: 'Strength',
+        name: 'Fokus Kekuatan',
+        type: 'Kekuatan',
         exercises: [
           { name: 'Deadlift', reps: '5x5', weight: '80%' },
           { name: 'Front Squat', reps: '4x8' },
@@ -157,40 +157,40 @@ export const workoutPrograms: WorkoutProgram[] = [
         ]
       }
     ],
-    notes: 'Progress weekly by increasing intensity and reducing rest periods. Week 8 should be a full Hyrox simulation.'
+    notes: 'Progres mingguan dengan meningkatkan intensitas dan mengurangi periode istirahat. Minggu 8 harus berupa simulasi Hyrox penuh.'
   },
 
   // Navy SEAL Training
   {
     id: 'seal-pst-prep',
-    name: 'Navy SEAL PST Preparation',
+    name: 'Persiapan PST Navy SEAL',
     category: 'Navy SEAL',
-    duration: '12 Weeks',
-    difficulty: 'Advanced',
-    description: 'Physical Screening Test preparation program focusing on swimming, running, and calisthenics. Builds the foundation for SEAL training.',
-    objectives: ['Pass PST standards', 'Build swimming endurance', 'Master calisthenics', 'Develop mental toughness'],
-    equipment: ['Pool', 'Pull-up Bar'],
+    duration: '12 Minggu',
+    difficulty: 'Lanjutan',
+    description: 'Program persiapan Physical Screening Test yang fokus pada renang, lari, dan kalistenik. Membangun fondasi untuk pelatihan SEAL.',
+    objectives: ['Lulus standar PST', 'Membangun daya tahan renang', 'Menguasai kalistenik', 'Mengembangkan ketahanan mental'],
+    equipment: ['Kolam Renang', 'Pull-up Bar'],
     workouts: [
       {
         day: 1,
-        name: 'PST Practice (Week 1)',
-        type: 'For Time',
+        name: 'Latihan PST (Minggu 1)',
+        type: 'Untuk Waktu',
         exercises: [
-          { name: 'Swim (Sidestroke/Breaststroke)', distance: '500 yards', notes: 'Goal: under 12:30' },
-          { name: 'Rest', duration: '10 minutes' },
-          { name: 'Push-ups', reps: 'max in 2 minutes', notes: 'Goal: 50+' },
-          { name: 'Rest', duration: '2 minutes' },
-          { name: 'Sit-ups', reps: 'max in 2 minutes', notes: 'Goal: 50+' },
-          { name: 'Rest', duration: '2 minutes' },
-          { name: 'Pull-ups', reps: 'max (no time limit)', notes: 'Goal: 10+' },
-          { name: 'Rest', duration: '10 minutes' },
-          { name: 'Run', distance: '1.5 miles', notes: 'Goal: under 10:30' }
+          { name: 'Renang (Sidestroke/Breaststroke)', distance: '500 yards', notes: 'Target: di bawah 12:30' },
+          { name: 'Istirahat', duration: '10 menit' },
+          { name: 'Push-ups', reps: 'maksimal dalam 2 menit', notes: 'Target: 50+' },
+          { name: 'Istirahat', duration: '2 menit' },
+          { name: 'Sit-ups', reps: 'maksimal dalam 2 menit', notes: 'Target: 50+' },
+          { name: 'Istirahat', duration: '2 menit' },
+          { name: 'Pull-ups', reps: 'maksimal (tanpa batas waktu)', notes: 'Target: 10+' },
+          { name: 'Istirahat', duration: '10 menit' },
+          { name: 'Lari', distance: '1.5 mil', notes: 'Target: di bawah 10:30' }
         ]
       },
       {
         day: 2,
-        name: 'Calisthenics Circuit',
-        type: 'Circuit',
+        name: 'Sirkuit Kalistenik',
+        type: 'Sirkuit',
         rounds: 4,
         exercises: [
           { name: 'Push-ups', reps: '20' },
@@ -199,62 +199,62 @@ export const workoutPrograms: WorkoutProgram[] = [
           { name: 'Flutter Kicks', reps: '40' },
           { name: 'Mountain Climbers', reps: '30' }
         ],
-        restBetweenRounds: '2 minutes'
+        restBetweenRounds: '2 menit'
       },
       {
         day: 3,
-        name: 'Long Swim',
-        type: 'Endurance',
+        name: 'Renang Jarak Jauh',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Swim', distance: '200 yards' },
-          { name: 'Main Set', distance: '1000 yards', notes: 'Steady pace, focus on technique' },
-          { name: 'Cool-down Swim', distance: '200 yards' }
+          { name: 'Renang Pemanasan', distance: '200 yards' },
+          { name: 'Set Utama', distance: '1000 yards', notes: 'Pace stabil, fokus pada teknik' },
+          { name: 'Renang Pendinginan', distance: '200 yards' }
         ]
       }
     ],
-    notes: 'PST minimum standards: 500yd swim 12:30, Push-ups 50, Sit-ups 50, Pull-ups 10, 1.5mi run 10:30. Competitive standards are much higher.'
+    notes: 'Standar minimum PST: renang 500yd 12:30, Push-ups 50, Sit-ups 50, Pull-ups 10, lari 1.5mil 10:30. Standar kompetitif jauh lebih tinggi.'
   },
 
   // Military Training
   {
     id: 'army-apft-prep',
-    name: 'Army APFT Preparation',
-    category: 'Military',
-    duration: '8 Weeks',
-    difficulty: 'Intermediate',
-    description: 'Army Physical Fitness Test preparation focusing on push-ups, sit-ups, and 2-mile run performance.',
-    objectives: ['Score 300 on APFT', 'Build muscular endurance', 'Improve running performance'],
-    equipment: ['Running Track'],
+    name: 'Persiapan APFT Angkatan Darat',
+    category: 'Militer',
+    duration: '8 Minggu',
+    difficulty: 'Menengah',
+    description: 'Persiapan Army Physical Fitness Test yang fokus pada push-ups, sit-ups, dan performa lari 2 mil.',
+    objectives: ['Meraih skor 300 pada APFT', 'Membangun daya tahan otot', 'Meningkatkan performa lari'],
+    equipment: ['Lintasan Lari'],
     workouts: [
       {
         day: 1,
-        name: 'APFT Practice',
-        type: 'For Time',
+        name: 'Latihan APFT',
+        type: 'Untuk Waktu',
         exercises: [
-          { name: 'Push-ups', reps: 'max in 2 minutes' },
-          { name: 'Rest', duration: '5 minutes' },
-          { name: 'Sit-ups', reps: 'max in 2 minutes' },
-          { name: 'Rest', duration: '5 minutes' },
-          { name: 'Run', distance: '2 miles' }
+          { name: 'Push-ups', reps: 'maksimal dalam 2 menit' },
+          { name: 'Istirahat', duration: '5 menit' },
+          { name: 'Sit-ups', reps: 'maksimal dalam 2 menit' },
+          { name: 'Istirahat', duration: '5 menit' },
+          { name: 'Lari', distance: '2 mil' }
         ],
-        notes: 'Perfect score: Push-ups 77+, Sit-ups 82+, 2-mile run under 13:00 (varies by age/gender)'
+        notes: 'Skor sempurna: Push-ups 77+, Sit-ups 82+, lari 2 mil di bawah 13:00 (bervariasi berdasarkan usia/jenis kelamin)'
       },
       {
         day: 2,
-        name: 'Push-up Pyramid',
-        type: 'Strength',
+        name: 'Piramida Push-up',
+        type: 'Kekuatan',
         exercises: [
-          { name: 'Push-up Pyramid', reps: '1-2-3-4-5-6-7-8-9-10-9-8-7-6-5-4-3-2-1', notes: '10 seconds rest between sets' }
+          { name: 'Piramida Push-up', reps: '1-2-3-4-5-6-7-8-9-10-9-8-7-6-5-4-3-2-1', notes: 'Istirahat 10 detik antar set' }
         ]
       },
       {
         day: 3,
-        name: 'Running Intervals',
-        type: 'Endurance',
+        name: 'Interval Lari',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Run', distance: '0.5 mile' },
-          { name: '400m Intervals', reps: '8', notes: '90 seconds rest between' },
-          { name: 'Cool-down Run', distance: '0.5 mile' }
+          { name: 'Lari Pemanasan', distance: '0.5 mil' },
+          { name: 'Interval 400m', reps: '8', notes: 'Istirahat 90 detik di antara' },
+          { name: 'Lari Pendinginan', distance: '0.5 mil' }
         ]
       }
     ]
@@ -264,86 +264,86 @@ export const workoutPrograms: WorkoutProgram[] = [
   {
     id: '5x5-strength',
     name: 'StrongLifts 5x5',
-    category: 'Strength',
-    duration: '12 Weeks',
-    difficulty: 'Beginner',
-    description: 'Simple but effective strength program focusing on compound movements. Build raw strength with progressive overload.',
-    objectives: ['Increase maximal strength', 'Master compound movements', 'Build muscle mass'],
+    category: 'Kekuatan',
+    duration: '12 Minggu',
+    difficulty: 'Pemula',
+    description: 'Program kekuatan sederhana namun efektif yang fokus pada gerakan compound. Membangun kekuatan mentah dengan progressive overload.',
+    objectives: ['Meningkatkan kekuatan maksimal', 'Menguasai gerakan compound', 'Membangun massa otot'],
     equipment: ['Barbell', 'Squat Rack', 'Bench'],
     workouts: [
       {
         day: 1,
-        name: 'Workout A',
-        type: 'Strength',
+        name: 'Latihan A',
+        type: 'Kekuatan',
         exercises: [
           { name: 'Squat', reps: '5x5' },
           { name: 'Bench Press', reps: '5x5' },
           { name: 'Barbell Row', reps: '5x5' }
         ],
-        notes: 'Add 5lbs to each lift every session. Rest 3-5 minutes between sets.'
+        notes: 'Tambahkan 5lbs untuk setiap lift setiap sesi. Istirahat 3-5 menit antar set.'
       },
       {
         day: 2,
-        name: 'Workout B',
-        type: 'Strength',
+        name: 'Latihan B',
+        type: 'Kekuatan',
         exercises: [
           { name: 'Squat', reps: '5x5' },
           { name: 'Overhead Press', reps: '5x5' },
           { name: 'Deadlift', reps: '1x5' }
         ],
-        notes: 'Alternate A and B workouts. Train 3x per week with rest days between.'
+        notes: 'Bergantian latihan A dan B. Latihan 3x per minggu dengan hari istirahat di antara.'
       }
     ],
-    notes: 'Start with empty barbell or light weight. Focus on perfect form. Deload 10% if you fail 3 sessions in a row.'
+    notes: 'Mulai dengan barbell kosong atau beban ringan. Fokus pada bentuk sempurna. Kurangi beban 10% jika gagal 3 sesi berturut-turut.'
   },
 
   // Endurance Programs
   {
     id: 'couch-to-5k',
     name: 'Couch to 5K',
-    category: 'Endurance',
-    duration: '9 Weeks',
-    difficulty: 'Beginner',
-    description: 'Progressive running program that takes you from couch to completing a 5K run. Perfect for running beginners.',
-    objectives: ['Run continuous 5K', 'Build aerobic base', 'Establish running habit'],
-    equipment: ['Running Shoes'],
+    category: 'Daya Tahan',
+    duration: '9 Minggu',
+    difficulty: 'Pemula',
+    description: 'Program lari progresif yang membawa Anda dari sofa hingga menyelesaikan lari 5K. Sempurna untuk pemula lari.',
+    objectives: ['Lari 5K berkelanjutan', 'Membangun dasar aerobik', 'Membentuk kebiasaan lari'],
+    equipment: ['Sepatu Lari'],
     workouts: [
       {
         day: 1,
-        name: 'Week 1 - Day 1',
-        type: 'Endurance',
+        name: 'Minggu 1 - Hari 1',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Walk', duration: '5 minutes' },
-          { name: 'Run/Walk Intervals', duration: '20 minutes', notes: 'Alternate 60s run, 90s walk x 8' },
-          { name: 'Cool-down Walk', duration: '5 minutes' }
+          { name: 'Jalan Pemanasan', duration: '5 menit' },
+          { name: 'Interval Lari/Jalan', duration: '20 menit', notes: 'Bergantian 60 detik lari, 90 detik jalan x 8' },
+          { name: 'Jalan Pendinginan', duration: '5 menit' }
         ]
       },
       {
         day: 2,
-        name: 'Week 5 - Day 1',
-        type: 'Endurance',
+        name: 'Minggu 5 - Hari 1',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Walk', duration: '5 minutes' },
-          { name: 'Run', duration: '5 minutes' },
-          { name: 'Walk', duration: '3 minutes' },
-          { name: 'Run', duration: '5 minutes' },
-          { name: 'Walk', duration: '3 minutes' },
-          { name: 'Run', duration: '5 minutes' },
-          { name: 'Cool-down Walk', duration: '5 minutes' }
+          { name: 'Jalan Pemanasan', duration: '5 menit' },
+          { name: 'Lari', duration: '5 menit' },
+          { name: 'Jalan', duration: '3 menit' },
+          { name: 'Lari', duration: '5 menit' },
+          { name: 'Jalan', duration: '3 menit' },
+          { name: 'Lari', duration: '5 menit' },
+          { name: 'Jalan Pendinginan', duration: '5 menit' }
         ]
       },
       {
         day: 3,
-        name: 'Week 9 - Day 3',
-        type: 'Endurance',
+        name: 'Minggu 9 - Hari 3',
+        type: 'Daya Tahan',
         exercises: [
-          { name: 'Warm-up Walk', duration: '5 minutes' },
-          { name: 'Run', duration: '30 minutes', notes: 'Continuous run - you did it!' },
-          { name: 'Cool-down Walk', duration: '5 minutes' }
+          { name: 'Jalan Pemanasan', duration: '5 menit' },
+          { name: 'Lari', duration: '30 menit', notes: 'Lari berkelanjutan - Anda berhasil!' },
+          { name: 'Jalan Pendinginan', duration: '5 menit' }
         ]
       }
     ],
-    notes: 'Run 3x per week with rest days. Focus on time, not speed. Repeat weeks if needed.'
+    notes: 'Lari 3x per minggu dengan hari istirahat. Fokus pada waktu, bukan kecepatan. Ulangi minggu jika diperlukan.'
   }
 ];
 
@@ -351,7 +351,7 @@ export const programCategories = [
   'CrossFit',
   'Hyrox', 
   'Navy SEAL',
-  'Military',
-  'Strength',
-  'Endurance'
+  'Militer',
+  'Kekuatan',
+  'Daya Tahan'
 ];

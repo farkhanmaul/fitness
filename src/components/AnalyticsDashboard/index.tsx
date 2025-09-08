@@ -37,13 +37,13 @@ export function AnalyticsDashboard({ isVisible, onClose }: AnalyticsDashboardPro
 
   const getTimeframeLabel = (tf: AnalyticsTimeframe) => {
     switch (tf) {
-      case '7d': return 'Last 7 Days';
-      case '30d': return 'Last 30 Days';
-      case '3m': return 'Last 3 Months';
-      case '6m': return 'Last 6 Months';
-      case '1y': return 'Last Year';
-      case 'all': return 'All Time';
-      default: return 'Last 30 Days';
+      case '7d': return '7 Hari Terakhir';
+      case '30d': return '30 Hari Terakhir';
+      case '3m': return '3 Bulan Terakhir';
+      case '6m': return '6 Bulan Terakhir';
+      case '1y': return 'Tahun Lalu';
+      case 'all': return 'Semua Waktu';
+      default: return '30 Hari Terakhir';
     }
   };
 

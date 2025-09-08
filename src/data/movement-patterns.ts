@@ -21,49 +21,49 @@ export interface Progression {
 export const movementPatterns: MovementPattern[] = [
   {
     id: 'squat-pattern',
-    name: 'Squat Pattern',
-    description: 'Fundamental human movement involving hip and knee flexion. The foundation of athletic performance and daily activities like sitting and standing.',
-    primaryMuscles: ['Quadriceps', 'Glutes', 'Core', 'Calves'],
+    name: 'Pola Squat',
+    description: 'Gerakan dasar manusia yang melibatkan fleksi pinggul dan lutut. Fondasi performa atletik dan aktivitas sehari-hari seperti duduk dan berdiri.',
+    primaryMuscles: ['Quadriceps', 'Glutes', 'Core', 'Betis'],
     keyPrinciples: [
-      'Hips move back and down simultaneously',
-      'Knees track over toes',
-      'Chest stays up and proud',
-      'Weight distributed across whole foot',
-      'Spine maintains neutral curve'
+      'Pinggul bergerak mundur dan ke bawah secara bersamaan',
+      'Lutut sejajar dengan jari kaki',
+      'Dada tetap tegak dan bangga',
+      'Berat badan terdistribusi di seluruh kaki',
+      'Tulang belakang menjaga lengkungan netral'
     ],
     formCues: [
-      '"Sit back into a chair"',
-      '"Push the floor apart with your feet"',
-      '"Big chest, proud posture"',
-      '"Drive through your heels"',
-      '"Knees out, not in"'
+      '"Duduk mundur ke kursi"',
+      '"Dorong lantai menjauh dengan kaki"',
+      '"Dada besar, postur bangga"',
+      '"Dorong melalui tumit"',
+      '"Lutut ke luar, bukan ke dalam"'
     ],
     commonMistakes: [
-      'Knees caving inward (valgus collapse)',
-      'Forward lean with chest dropping',
-      'Rising onto toes/heels lifting',
-      'Not reaching adequate depth',
-      'Rounding of lower back',
-      'Weight shifting to toes'
+      'Lutut runtuh ke dalam (valgus collapse)',
+      'Condong ke depan dengan dada turun',
+      'Naik ke jari kaki/tumit terangkat',
+      'Tidak mencapai kedalaman yang cukup',
+      'Membungkuk punggung bawah',
+      'Berat badan bergeser ke jari kaki'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Master bodyweight movement with proper depth and control',
+        description: 'Kuasai gerakan berat badan dengan kedalaman dan kontrol yang tepat',
         exercises: ['Box Squat', 'Goblet Squat', 'Wall Squat', 'Supported Squat'],
-        focus: ['Mobility', 'Basic pattern', 'Depth achievement', 'Balance']
+        focus: ['Mobilitas', 'Pola dasar', 'Pencapaian kedalaman', 'Keseimbangan']
       },
       {
         level: 'Intermediate',
-        description: 'Add external load while maintaining perfect form',
+        description: 'Tambahkan beban eksternal sambil mempertahankan bentuk sempurna',
         exercises: ['Front Squat', 'Back Squat', 'Overhead Squat', 'Bulgarian Split Squat'],
-        focus: ['Load progression', 'Unilateral strength', 'Core stability', 'Power development']
+        focus: ['Progres beban', 'Kekuatan unilateral', 'Stabilitas core', 'Pengembangan daya']
       },
       {
         level: 'Advanced',
-        description: 'Complex variations and maximal strength development',
+        description: 'Variasi kompleks dan pengembangan kekuatan maksimal',
         exercises: ['Pistol Squat', 'Jump Squat', 'Single-leg Box Squat', 'Pause Squats'],
-        focus: ['Unilateral mastery', 'Explosive power', 'Advanced stability', 'Sport-specific applications']
+        focus: ['Penguasaan unilateral', 'Daya ledak', 'Stabilitas lanjutan', 'Aplikasi spesifik olahraga']
       }
     ],
     exercises: [
@@ -77,59 +77,59 @@ export const movementPatterns: MovementPattern[] = [
       'Pistol Squat'
     ],
     benefits: [
-      'Builds lower body strength and power',
-      'Improves hip and ankle mobility',
-      'Enhances core stability',
-      'Transfers to athletic performance',
-      'Essential for daily activities',
-      'Develops posterior chain'
+      'Membangun kekuatan dan daya tubuh bagian bawah',
+      'Meningkatkan mobilitas pinggul dan pergelangan kaki',
+      'Memperkuat stabilitas core',
+      'Menunjang performa atletik',
+      'Penting untuk aktivitas sehari-hari',
+      'Mengembangkan rantai posterior'
     ]
   },
   {
     id: 'hinge-pattern',
-    name: 'Hip Hinge Pattern',
-    description: 'Movement characterized by hip flexion with minimal knee bend. Essential for lifting objects from the ground and developing posterior chain strength.',
-    primaryMuscles: ['Hamstrings', 'Glutes', 'Lower Back', 'Core'],
+    name: 'Pola Hip Hinge',
+    description: 'Gerakan yang ditandai dengan fleksi pinggul dengan tekukan lutut minimal. Penting untuk mengangkat objek dari lantai dan mengembangkan kekuatan rantai posterior.',
+    primaryMuscles: ['Hamstring', 'Glutes', 'Punggung Bawah', 'Core'],
     keyPrinciples: [
-      'Hips move back first and lead the movement',
-      'Minimal knee bend throughout',
-      'Maintain neutral spine curve',
-      'Load the posterior chain',
-      'Keep weight in heels'
+      'Pinggul bergerak mundur terlebih dahulu dan memimpin gerakan',
+      'Tekukan lutut minimal sepanjang gerakan',
+      'Menjaga lengkungan tulang belakang netral',
+      'Bebankan pada rantai posterior',
+      'Jaga berat di tumit'
     ],
     formCues: [
-      '"Push your hips back to the wall behind you"',
-      '"Bow at the hips, not the waist"',
-      '"Feel a stretch in your hamstrings"',
-      '"Chest up, shoulders back"',
-      '"Drive hips forward to stand"'
+      '"Dorong pinggul ke dinding di belakang"',
+      '"Membungkuk di pinggul, bukan di pinggang"',
+      '"Rasakan peregangan di hamstring"',
+      '"Dada tegak, bahu ke belakang"',
+      '"Dorong pinggul ke depan untuk berdiri"'
     ],
     commonMistakes: [
-      'Rounding the back instead of hinging at hips',
-      'Too much knee bend (turning into squat)',
-      'Weight shifting to toes',
-      'Not reaching full hip extension at top',
-      'Hyperextending back at top position',
-      'Leading with knees instead of hips'
+      'Membungkukkan punggung alih-alih hinge di pinggul',
+      'Terlalu banyak menekuk lutut (berubah menjadi squat)',
+      'Berat badan bergeser ke jari kaki',
+      'Tidak mencapai ekstensi pinggul penuh di atas',
+      'Hiperekstensi punggung di posisi atas',
+      'Memimpin dengan lutut alih-alih pinggul'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Learn proper hip hinge mechanics without load',
+        description: 'Pelajari mekanik hip hinge yang tepat tanpa beban',
         exercises: ['Hip Hinge to Wall', 'Glute Bridge', 'Bird Dog', 'Good Morning (unweighted)'],
-        focus: ['Hip mobility', 'Posterior chain activation', 'Movement pattern', 'Core stability']
+        focus: ['Mobilitas pinggul', 'Aktivasi rantai posterior', 'Pola gerakan', 'Stabilitas core']
       },
       {
         level: 'Intermediate', 
-        description: 'Add load while maintaining perfect hinge pattern',
+        description: 'Tambahkan beban sambil mempertahankan pola hinge sempurna',
         exercises: ['Romanian Deadlift', 'Kettlebell Swing', 'Deadlift', 'Single-leg RDL'],
-        focus: ['Load progression', 'Unilateral stability', 'Power development', 'Hamstring strength']
+        focus: ['Progres beban', 'Stabilitas unilateral', 'Pengembangan daya', 'Kekuatan hamstring']
       },
       {
         level: 'Advanced',
-        description: 'Complex variations and maximal strength development',
+        description: 'Variasi kompleks dan pengembangan kekuatan maksimal',
         exercises: ['Sumo Deadlift', 'Deficit Deadlift', 'Single-leg Deadlift', 'Snatch-grip Deadlift'],
-        focus: ['Maximal strength', 'Advanced variations', 'Speed and power', 'Sport-specific applications']
+        focus: ['Kekuatan maksimal', 'Variasi lanjutan', 'Kecepatan dan daya', 'Aplikasi spesifik olahraga']
       }
     ],
     exercises: [
@@ -142,59 +142,59 @@ export const movementPatterns: MovementPattern[] = [
       'Glute Bridge'
     ],
     benefits: [
-      'Develops posterior chain strength',
-      'Improves hip mobility and flexibility',
-      'Prevents lower back injuries',
-      'Essential for athletic performance',
-      'Builds functional strength',
-      'Enhances posture'
+      'Mengembangkan kekuatan rantai posterior',
+      'Meningkatkan mobilitas dan fleksibilitas pinggul',
+      'Mencegah cedera punggung bawah',
+      'Penting untuk performa atletik',
+      'Membangun kekuatan fungsional',
+      'Memperbaiki postur'
     ]
   },
   {
     id: 'push-pattern',
-    name: 'Push Pattern',
-    description: 'Movement involving pushing objects away from the body. Fundamental for upper body strength and pressing power in horizontal and vertical planes.',
-    primaryMuscles: ['Chest', 'Shoulders', 'Triceps', 'Core'],
+    name: 'Pola Push',
+    description: 'Gerakan yang melibatkan mendorong objek menjauh dari tubuh. Fundamental untuk kekuatan tubuh bagian atas dan daya tekan pada bidang horizontal dan vertikal.',
+    primaryMuscles: ['Dada', 'Bahu', 'Triceps', 'Core'],
     keyPrinciples: [
-      'Maintain stable base of support',
-      'Core engaged throughout movement',
-      'Full range of motion',
-      'Control both eccentric and concentric phases',
-      'Proper scapular movement'
+      'Menjaga dasar penyangga yang stabil',
+      'Core tetap aktif sepanjang gerakan',
+      'Rentang gerak penuh',
+      'Kontrol fase eksentrik dan konsentrik',
+      'Gerakan skapula yang tepat'
     ],
     formCues: [
-      '"Push the floor away from you"',
-      '"Keep your body in a straight line"',
-      '"Drive through your palms"',
-      '"Squeeze your glutes"',
-      '"Press in a straight line"'
+      '"Dorong lantai menjauh dari tubuh"',
+      '"Jaga tubuh dalam garis lurus"',
+      '"Dorong melalui telapak tangan"',
+      '"Kencangkan glutes"',
+      '"Tekan dalam garis lurus"'
     ],
     commonMistakes: [
-      'Elbow flare too wide (90 degrees)',
-      'Sagging hips or piking up',
-      'Partial range of motion',
-      'Pressing in curved path',
-      'Not engaging core properly',
-      'Head position (looking up/down)'
+      'Siku terlalu terbuka (90 derajat)',
+      'Pinggul melorot atau terangkat',
+      'Rentang gerak tidak penuh',
+      'Menekan dalam jalur melengkung',
+      'Core tidak aktif dengan benar',
+      'Posisi kepala salah (menengadah/menunduk)'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Build basic pushing strength and movement pattern',
+        description: 'Membangun kekuatan dorong dasar dan pola gerakan',
         exercises: ['Wall Push-up', 'Incline Push-up', 'Knee Push-up', 'Assisted Dip'],
-        focus: ['Movement pattern', 'Basic strength', 'Core stability', 'Range of motion']
+        focus: ['Pola gerakan', 'Kekuatan dasar', 'Stabilitas core', 'Rentang gerak']
       },
       {
         level: 'Intermediate',
-        description: 'Progress to full bodyweight and add external load',
+        description: 'Maju ke berat badan penuh dan tambahkan beban eksternal',
         exercises: ['Push-up', 'Dip', 'Overhead Press', 'Bench Press'],
-        focus: ['Full bodyweight mastery', 'Load progression', 'Stability challenges', 'Power development']
+        focus: ['Penguasaan berat badan penuh', 'Progres beban', 'Tantangan stabilitas', 'Pengembangan daya']
       },
       {
         level: 'Advanced',
-        description: 'Complex variations and maximal strength development',
+        description: 'Variasi kompleks dan pengembangan kekuatan maksimal',
         exercises: ['Handstand Push-up', 'One-arm Push-up', 'Weighted Dips', 'Explosive Push-ups'],
-        focus: ['Unilateral strength', 'Explosive power', 'Advanced stability', 'Maximal strength']
+        focus: ['Kekuatan unilateral', 'Daya ledak', 'Stabilitas lanjutan', 'Kekuatan maksimal']
       }
     ],
     exercises: [
@@ -207,59 +207,59 @@ export const movementPatterns: MovementPattern[] = [
       'Pike Push-up'
     ],
     benefits: [
-      'Builds upper body pushing strength',
-      'Develops shoulder stability',
-      'Improves core strength',
-      'Enhances functional pressing power',
-      'Transfers to daily activities',
-      'Builds chest and arm muscle'
+      'Membangun kekuatan dorong tubuh bagian atas',
+      'Mengembangkan stabilitas bahu',
+      'Meningkatkan kekuatan core',
+      'Memperkuat daya tekan fungsional',
+      'Menunjang aktivitas sehari-hari',
+      'Membangun otot dada dan lengan'
     ]
   },
   {
     id: 'pull-pattern',
-    name: 'Pull Pattern',
-    description: 'Movement involving pulling objects toward the body. Critical for balanced upper body development and postural health.',
-    primaryMuscles: ['Lats', 'Rhomboids', 'Middle Traps', 'Rear Delts', 'Biceps'],
+    name: 'Pola Pull',
+    description: 'Gerakan yang melibatkan menarik objek menuju tubuh. Krusial untuk pengembangan tubuh bagian atas yang seimbang dan kesehatan postural.',
+    primaryMuscles: ['Lats', 'Rhomboid', 'Middle Traps', 'Rear Delts', 'Biceps'],
     keyPrinciples: [
-      'Initiate pull with back muscles, not arms',
-      'Squeeze shoulder blades together',
-      'Full range of motion (full stretch to full contraction)',
-      'Control the negative portion',
-      'Maintain neutral spine'
+      'Mulai tarikan dengan otot punggung, bukan lengan',
+      'Rapatkan tulang belikat',
+      'Rentang gerak penuh (peregangan penuh ke kontraksi penuh)',
+      'Kontrol bagian negatif',
+      'Menjaga tulang belakang netral'
     ],
     formCues: [
-      '"Pull with your back, not your arms"',
-      '"Squeeze your shoulder blades together"',
-      '"Lead with your elbows"',
-      '"Think about pulling your elbows to your back pockets"',
-      '"Feel the stretch at the bottom"'
+      '"Tarik dengan punggung, bukan lengan"',
+      '"Rapatkan tulang belikat"',
+      '"Pimpin dengan siku"',
+      '"Bayangkan menarik siku ke kantong belakang"',
+      '"Rasakan regangan di bawah"'
     ],
     commonMistakes: [
-      'Using arms instead of back muscles',
-      'Not achieving full range of motion',
-      'Swinging or using momentum',
-      'Not squeezing shoulder blades together',
-      'Forward head posture',
-      'Shrugging shoulders toward ears'
+      'Menggunakan lengan alih-alih otot punggung',
+      'Tidak mencapai rentang gerak penuh',
+      'Mengayun atau menggunakan momentum',
+      'Tidak merapatkan tulang belikat',
+      'Postur kepala ke depan',
+      'Mengangkat bahu ke telinga'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Develop basic pulling strength and back muscle activation',
+        description: 'Mengembangkan kekuatan tarik dasar dan aktivasi otot punggung',
         exercises: ['Bent-over Row (light)', 'Band Pull-aparts', 'Inverted Row', 'Lat Pulldown'],
-        focus: ['Back muscle activation', 'Movement pattern', 'Postural strength', 'Scapular mobility']
+        focus: ['Aktivasi otot punggung', 'Pola gerakan', 'Kekuatan postural', 'Mobilitas skapula']
       },
       {
         level: 'Intermediate',
-        description: 'Progress to bodyweight pulling and heavier loads',
+        description: 'Maju ke tarikan berat badan dan beban lebih berat',
         exercises: ['Pull-up', 'Chin-up', 'Barbell Row', 'T-Bar Row'],
-        focus: ['Bodyweight mastery', 'Load progression', 'Vertical pulling', 'Strength development']
+        focus: ['Penguasaan berat badan', 'Progres beban', 'Tarikan vertikal', 'Pengembangan kekuatan']
       },
       {
         level: 'Advanced',
-        description: 'Complex variations and maximal strength development',
+        description: 'Variasi kompleks dan pengembangan kekuatan maksimal',
         exercises: ['Weighted Pull-ups', 'One-arm Row', 'Muscle-up', 'Wide-grip Pull-ups'],
-        focus: ['Weighted progressions', 'Unilateral strength', 'Advanced movements', 'Power development']
+        focus: ['Progres berbeban', 'Kekuatan unilateral', 'Gerakan lanjutan', 'Pengembangan daya']
       }
     ],
     exercises: [
@@ -272,59 +272,59 @@ export const movementPatterns: MovementPattern[] = [
       'Single-arm Row'
     ],
     benefits: [
-      'Builds back and pulling strength',
-      'Improves posture and shoulder health',
-      'Balances pushing movements',
-      'Develops grip strength',
-      'Reduces injury risk',
-      'Enhances athletic performance'
+      'Membangun kekuatan punggung dan tarikan',
+      'Memperbaiki postur dan kesehatan bahu',
+      'Menyeimbangkan gerakan dorong',
+      'Mengembangkan kekuatan cengkeraman',
+      'Mengurangi risiko cedera',
+      'Meningkatkan performa atletik'
     ]
   },
   {
     id: 'carry-pattern',
-    name: 'Carry Pattern', 
-    description: 'Loaded carrying movements that challenge grip, core stability, and total-body strength. Essential for functional strength and real-world application.',
-    primaryMuscles: ['Core', 'Traps', 'Forearms', 'Glutes', 'Shoulders'],
+    name: 'Pola Carry', 
+    description: 'Gerakan membawa beban yang menantang cengkeraman, stabilitas core, dan kekuatan seluruh tubuh. Penting untuk kekuatan fungsional dan aplikasi dunia nyata.',
+    primaryMuscles: ['Core', 'Traps', 'Lengan Bawah', 'Glutes', 'Bahu'],
     keyPrinciples: [
-      'Maintain upright posture throughout',
-      'Engage core to prevent lateral flexion',
-      'Keep shoulders back and down',
-      'Grip strength endurance',
-      'Controlled breathing under load'
+      'Menjaga postur tegak sepanjang gerakan',
+      'Aktifkan core untuk mencegah fleksi lateral',
+      'Jaga bahu ke belakang dan bawah',
+      'Daya tahan kekuatan cengkeraman',
+      'Pernapasan terkontrol di bawah beban'
     ],
     formCues: [
-      '"Stand tall like a soldier"',
-      '"Don\'t let the weight pull you sideways"',
-      '"Squeeze the handles tight"',
-      '"Big steps, don\'t shuffle"',
-      '"Breathe steadily"'
+      '"Berdiri tegak seperti tentara"',
+      '"Jangan biarkan beban menarik ke samping"',
+      '"Kencangkan pegangan dengan erat"',
+      '"Langkah besar, jangan menyeret"',
+      '"Bernapas dengan stabil"'
     ],
     commonMistakes: [
-      'Leaning to one side with unilateral carries',
-      'Shrugging shoulders toward ears',
-      'Taking small shuffling steps',
-      'Holding breath during carry',
-      'Forward head posture',
-      'Allowing spine to flex or extend excessively'
+      'Condong ke satu sisi saat carry unilateral',
+      'Mengangkat bahu ke telinga',
+      'Mengambil langkah kecil menyeret',
+      'Menahan napas saat carry',
+      'Postur kepala ke depan',
+      'Membiarkan tulang belakang fleksi atau ekstensi berlebihan'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Build basic carrying capacity and postural strength',
+        description: 'Membangun kapasitas carry dasar dan kekuatan postural',
         exercises: ['Farmers Walk (light)', 'Suitcase Carry (light)', 'Front-loaded Carry', 'Briefcase Carry'],
-        focus: ['Postural endurance', 'Basic grip strength', 'Core stability', 'Movement quality']
+        focus: ['Daya tahan postural', 'Kekuatan cengkeraman dasar', 'Stabilitas core', 'Kualitas gerakan']
       },
       {
         level: 'Intermediate',
-        description: 'Increase load and vary carrying positions',
+        description: 'Tingkatkan beban dan variasikan posisi carry',
         exercises: ['Heavy Farmers Walk', 'Single-arm Carry', 'Overhead Carry', 'Mixed Carries'],
-        focus: ['Load progression', 'Unilateral challenges', 'Stability demands', 'Work capacity']
+        focus: ['Progres beban', 'Tantangan unilateral', 'Tuntutan stabilitas', 'Kapasitas kerja']
       },
       {
         level: 'Advanced',
-        description: 'Complex carries and maximal loading',
+        description: 'Carry kompleks dan beban maksimal',
         exercises: ['Yoke Walk', 'Sandbag Carry', 'Keg Carry', 'Atlas Stone Carry'],
-        focus: ['Maximal loads', 'Awkward objects', 'Competition prep', 'Specialized applications']
+        focus: ['Beban maksimal', 'Objek tidak beraturan', 'Persiapan kompetisi', 'Aplikasi khusus']
       }
     ],
     exercises: [
@@ -337,59 +337,59 @@ export const movementPatterns: MovementPattern[] = [
       'Keg Carry'
     ],
     benefits: [
-      'Develops functional strength',
-      'Improves grip and forearm strength',
-      'Builds core stability and endurance',
-      'Enhances postural strength',
-      'Real-world strength transfer',
-      'Improves work capacity'
+      'Mengembangkan kekuatan fungsional',
+      'Meningkatkan kekuatan cengkeraman dan lengan bawah',
+      'Membangun stabilitas dan daya tahan core',
+      'Memperkuat kekuatan postural',
+      'Transfer kekuatan dunia nyata',
+      'Meningkatkan kapasitas kerja'
     ]
   },
   {
     id: 'rotation-pattern',
-    name: 'Rotation Pattern',
-    description: 'Movement involving rotation around the body\'s axis. Essential for athletic performance, core strength, and daily functional movements.',
-    primaryMuscles: ['Core', 'Obliques', 'Glutes', 'Shoulders'],
+    name: 'Pola Rotasi',
+    description: 'Gerakan yang melibatkan rotasi di sekitar sumbu tubuh. Penting untuk performa atletik, kekuatan core, dan gerakan fungsional sehari-hari.',
+    primaryMuscles: ['Core', 'Oblique', 'Glutes', 'Bahu'],
     keyPrinciples: [
-      'Rotate from core, not just arms',
-      'Maintain stable base of support',
-      'Control both directions of rotation',
-      'Keep spine neutral during rotation',
-      'Generate power from hips and core'
+      'Rotasi dari core, bukan hanya lengan',
+      'Menjaga dasar penyangga yang stabil',
+      'Kontrol kedua arah rotasi',
+      'Jaga tulang belakang netral saat rotasi',
+      'Hasilkan daya dari pinggul dan core'
     ],
     formCues: [
-      '"Rotate from your belly button"',
-      '"Keep your hips square"',
-      '"Turn your whole torso, not just arms"',
-      '"Feel your core working"',
-      '"Control the return to center"'
+      '"Rotasi dari pusar"',
+      '"Jaga pinggul tetap persegi"',
+      '"Putar seluruh torso, bukan hanya lengan"',
+      '"Rasakan core bekerja"',
+      '"Kontrol kembali ke tengah"'
     ],
     commonMistakes: [
-      'Rotating only at shoulders, not core',
-      'Excessive spinal flexion during rotation',
-      'Not controlling the eccentric phase',
-      'Using momentum instead of strength',
-      'Holding breath during movement',
-      'Rotating too far beyond natural range'
+      'Rotasi hanya di bahu, bukan core',
+      'Fleksi tulang belakang berlebihan saat rotasi',
+      'Tidak mengontrol fase eksentrik',
+      'Menggunakan momentum alih-alih kekuatan',
+      'Menahan napas saat gerakan',
+      'Rotasi terlalu jauh melampaui rentang alami'
     ],
     progressions: [
       {
         level: 'Beginner',
-        description: 'Learn proper rotation mechanics and core activation',
+        description: 'Pelajari mekanik rotasi yang tepat dan aktivasi core',
         exercises: ['Seated Russian Twist', 'Standing Wood Chop', 'Bird Dog Rotations', 'Dead Bug Variations'],
-        focus: ['Movement pattern', 'Core activation', 'Stability', 'Range of motion']
+        focus: ['Pola gerakan', 'Aktivasi core', 'Stabilitas', 'Rentang gerak']
       },
       {
         level: 'Intermediate',
-        description: 'Add resistance and dynamic movements',
+        description: 'Tambahkan resistensi dan gerakan dinamis',
         exercises: ['Cable Wood Chop', 'Medicine Ball Slams', 'Landmine Rotations', 'Russian Twists with Weight'],
-        focus: ['Load progression', 'Power development', 'Dynamic stability', 'Coordination']
+        focus: ['Progres beban', 'Pengembangan daya', 'Stabilitas dinamis', 'Koordinasi']
       },
       {
         level: 'Advanced',
-        description: 'Complex rotational patterns and sport-specific movements',
+        description: 'Pola rotasi kompleks dan gerakan spesifik olahraga',
         exercises: ['Turkish Get-up', 'Rotational Throws', 'Single-arm Overhead Press', 'Windmills'],
-        focus: ['Complex patterns', 'Sport-specific power', 'Advanced stability', 'Integration']
+        focus: ['Pola kompleks', 'Daya spesifik olahraga', 'Stabilitas lanjutan', 'Integrasi']
       }
     ],
     exercises: [
@@ -402,21 +402,21 @@ export const movementPatterns: MovementPattern[] = [
       'Half-kneeling Chop'
     ],
     benefits: [
-      'Develops rotational core strength',
-      'Improves athletic performance',
-      'Enhances spinal mobility',
-      'Builds functional movement patterns',
-      'Reduces injury risk',
-      'Improves coordination'
+      'Mengembangkan kekuatan core rotasional',
+      'Meningkatkan performa atletik',
+      'Memperkuat mobilitas tulang belakang',
+      'Membangun pola gerakan fungsional',
+      'Mengurangi risiko cedera',
+      'Meningkatkan koordinasi'
     ]
   }
 ];
 
 export const movementBenefits = [
-  'Builds functional movement patterns',
-  'Reduces injury risk through proper mechanics',
-  'Improves daily activity performance',
-  'Creates balanced muscle development',
-  'Enhances athletic performance',
-  'Develops neuromuscular coordination'
+  'Membangun pola gerakan fungsional',
+  'Mengurangi risiko cedera melalui mekanik yang tepat',
+  'Meningkatkan performa aktivitas sehari-hari',
+  'Menciptakan pengembangan otot yang seimbang',
+  'Meningkatkan performa atletik',
+  'Mengembangkan koordinasi neuromuskular'
 ];

@@ -1,162 +1,162 @@
-# Complete Fitness Guide
+# Panduan Kebugaran Lengkap
 
-A comprehensive fitness application covering exercises, programs, movement patterns, and training principles for CrossFit, Hyrox, Military training, and more.
+Aplikasi kebugaran komprehensif yang mencakup latihan, program, pola gerakan, dan prinsip latihan untuk CrossFit, Hyrox, pelatihan militer, dan lainnya.
 
-## **Features**
+## **Fitur Utama**
 
-### **Exercise Library**
-- **25+ Comprehensive Exercises** - Detailed instructions, tips, and variations
-- **Multiple Categories** - CrossFit, Hyrox, Military, Olympic lifting, Gymnastics
-- **Difficulty Progression System** - Step-by-step progressions from beginner to advanced
-- **Muscle Group Targeting** - Filter by primary and secondary muscles
-- **Equipment-Based Filtering** - Find exercises based on available equipment
+### **Perpustakaan Latihan**
+- **25+ Latihan Komprehensif** - Instruksi detail, tips, dan variasi
+- **Berbagai Kategori** - CrossFit, Hyrox, Militer, Olympic lifting, Gymnastics
+- **Sistem Progres Bertingkat** - Progres bertahap dari pemula hingga mahir
+- **Target Kelompok Otot** - Filter berdasarkan otot primer dan sekunder
+- **Filter Berdasarkan Peralatan** - Temukan latihan sesuai peralatan yang tersedia
 
-### **Workout Programs**
-- **Pre-built Programs** - CrossFit WODs (Murph, Fran, Cindy), Hyrox training, Navy SEAL PST prep
-- **Custom Workout Builder** - Create personalized workouts with exercise selection
-- **Workout Timer & Progress Tracking** - Built-in timer with start/pause/reset functionality
-- **Progress Logging** - Track reps, weights, and completion status
+### **Program Latihan**
+- **Program Siap Pakai** - CrossFit WODs (Murph, Fran, Cindy), latihan Hyrox, persiapan Navy SEAL PST
+- **Pembuat Latihan Kustom** - Buat latihan personal dengan pemilihan gerakan
+- **Timer Latihan & Pelacakan Progres** - Timer terintegrasi dengan fungsi mulai/jeda/reset
+- **Pencatatan Progres** - Lacak repetisi, beban, dan status penyelesaian
 
-### **Analytics & History**
-- **Workout History** - Complete tracking of past workouts with detailed stats
-- **Performance Analytics** - Completion rates, total training hours, workout counts
-- **Progress Visualization** - Track improvement over time
-- **Export Capabilities** - Print workout cards for offline use
+### **Analisis & Riwayat**
+- **Riwayat Latihan** - Pelacakan lengkap latihan masa lalu dengan statistik detail
+- **Analisis Performa** - Tingkat penyelesaian, total jam latihan, jumlah workout
+- **Visualisasi Progres** - Lacak peningkatan dari waktu ke waktu
+- **Kemampuan Ekspor** - Cetak kartu latihan untuk penggunaan offline
 
-### **Training Science**
-- **Movement Patterns** - Six fundamental patterns (Squat, Hinge, Push, Pull, Carry, Rotation)
-- **Training Principles** - Progressive overload, periodization, recovery, specificity
-- **Form Cues & Common Mistakes** - Educational content for proper technique
+### **Ilmu Latihan**
+- **Pola Gerakan** - Enam pola fundamental (Squat, Hinge, Push, Pull, Carry, Rotation)
+- **Prinsip Latihan** - Progressive overload, periodisasi, pemulihan, spesifisitas
+- **Petunjuk Teknik & Kesalahan Umum** - Konten edukatif untuk teknik yang benar
 
-### **User Experience**
-- **Advanced Search** - Keyboard shortcuts (⌘K, ⌘/, ESC, 1-4) for quick navigation
-- **Favorites System** - Save preferred exercises and programs
-- **Dark Mode** - Toggle between light and dark themes
-- **Mobile Responsive** - Optimized for all device sizes with proper touch targets
-- **PWA Support** - Install as standalone app with offline capabilities
-- **Professional Icons** - Lucide React icon library for clean, consistent UI
+### **Pengalaman Pengguna**
+- **Pencarian Lanjutan** - Shortcut keyboard (⌘K, ⌘/, ESC, 1-4) untuk navigasi cepat
+- **Sistem Favorit** - Simpan latihan dan program yang disukai
+- **Mode Gelap** - Beralih antara tema terang dan gelap
+- **Responsif Mobile** - Dioptimalkan untuk semua ukuran perangkat dengan target sentuh yang tepat
+- **Dukungan PWA** - Install sebagai aplikasi mandiri dengan kemampuan offline
+- **Ikon Profesional** - Pustaka ikon Lucide React untuk UI yang bersih dan konsisten
 
-## **Getting Started**
+## **Memulai**
 
-### Prerequisites
+### Persyaratan
 - Node.js 18+ 
-- npm or yarn
+- npm atau yarn
 
-### Installation
+### Instalasi
 
-1. **Clone the repository**
+1. **Clone repository**
 ```bash
 git clone https://github.com/farkhanmaul/fitness.git
 cd fitness
 ```
 
-2. **Install dependencies**
+2. **Install dependensi**
 ```bash
 npm install
 ```
 
-3. **Run development server**
+3. **Jalankan server development**
 ```bash
 npm run dev
 ```
 
-4. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
+4. **Buka browser**
+Navigasi ke [http://localhost:3000](http://localhost:3000)
 
-### Production Build
+### Build Produksi
 ```bash
 npm run build
 npm run start
 ```
 
-## **Architecture**
+## **Arsitektur**
 
-### Clean Code Principles
-- **DRY** (Don't Repeat Yourself) - Reusable components and utilities
-- **KISS** (Keep It Simple, Stupid) - Simple, focused components
-- **SOLID** - Well-structured, maintainable code architecture
+### Prinsip Clean Code
+- **DRY** (Don't Repeat Yourself) - Komponen dan utilitas yang dapat digunakan kembali
+- **KISS** (Keep It Simple, Stupid) - Komponen sederhana dan fokus
+- **SOLID** - Arsitektur kode yang terstruktur dan mudah dipelihara
 
-### Project Structure
+### Struktur Proyek
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── icons/          # Icon system with Lucide React
-│   └── ui/             # Base UI components
-├── data/               # Exercise, program, and training data
+├── components/          # Komponen UI yang dapat digunakan kembali
+│   ├── icons/          # Sistem ikon dengan Lucide React
+│   └── ui/             # Komponen UI dasar
+├── data/               # Data latihan, program, dan pelatihan
 ├── hooks/              # Custom React hooks
 │   ├── useLocalStorage.ts
 │   ├── useTimer.ts
 │   └── useKeyboardShortcuts.ts
-├── types/              # TypeScript type definitions
-├── utils/              # Helper functions and utilities
-└── app/                # Next.js app router pages
+├── types/              # Definisi tipe TypeScript
+├── utils/              # Fungsi helper dan utilitas
+└── app/                # Halaman Next.js app router
 ```
 
-## **Tech Stack**
+## **Stack Teknologi**
 
-- **Framework**: Next.js 15 with TypeScript
+- **Framework**: Next.js 15 dengan TypeScript
 - **Styling**: Tailwind CSS v3
-- **Icons**: Lucide React
-- **State Management**: React hooks + localStorage
-- **Build**: Next.js static export for GitHub Pages
-- **PWA**: Service worker with offline caching
+- **Ikon**: Lucide React
+- **Manajemen State**: React hooks + localStorage
+- **Build**: Next.js static export untuk GitHub Pages
+- **PWA**: Service worker dengan caching offline
 - **Deployment**: GitHub Actions → GitHub Pages
 
-## **Features in Detail**
+## **Detail Fitur**
 
-### Keyboard Shortcuts
-- `⌘K` or `Ctrl+K` - Focus search
-- `⌘/` or `Ctrl+/` - Show shortcuts help
-- `ESC` - Clear search / go back
-- `1-4` - Switch between tabs
+### Shortcut Keyboard
+- `⌘K` atau `Ctrl+K` - Fokus pencarian
+- `⌘/` atau `Ctrl+/` - Tampilkan bantuan shortcut
+- `ESC` - Hapus pencarian / kembali
+- `1-4` - Beralih antar tab
 
-### Mobile Optimizations
-- 44px minimum touch targets
-- Responsive typography scaling
-- Touch-friendly interface elements
-- Mobile-first CSS approach
+### Optimasi Mobile
+- Target sentuh minimum 44px
+- Skala tipografi responsif
+- Elemen antarmuka yang ramah sentuh
+- Pendekatan CSS mobile-first
 
-### Accessibility
-- Keyboard navigation support
-- ARIA labels and descriptions
-- Color contrast compliance
-- Screen reader compatibility
+### Aksesibilitas
+- Dukungan navigasi keyboard
+- Label dan deskripsi ARIA
+- Kepatuhan kontras warna
+- Kompatibilitas screen reader
 
 ## **Deployment**
 
-The application is automatically deployed to GitHub Pages via GitHub Actions:
+Aplikasi secara otomatis dideploy ke GitHub Pages melalui GitHub Actions:
 
-**Live Demo**: [https://farkhanmaul.github.io/fitness/](https://farkhanmaul.github.io/fitness/)
+**Demo Live**: [https://farkhanmaul.github.io/fitness/](https://farkhanmaul.github.io/fitness/)
 
-### Manual Deployment
+### Deployment Manual
 ```bash
 npm run build
 npm run export
 ```
 
-## **Contributing**
+## **Kontribusi**
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork repository ini
+2. Buat branch fitur (`git checkout -b feature/FiturBaru`)
+3. Commit perubahan (`git commit -m 'Tambah fitur baru'`)
+4. Push ke branch (`git push origin feature/FiturBaru`)
+5. Buka Pull Request
 
-## **License**
+## **Lisensi**
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detailnya.
 
-## **Acknowledgments**
+## **Penghargaan**
 
-- **CrossFit** - For workout methodologies and exercise variations
-- **Hyrox** - For functional fitness training principles  
-- **Military Training** - For discipline and structured approach
-- **Lucide** - For beautiful, consistent icons
-- **Tailwind CSS** - For rapid UI development
-- **Next.js** - For powerful React framework capabilities
+- **CrossFit** - Untuk metodologi latihan dan variasi gerakan
+- **Hyrox** - Untuk prinsip latihan functional fitness  
+- **Pelatihan Militer** - Untuk disiplin dan pendekatan terstruktur
+- **Lucide** - Untuk ikon yang indah dan konsisten
+- **Tailwind CSS** - Untuk pengembangan UI yang cepat
+- **Next.js** - Untuk kemampuan framework React yang powerful
 
 ---
 
-**Built with love for the fitness community**
+**Dibuat dengan cinta untuk komunitas fitness**
 
-*Enhanced with Claude Code - AI-powered development assistant*
+*Ditingkatkan dengan Claude Code - asisten pengembangan bertenaga AI*

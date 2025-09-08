@@ -68,7 +68,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <Icon name="calendar" size={24} />
-              Workout Calendar
+              Kalender Latihan
             </h2>
             <button
               onClick={onClose}
@@ -83,14 +83,14 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
               <div className="flex items-center gap-2 mb-1">
                 <Icon name="activity" size={16} className="text-blue-600 dark:text-blue-400" />
-                <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Current Streak</span>
+                <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Konsistensi Saat Ini</span>
               </div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentStreak} days</div>
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentStreak} hari</div>
             </div>
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <div className="flex items-center gap-2 mb-1">
                 <Icon name="check" size={16} className="text-green-600 dark:text-green-400" />
-                <span className="text-sm font-medium text-green-800 dark:text-green-200">This Week</span>
+                <span className="text-sm font-medium text-green-800 dark:text-green-200">Minggu Ini</span>
               </div>
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {schedule.filter(w => {
@@ -103,7 +103,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
               <div className="flex items-center gap-2 mb-1">
                 <Icon name="clock" size={16} className="text-purple-600 dark:text-purple-400" />
-                <span className="text-sm font-medium text-purple-800 dark:text-purple-200">Upcoming</span>
+                <span className="text-sm font-medium text-purple-800 dark:text-purple-200">Mendatang</span>
               </div>
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{upcomingWorkouts.length}</div>
             </div>
@@ -142,7 +142,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
                     : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                 } mobile-button-lg`}
               >
-                Week
+                Minggu
               </button>
               <button
                 onClick={() => setView('month')}
@@ -152,7 +152,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
                     : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                 } mobile-button-lg`}
               >
-                Month
+                Bulan
               </button>
             </div>
           </div>
@@ -160,7 +160,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
           {/* Calendar Grid */}
           <div className={`grid gap-2 mb-6 ${view === 'week' ? 'grid-cols-7' : 'grid-cols-7'}`}>
             {/* Day headers */}
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+            {['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].map(day => (
               <div key={day} className="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">
                 {day}
               </div>
@@ -202,7 +202,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
                     ))}
                     {workouts.length > (view === 'week' ? 3 : 2) && (
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        +{workouts.length - (view === 'week' ? 3 : 2)} more
+                        +{workouts.length - (view === 'week' ? 3 : 2)} lagi
                       </div>
                     )}
                   </div>
@@ -216,7 +216,7 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
             <div>
               <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                 <Icon name="clock" size={18} />
-                Upcoming Workouts
+                Latihan Mendatang
               </h4>
               <div className="space-y-2">
                 {upcomingWorkouts.map(workout => (
@@ -233,13 +233,13 @@ export function WorkoutCalendar({ isVisible, onClose, onScheduleWorkout }: Worko
                         className="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded text-xs hover:bg-green-200 dark:hover:bg-green-800 mobile-button-lg"
                       >
                         <Icon name="check" size={12} className="mr-1" />
-                        Complete
+                        Selesai
                       </button>
                       <button
                         onClick={() => skipWorkout(workout.id)}
                         className="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 rounded text-xs hover:bg-red-200 dark:hover:bg-red-800 mobile-button-lg"
                       >
-                        Skip
+                        Lewat
                       </button>
                     </div>
                   </div>

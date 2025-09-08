@@ -6,14 +6,14 @@ export interface Exercise {
   primaryMuscles: string[];
   secondaryMuscles: string[];
   equipment: string[];
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty: 'Pemula' | 'Menengah' | 'Lanjutan';
   instructions: string[];
   tips: string[];
   variations: string[];
   progressions?: {
     name: string;
     description: string;
-    difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+    difficulty: 'Pemula' | 'Menengah' | 'Lanjutan';
     instructions: string[];
   }[];
 }
@@ -23,64 +23,64 @@ export const exercises: Exercise[] = [
   {
     id: 'push-up',
     name: 'Push-up',
-    category: 'Upper Body - Push',
-    description: 'A fundamental bodyweight exercise that strengthens the chest, shoulders, and triceps.',
-    primaryMuscles: ['Chest', 'Triceps', 'Front Deltoids'],
-    secondaryMuscles: ['Core', 'Rear Deltoids'],
-    equipment: ['Bodyweight'],
-    difficulty: 'Beginner',
+    category: 'Tubuh Bagian Atas - Dorong',
+    description: 'Latihan dasar dengan berat badan yang memperkuat dada, bahu, dan trisep.',
+    primaryMuscles: ['Dada', 'Trisep', 'Deltoid Depan'],
+    secondaryMuscles: ['Inti', 'Deltoid Belakang'],
+    equipment: ['Berat Badan'],
+    difficulty: 'Pemula',
     instructions: [
-      'Start in a plank position with hands shoulder-width apart',
-      'Keep your body in a straight line from head to heels',
-      'Lower your chest to just above the ground',
-      'Push back up to starting position',
-      'Maintain tight core throughout the movement'
+      'Mulai dalam posisi plank dengan tangan selebar bahu',
+      'Jaga tubuh dalam garis lurus dari kepala hingga tumit',
+      'Turunkan dada hingga tepat di atas lantai',
+      'Dorong kembali ke posisi awal',
+      'Jaga inti tetap kencang sepanjang gerakan'
     ],
     tips: [
-      'Keep elbows at 45-degree angle to your torso',
-      'Breathe in on the way down, out on the way up',
-      'Engage your glutes to maintain proper form'
+      'Jaga siku pada sudut 45 derajat terhadap tubuh',
+      'Tarik napas saat turun, hembuskan saat naik',
+      'Aktifkan gluteus untuk menjaga bentuk yang benar'
     ],
     variations: ['Incline Push-up', 'Decline Push-up', 'Diamond Push-up', 'Wide-grip Push-up'],
     progressions: [
       {
         name: 'Wall Push-up',
-        description: 'Standing push-up against a wall for beginners',
-        difficulty: 'Beginner',
+        description: 'Push-up berdiri menghadap dinding untuk pemula',
+        difficulty: 'Pemula',
         instructions: [
-          'Stand arm\'s length from wall',
-          'Place palms flat against wall at shoulder height',
-          'Lean in and push back with control'
+          'Berdiri sejauh satu lengan dari dinding',
+          'Letakkan telapak tangan rata di dinding setinggi bahu',
+          'Condongkan tubuh ke depan dan dorong kembali dengan kontrol'
         ]
       },
       {
         name: 'Incline Push-up',
-        description: 'Hands elevated on bench or step',
-        difficulty: 'Beginner',
+        description: 'Push-up dengan tangan di permukaan yang lebih tinggi',
+        difficulty: 'Pemula',
         instructions: [
-          'Place hands on elevated surface',
-          'Assume plank position',
-          'Perform push-up with reduced load'
+          'Letakkan tangan pada permukaan yang lebih tinggi',
+          'Ambil posisi plank',
+          'Lakukan push-up dengan beban yang berkurang'
         ]
       },
       {
         name: 'Standard Push-up',
-        description: 'Full push-up from toes',
-        difficulty: 'Intermediate',
+        description: 'Push-up penuh dari ujung kaki',
+        difficulty: 'Menengah',
         instructions: [
-          'Full plank position on toes',
-          'Lower chest to ground',
-          'Push back to starting position'
+          'Posisi plank penuh pada ujung kaki',
+          'Turunkan dada ke lantai',
+          'Dorong kembali ke posisi awal'
         ]
       },
       {
         name: 'Archer Push-up',
-        description: 'Single arm focus push-up variation',
-        difficulty: 'Advanced',
+        description: 'Variasi push-up dengan fokus satu lengan',
+        difficulty: 'Lanjutan',
         instructions: [
-          'Start in wide push-up position',
-          'Shift weight to one side during descent',
-          'Push back up using primarily one arm'
+          'Mulai dalam posisi push-up lebar',
+          'Pindahkan berat ke satu sisi saat turun',
+          'Dorong kembali terutama menggunakan satu lengan'
         ]
       }
     ]
@@ -88,23 +88,23 @@ export const exercises: Exercise[] = [
   {
     id: 'overhead-press',
     name: 'Overhead Press (Military Press)',
-    category: 'Upper Body - Push',
-    description: 'A compound movement that builds shoulder strength and stability while engaging the entire core.',
-    primaryMuscles: ['Shoulders', 'Triceps'],
-    secondaryMuscles: ['Upper Chest', 'Core', 'Upper Back'],
-    equipment: ['Barbell', 'Dumbbells', 'Kettlebell'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Atas - Dorong',
+    description: 'Gerakan gabungan yang membangun kekuatan dan stabilitas bahu sambil melibatkan seluruh otot inti.',
+    primaryMuscles: ['Bahu', 'Trisep'],
+    secondaryMuscles: ['Dada Atas', 'Inti', 'Punggung Atas'],
+    equipment: ['Barbel', 'Dumbel', 'Kettlebell'],
+    difficulty: 'Menengah',
     instructions: [
-      'Stand with feet shoulder-width apart',
-      'Hold barbell at shoulder level with hands slightly wider than shoulders',
-      'Brace core and press weight directly overhead',
-      'Lock out arms at the top',
-      'Lower under control to starting position'
+      'Berdiri dengan kaki selebar bahu',
+      'Pegang barbel di tingkat bahu dengan tangan sedikit lebih lebar dari bahu',
+      'Kencangkan inti dan tekan beban langsung ke atas kepala',
+      'Luruskan lengan di bagian atas',
+      'Turunkan dengan kontrol ke posisi awal'
     ],
     tips: [
-      'Keep core tight to prevent back extension',
-      'Press the bar in a straight line',
-      'Squeeze glutes at the top for stability'
+      'Jaga inti tetap kencang untuk mencegah ekstensi punggung',
+      'Tekan barbel dalam garis lurus',
+      'Kerutkan gluteus di bagian atas untuk stabilitas'
     ],
     variations: ['Dumbbell Press', 'Single-arm Press', 'Push Press', 'Seated Press']
   },
@@ -113,46 +113,46 @@ export const exercises: Exercise[] = [
   {
     id: 'pull-up',
     name: 'Pull-up',
-    category: 'Upper Body - Pull',
-    description: 'The king of upper body pulling exercises, targeting the lats, rhomboids, and biceps.',
-    primaryMuscles: ['Lats', 'Rhomboids', 'Middle Traps'],
-    secondaryMuscles: ['Biceps', 'Rear Deltoids', 'Lower Traps'],
-    equipment: ['Pull-up Bar'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Atas - Tarik',
+    description: 'Raja latihan tarik tubuh bagian atas, menargetkan latissimus, rhomboid, dan bisep.',
+    primaryMuscles: ['Latissimus', 'Rhomboid', 'Trapezius Tengah'],
+    secondaryMuscles: ['Bisep', 'Deltoid Belakang', 'Trapezius Bawah'],
+    equipment: ['Palang Pull-up'],
+    difficulty: 'Menengah',
     instructions: [
-      'Hang from pull-up bar with overhand grip',
-      'Start from dead hang with arms fully extended',
-      'Pull yourself up until chin clears the bar',
-      'Lower yourself slowly to starting position',
-      'Maintain slight forward lean'
+      'Bergantung dari palang pull-up dengan cengkeraman overhand',
+      'Mulai dari posisi gantung mati dengan lengan terbentang penuh',
+      'Tarik diri hingga dagu melewati palang',
+      'Turunkan diri perlahan ke posisi awal',
+      'Jaga sedikit condong ke depan'
     ],
     tips: [
-      'Focus on pulling with your back, not just your arms',
-      'Engage core to prevent swinging',
-      'Full range of motion is key'
+      'Fokus menarik dengan punggung, bukan hanya dengan lengan',
+      'Aktifkan inti untuk mencegah ayunan',
+      'Rentang gerak penuh adalah kunci'
     ],
     variations: ['Chin-up', 'Wide-grip Pull-up', 'Neutral-grip Pull-up', 'Weighted Pull-up']
   },
   {
     id: 'row',
     name: 'Bent-over Row',
-    category: 'Upper Body - Pull',
-    description: 'Essential pulling exercise for building a strong, thick back and improving posture.',
-    primaryMuscles: ['Lats', 'Rhomboids', 'Middle Traps'],
-    secondaryMuscles: ['Rear Deltoids', 'Biceps', 'Lower Traps'],
-    equipment: ['Barbell', 'Dumbbells', 'Cable'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Atas - Tarik',
+    description: 'Latihan tarik esensial untuk membangun punggung yang kuat dan tebal serta memperbaiki postur.',
+    primaryMuscles: ['Latissimus', 'Rhomboid', 'Trapezius Tengah'],
+    secondaryMuscles: ['Deltoid Belakang', 'Bisep', 'Trapezius Bawah'],
+    equipment: ['Barbel', 'Dumbel', 'Kabel'],
+    difficulty: 'Menengah',
     instructions: [
-      'Stand with feet shoulder-width apart, holding barbell',
-      'Hinge at hips and bend forward about 45 degrees',
-      'Keep back straight and core engaged',
-      'Pull bar to lower chest/upper abdomen',
-      'Squeeze shoulder blades together at the top'
+      'Berdiri dengan kaki selebar bahu, pegang barbel',
+      'Tekuk pinggul dan condong ke depan sekitar 45 derajat',
+      'Jaga punggung lurus dan inti terlibat',
+      'Tarik barbel ke dada bawah/perut atas',
+      'Remas tulang belikat bersama-sama di bagian atas'
     ],
     tips: [
-      'Keep the weight close to your body',
-      'Don\'t let your lower back round',
-      'Focus on squeezing your shoulder blades'
+      'Jaga beban tetap dekat dengan tubuh',
+      'Jangan biarkan punggung bawah melengkung',
+      'Fokus pada meremas tulang belikat'
     ],
     variations: ['T-Bar Row', 'Single-arm Dumbbell Row', 'Cable Row', 'Inverted Row']
   },
@@ -161,46 +161,46 @@ export const exercises: Exercise[] = [
   {
     id: 'squat',
     name: 'Back Squat',
-    category: 'Lower Body - Squat',
-    description: 'The fundamental lower body exercise that builds strength in the quads, glutes, and core.',
-    primaryMuscles: ['Quadriceps', 'Glutes'],
-    secondaryMuscles: ['Hamstrings', 'Calves', 'Core', 'Upper Back'],
-    equipment: ['Barbell', 'Squat Rack'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Bawah - Squat',
+    description: 'Latihan fundamental tubuh bagian bawah yang membangun kekuatan di kuadrisep, gluteus, dan inti.',
+    primaryMuscles: ['Kuadrisep', 'Gluteus'],
+    secondaryMuscles: ['Hamstring', 'Betis', 'Inti', 'Punggung Atas'],
+    equipment: ['Barbel', 'Rak Squat'],
+    difficulty: 'Menengah',
     instructions: [
-      'Position bar on upper back (high bar) or lower traps (low bar)',
-      'Stand with feet slightly wider than shoulder-width',
-      'Descend by pushing hips back and bending knees',
-      'Go down until thighs are parallel to ground',
-      'Drive through heels to return to starting position'
+      'Posisikan barbel di punggung atas (high bar) atau trapezius bawah (low bar)',
+      'Berdiri dengan kaki sedikit lebih lebar dari bahu',
+      'Turun dengan mendorong pinggul ke belakang dan menekuk lutut',
+      'Turun hingga paha sejajar dengan lantai',
+      'Dorong melalui tumit untuk kembali ke posisi awal'
     ],
     tips: [
-      'Keep knees in line with toes',
-      'Maintain neutral spine throughout',
-      'Breathe in at the top, hold during descent and ascent'
+      'Jaga lutut sejajar dengan jari kaki',
+      'Jaga tulang belakang netral sepanjang gerakan',
+      'Tarik napas di atas, tahan selama turun dan naik'
     ],
     variations: ['Front Squat', 'Goblet Squat', 'Bulgarian Split Squat', 'Overhead Squat']
   },
   {
     id: 'air-squat',
     name: 'Air Squat (Bodyweight Squat)',
-    category: 'Lower Body - Squat',
-    description: 'Perfect bodyweight movement for building lower body strength and mobility.',
-    primaryMuscles: ['Quadriceps', 'Glutes'],
-    secondaryMuscles: ['Hamstrings', 'Calves', 'Core'],
-    equipment: ['Bodyweight'],
-    difficulty: 'Beginner',
+    category: 'Tubuh Bagian Bawah - Squat',
+    description: 'Gerakan berat badan yang sempurna untuk membangun kekuatan dan mobilitas tubuh bagian bawah.',
+    primaryMuscles: ['Kuadrisep', 'Gluteus'],
+    secondaryMuscles: ['Hamstring', 'Betis', 'Inti'],
+    equipment: ['Berat Badan'],
+    difficulty: 'Pemula',
     instructions: [
-      'Stand with feet shoulder-width apart',
-      'Arms can be extended forward for balance',
-      'Lower by pushing hips back and bending knees',
-      'Descend until thighs are parallel to ground',
-      'Stand back up by driving through heels'
+      'Berdiri dengan kaki selebar bahu',
+      'Lengan dapat direntangkan ke depan untuk keseimbangan',
+      'Turun dengan mendorong pinggul ke belakang dan menekuk lutut',
+      'Turun hingga paha sejajar dengan lantai',
+      'Berdiri kembali dengan mendorong melalui tumit'
     ],
     tips: [
-      'Keep chest up and core engaged',
-      'Weight should be on heels, not toes',
-      'Practice the movement pattern before adding weight'
+      'Jaga dada tegak dan inti terlibat',
+      'Berat badan harus di tumit, bukan ujung kaki',
+      'Latih pola gerakan sebelum menambah beban'
     ],
     variations: ['Jump Squat', 'Pistol Squat', 'Cossack Squat', 'Sumo Squat']
   },
@@ -209,46 +209,46 @@ export const exercises: Exercise[] = [
   {
     id: 'deadlift',
     name: 'Deadlift',
-    category: 'Lower Body - Hinge',
-    description: 'The ultimate posterior chain exercise, building strength in the hamstrings, glutes, and back.',
-    primaryMuscles: ['Hamstrings', 'Glutes', 'Lower Back'],
-    secondaryMuscles: ['Lats', 'Traps', 'Rhomboids', 'Core', 'Forearms'],
-    equipment: ['Barbell', 'Plates'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Bawah - Engsel',
+    description: 'Latihan rantai posterior utama, membangun kekuatan di hamstring, gluteus, dan punggung.',
+    primaryMuscles: ['Hamstring', 'Gluteus', 'Punggung Bawah'],
+    secondaryMuscles: ['Latissimus', 'Trapezius', 'Rhomboid', 'Inti', 'Lengan Bawah'],
+    equipment: ['Barbel', 'Piringan Beban'],
+    difficulty: 'Menengah',
     instructions: [
-      'Stand with feet hip-width apart, bar over mid-foot',
-      'Bend at hips and knees to grip bar with hands outside legs',
-      'Keep back straight, chest up, shoulders over bar',
-      'Drive through heels and extend hips to lift the bar',
-      'Stand tall with shoulders back, then reverse the movement'
+      'Berdiri dengan kaki selebar pinggul, barbel di atas pertengahan kaki',
+      'Tekuk pinggul dan lutut untuk memegang barbel dengan tangan di luar kaki',
+      'Jaga punggung lurus, dada tegak, bahu di atas barbel',
+      'Dorong melalui tumit dan ekstensi pinggul untuk mengangkat barbel',
+      'Berdiri tegak dengan bahu ke belakang, kemudian balikkan gerakan'
     ],
     tips: [
-      'Keep the bar close to your body throughout',
-      'Lead with your hips, not your knees',
-      'Engage lats to keep bar close'
+      'Jaga barbel tetap dekat dengan tubuh sepanjang gerakan',
+      'Pimpin dengan pinggul, bukan lutut',
+      'Aktifkan latissimus untuk menjaga barbel tetap dekat'
     ],
     variations: ['Romanian Deadlift', 'Sumo Deadlift', 'Trap Bar Deadlift', 'Single-leg Deadlift']
   },
   {
     id: 'romanian-deadlift',
     name: 'Romanian Deadlift (RDL)',
-    category: 'Lower Body - Hinge',
-    description: 'Hip-hinge movement that targets the hamstrings and glutes while improving posterior chain flexibility.',
-    primaryMuscles: ['Hamstrings', 'Glutes'],
-    secondaryMuscles: ['Lower Back', 'Core'],
-    equipment: ['Barbell', 'Dumbbells', 'Kettlebell'],
-    difficulty: 'Intermediate',
+    category: 'Tubuh Bagian Bawah - Engsel',
+    description: 'Gerakan engsel pinggul yang menargetkan hamstring dan gluteus sambil meningkatkan fleksibilitas rantai posterior.',
+    primaryMuscles: ['Hamstring', 'Gluteus'],
+    secondaryMuscles: ['Punggung Bawah', 'Inti'],
+    equipment: ['Barbel', 'Dumbel', 'Kettlebell'],
+    difficulty: 'Menengah',
     instructions: [
-      'Start standing with bar at hip level',
-      'Keep knees slightly bent throughout',
-      'Hinge at hips by pushing them back',
-      'Lower bar while keeping it close to legs',
-      'Feel stretch in hamstrings, then return to standing'
+      'Mulai berdiri dengan barbel di tingkat pinggul',
+      'Jaga lutut sedikit ditekuk sepanjang gerakan',
+      'Tekuk di pinggul dengan mendorong pinggul ke belakang',
+      'Turunkan barbel sambil menjaganya tetap dekat dengan kaki',
+      'Rasakan regangan di hamstring, kemudian kembali berdiri'
     ],
     tips: [
-      'This is a hip movement, not a knee movement',
-      'Keep shoulders back and chest proud',
-      'Go only as low as hamstring flexibility allows'
+      'Ini adalah gerakan pinggul, bukan gerakan lutut',
+      'Jaga bahu ke belakang dan dada bangga',
+      'Turun hanya sejauh fleksibilitas hamstring memungkinkan'
     ],
     variations: ['Single-leg RDL', 'Dumbbell RDL', 'Kettlebell RDL', 'Stiff-leg Deadlift']
   },
@@ -257,23 +257,23 @@ export const exercises: Exercise[] = [
   {
     id: 'plank',
     name: 'Plank',
-    category: 'Core',
-    description: 'Isometric core exercise that builds stability and endurance in the entire core musculature.',
-    primaryMuscles: ['Core', 'Transverse Abdominis'],
-    secondaryMuscles: ['Shoulders', 'Glutes', 'Quadriceps'],
-    equipment: ['Bodyweight'],
-    difficulty: 'Beginner',
+    category: 'Inti',
+    description: 'Latihan inti isometrik yang membangun stabilitas dan daya tahan di seluruh muskulatur inti.',
+    primaryMuscles: ['Inti', 'Transverse Abdominis'],
+    secondaryMuscles: ['Bahu', 'Gluteus', 'Kuadrisep'],
+    equipment: ['Berat Badan'],
+    difficulty: 'Pemula',
     instructions: [
-      'Start in push-up position on forearms',
-      'Keep body in straight line from head to heels',
-      'Engage core and squeeze glutes',
-      'Hold position while breathing normally',
-      'Maintain neutral spine throughout'
+      'Mulai dalam posisi push-up pada lengan bawah',
+      'Jaga tubuh dalam garis lurus dari kepala hingga tumit',
+      'Aktifkan inti dan kerutkan gluteus',
+      'Tahan posisi sambil bernapas normal',
+      'Jaga tulang belakang netral sepanjang gerakan'
     ],
     tips: [
-      'Don\'t let hips sag or pike up',
-      'Focus on quality over duration',
-      'Engage your glutes to protect lower back'
+      'Jangan biarkan pinggul turun atau terangkat',
+      'Fokus pada kualitas daripada durasi',
+      'Aktifkan gluteus untuk melindungi punggung bawah'
     ],
     variations: ['Side Plank', 'Plank Up-Down', 'Plank with Leg Lift', 'Bear Crawl']
   },
@@ -283,22 +283,22 @@ export const exercises: Exercise[] = [
     id: 'burpee',
     name: 'Burpee',
     category: 'MetCon/CrossFit',
-    description: 'Full-body conditioning exercise combining a squat, plank, push-up, and jump.',
-    primaryMuscles: ['Full Body'],
-    secondaryMuscles: ['Cardiovascular System'],
-    equipment: ['Bodyweight'],
-    difficulty: 'Intermediate',
+    description: 'Latihan kondisioning seluruh tubuh yang menggabungkan squat, plank, push-up, dan lompatan.',
+    primaryMuscles: ['Seluruh Tubuh'],
+    secondaryMuscles: ['Sistem Kardiovaskular'],
+    equipment: ['Berat Badan'],
+    difficulty: 'Menengah',
     instructions: [
-      'Start standing, then squat down and place hands on ground',
-      'Jump or step feet back into plank position',
-      'Perform a push-up (optional)',
-      'Jump or step feet back to squat position',
-      'Jump up with arms overhead'
+      'Mulai berdiri, kemudian squat dan letakkan tangan di lantai',
+      'Lompat atau langkah kaki ke belakang ke posisi plank',
+      'Lakukan push-up (opsional)',
+      'Lompat atau langkah kaki kembali ke posisi squat',
+      'Lompat ke atas dengan lengan di atas kepala'
     ],
     tips: [
-      'Maintain good form even when fatigued',
-      'Step instead of jump if needed',
-      'Focus on smooth, efficient movement'
+      'Jaga bentuk yang baik meski lelah',
+      'Langkah saja jika perlu, tidak harus lompat',
+      'Fokus pada gerakan yang halus dan efisien'
     ],
     variations: ['Half Burpee', 'Burpee Box Jump', '6-count Burpee', 'Devil Press']
   },
@@ -306,22 +306,22 @@ export const exercises: Exercise[] = [
     id: 'thruster',
     name: 'Thruster',
     category: 'MetCon/CrossFit',
-    description: 'Combines front squat and overhead press into one explosive movement.',
-    primaryMuscles: ['Quadriceps', 'Glutes', 'Shoulders'],
-    secondaryMuscles: ['Core', 'Triceps', 'Upper Back'],
-    equipment: ['Barbell', 'Dumbbells', 'Kettlebell'],
-    difficulty: 'Advanced',
+    description: 'Menggabungkan front squat dan overhead press menjadi satu gerakan eksplosif.',
+    primaryMuscles: ['Kuadrisep', 'Gluteus', 'Bahu'],
+    secondaryMuscles: ['Inti', 'Trisep', 'Punggung Atas'],
+    equipment: ['Barbel', 'Dumbel', 'Kettlebell'],
+    difficulty: 'Lanjutan',
     instructions: [
-      'Start with bar in front rack position',
-      'Perform a full front squat',
-      'As you stand up, use momentum to press bar overhead',
-      'Lower bar back to front rack position',
-      'Repeat in fluid motion'
+      'Mulai dengan barbel dalam posisi front rack',
+      'Lakukan front squat penuh',
+      'Saat berdiri, gunakan momentum untuk menekan barbel ke atas kepala',
+      'Turunkan barbel kembali ke posisi front rack',
+      'Ulangi dalam gerakan yang mengalir'
     ],
     tips: [
-      'Use leg drive to help with the press',
-      'Keep core tight throughout',
-      'Practice front squats and overhead press separately first'
+      'Gunakan dorongan kaki untuk membantu penekanan',
+      'Jaga inti tetap kencang sepanjang gerakan',
+      'Latih front squat dan overhead press secara terpisah terlebih dahulu'
     ],
     variations: ['Dumbbell Thruster', 'Single-arm Thruster', 'Kettlebell Thruster']
   },
@@ -330,46 +330,46 @@ export const exercises: Exercise[] = [
   {
     id: 'wall-ball',
     name: 'Wall Ball',
-    category: 'Hyrox/Functional',
-    description: 'Functional movement combining squat and overhead throw, common in Hyrox competitions.',
-    primaryMuscles: ['Quadriceps', 'Glutes', 'Shoulders'],
-    secondaryMuscles: ['Core', 'Calves'],
-    equipment: ['Medicine Ball', 'Wall'],
-    difficulty: 'Intermediate',
+    category: 'Hyrox/Fungsional',
+    description: 'Gerakan fungsional yang menggabungkan squat dan lemparan overhead, umum dalam kompetisi Hyrox.',
+    primaryMuscles: ['Kuadrisep', 'Gluteus', 'Bahu'],
+    secondaryMuscles: ['Inti', 'Betis'],
+    equipment: ['Bola Medis', 'Dinding'],
+    difficulty: 'Menengah',
     instructions: [
-      'Hold medicine ball at chest level',
-      'Perform squat with ball at chest',
-      'Explosively stand and throw ball to target on wall',
-      'Catch ball on the way down',
-      'Immediately go into next squat'
+      'Pegang bola medis di tingkat dada',
+      'Lakukan squat dengan bola di dada',
+      'Berdiri eksplosif dan lempar bola ke target di dinding',
+      'Tangkap bola saat turun',
+      'Langsung masuk ke squat berikutnya'
     ],
     tips: [
-      'Use legs to generate power, not just arms',
-      'Catch the ball with soft hands',
-      'Keep consistent rhythm'
+      'Gunakan kaki untuk menghasilkan tenaga, bukan hanya lengan',
+      'Tangkap bola dengan tangan yang lembut',
+      'Jaga ritme yang konsisten'
     ],
     variations: ['Single-arm Wall Ball', 'Wall Ball Sit-up', 'Overhead Wall Ball']
   },
   {
     id: 'sled-push',
     name: 'Sled Push',
-    category: 'Hyrox/Functional',
-    description: 'Lower body power and conditioning exercise common in functional fitness and Hyrox.',
-    primaryMuscles: ['Quadriceps', 'Glutes', 'Calves'],
-    secondaryMuscles: ['Core', 'Shoulders', 'Triceps'],
-    equipment: ['Prowler Sled', 'Weight Plates'],
-    difficulty: 'Intermediate',
+    category: 'Hyrox/Fungsional',
+    description: 'Latihan daya dan kondisioning tubuh bagian bawah yang umum dalam kebugaran fungsional dan Hyrox.',
+    primaryMuscles: ['Kuadrisep', 'Gluteus', 'Betis'],
+    secondaryMuscles: ['Inti', 'Bahu', 'Trisep'],
+    equipment: ['Sled Prowler', 'Piringan Beban'],
+    difficulty: 'Menengah',
     instructions: [
-      'Position hands on sled handles',
-      'Lean forward at 45-degree angle',
-      'Drive with legs, keeping arms straight',
-      'Take short, quick steps',
-      'Push through entire foot'
+      'Posisikan tangan pada pegangan sled',
+      'Condong ke depan pada sudut 45 derajat',
+      'Dorong dengan kaki, jaga lengan tetap lurus',
+      'Ambil langkah pendek dan cepat',
+      'Dorong melalui seluruh kaki'
     ],
     tips: [
-      'Stay low and drive with your legs',
-      'Keep core engaged',
-      'Don\'t let the sled stop moving'
+      'Tetap rendah dan dorong dengan kaki',
+      'Jaga inti tetap terlibat',
+      'Jangan biarkan sled berhenti bergerak'
     ],
     variations: ['High Handle Push', 'Low Handle Push', 'Single-arm Push']
   },
@@ -378,46 +378,46 @@ export const exercises: Exercise[] = [
   {
     id: 'farmer-carry',
     name: 'Farmer\'s Carry',
-    category: 'Military/Tactical',
-    description: 'Functional strength exercise that builds grip, core, and total body stability.',
-    primaryMuscles: ['Forearms', 'Traps', 'Core'],
-    secondaryMuscles: ['Shoulders', 'Legs', 'Glutes'],
-    equipment: ['Dumbbells', 'Kettlebells', 'Farmer Walk Handles'],
-    difficulty: 'Beginner',
+    category: 'Militer/Taktis',
+    description: 'Latihan kekuatan fungsional yang membangun cengkeraman, inti, dan stabilitas seluruh tubuh.',
+    primaryMuscles: ['Lengan Bawah', 'Trapezius', 'Inti'],
+    secondaryMuscles: ['Bahu', 'Kaki', 'Gluteus'],
+    equipment: ['Dumbel', 'Kettlebell', 'Pegangan Farmer Walk'],
+    difficulty: 'Pemula',
     instructions: [
-      'Pick up heavy weights in each hand',
-      'Stand tall with shoulders back',
-      'Walk forward with controlled steps',
-      'Keep core engaged and avoid leaning',
-      'Maintain grip throughout the distance'
+      'Angkat beban berat di setiap tangan',
+      'Berdiri tegak dengan bahu ke belakang',
+      'Berjalan maju dengan langkah terkontrol',
+      'Jaga inti terlibat dan hindari bersandar',
+      'Pertahankan cengkeraman sepanjang jarak'
     ],
     tips: [
-      'Start with shorter distances',
-      'Focus on posture over speed',
-      'Use chalk for better grip if needed'
+      'Mulai dengan jarak yang lebih pendek',
+      'Fokus pada postur daripada kecepatan',
+      'Gunakan kapur untuk cengkeraman yang lebih baik jika diperlukan'
     ],
     variations: ['Single-arm Carry', 'Front-loaded Carry', 'Mixed Carry', 'Overhead Carry']
   },
   {
     id: 'bear-crawl',
     name: 'Bear Crawl',
-    category: 'Military/Tactical',
-    description: 'Full-body movement pattern that builds strength, coordination, and conditioning.',
-    primaryMuscles: ['Core', 'Shoulders', 'Quadriceps'],
-    secondaryMuscles: ['Triceps', 'Glutes', 'Hip Flexors'],
-    equipment: ['Bodyweight'],
-    difficulty: 'Intermediate',
+    category: 'Militer/Taktis',
+    description: 'Pola gerakan seluruh tubuh yang membangun kekuatan, koordinasi, dan kondisioning.',
+    primaryMuscles: ['Inti', 'Bahu', 'Kuadrisep'],
+    secondaryMuscles: ['Trisep', 'Gluteus', 'Fleksor Pinggul'],
+    equipment: ['Berat Badan'],
+    difficulty: 'Menengah',
     instructions: [
-      'Start on hands and feet with knees just off ground',
-      'Keep hips level and core tight',
-      'Move opposite hand and foot forward',
-      'Take small steps, maintaining form',
-      'Keep knees close to ground throughout'
+      'Mulai dengan tangan dan kaki dengan lutut sedikit terangkat dari lantai',
+      'Jaga pinggul rata dan inti kencang',
+      'Gerakkan tangan dan kaki yang berlawanan ke depan',
+      'Ambil langkah kecil, jaga bentuk',
+      'Jaga lutut tetap dekat dengan lantai sepanjang gerakan'
     ],
     tips: [
-      'Quality over speed',
-      'Keep hips from swaying side to side',
-      'Breathe regularly'
+      'Kualitas lebih penting dari kecepatan',
+      'Jaga pinggul tidak bergoyang ke samping',
+      'Bernapas secara teratur'
     ],
     variations: ['Lateral Bear Crawl', 'Reverse Bear Crawl', 'Bear Crawl Hold']
   },
@@ -426,46 +426,46 @@ export const exercises: Exercise[] = [
   {
     id: 'clean-and-jerk',
     name: 'Clean and Jerk',
-    category: 'Olympic Lifting',
-    description: 'Technical Olympic lift combining explosive pulling with overhead pressing power.',
-    primaryMuscles: ['Full Body'],
-    secondaryMuscles: ['Power', 'Coordination'],
-    equipment: ['Barbell', 'Plates', 'Platform'],
-    difficulty: 'Advanced',
+    category: 'Angkat Besi Olimpiade',
+    description: 'Angkatan Olimpiade teknis yang menggabungkan tarikan eksplosif dengan daya tekan overhead.',
+    primaryMuscles: ['Seluruh Tubuh'],
+    secondaryMuscles: ['Daya', 'Koordinasi'],
+    equipment: ['Barbel', 'Piringan Beban', 'Platform'],
+    difficulty: 'Lanjutan',
     instructions: [
-      'Start with bar over mid-foot, similar to deadlift setup',
-      'First pull: lift bar to knee level',
-      'Second pull: explosive extension of hips and knees',
-      'Catch bar in front rack position in squat',
-      'Stand up, then jerk bar overhead'
+      'Mulai dengan barbel di atas pertengahan kaki, mirip setup deadlift',
+      'Tarikan pertama: angkat barbel ke tingkat lutut',
+      'Tarikan kedua: ekstensi eksplosif pinggul dan lutut',
+      'Tangkap barbel dalam posisi front rack dalam squat',
+      'Berdiri, kemudian jerk barbel ke atas kepala'
     ],
     tips: [
-      'This is a very technical lift - get coaching',
-      'Start with just the barbell',
-      'Practice each component separately'
+      'Ini adalah angkatan yang sangat teknis - dapatkan pelatihan',
+      'Mulai dengan barbel kosong saja',
+      'Latih setiap komponen secara terpisah'
     ],
     variations: ['Power Clean', 'Hang Clean', 'Split Jerk', 'Push Jerk']
   },
   {
     id: 'snatch',
     name: 'Snatch',
-    category: 'Olympic Lifting',
-    description: 'The most technical Olympic lift, taking the bar from ground to overhead in one motion.',
-    primaryMuscles: ['Full Body'],
-    secondaryMuscles: ['Power', 'Mobility', 'Coordination'],
-    equipment: ['Barbell', 'Plates', 'Platform'],
-    difficulty: 'Advanced',
+    category: 'Angkat Besi Olimpiade',
+    description: 'Angkatan Olimpiade paling teknis, mengangkat barbel dari lantai ke overhead dalam satu gerakan.',
+    primaryMuscles: ['Seluruh Tubuh'],
+    secondaryMuscles: ['Daya', 'Mobilitas', 'Koordinasi'],
+    equipment: ['Barbel', 'Piringan Beban', 'Platform'],
+    difficulty: 'Lanjutan',
     instructions: [
-      'Wide grip on barbell (snatch grip)',
-      'Pull bar explosively from ground',
-      'Pull yourself under the bar',
-      'Catch bar overhead in squat position',
-      'Stand up with bar overhead'
+      'Cengkeraman lebar pada barbel (snatch grip)',
+      'Tarik barbel secara eksplosif dari lantai',
+      'Tarik diri ke bawah barbel',
+      'Tangkap barbel di atas kepala dalam posisi squat',
+      'Berdiri dengan barbel di atas kepala'
     ],
     tips: [
-      'Extremely technical - requires coaching',
-      'Work on mobility first',
-      'Master overhead squat before attempting'
+      'Sangat teknis - memerlukan pelatihan',
+      'Kerjakan mobilitas terlebih dahulu',
+      'Kuasai overhead squat sebelum mencoba'
     ],
     variations: ['Power Snatch', 'Hang Snatch', 'Muscle Snatch']
   },
@@ -474,89 +474,89 @@ export const exercises: Exercise[] = [
   {
     id: 'muscle-up',
     name: 'Muscle-up',
-    category: 'Gymnastics',
-    description: 'Advanced bodyweight movement combining pull-up and dip in one fluid motion.',
-    primaryMuscles: ['Lats', 'Triceps', 'Chest'],
-    secondaryMuscles: ['Core', 'Shoulders', 'Forearms'],
-    equipment: ['Pull-up Bar', 'Rings'],
-    difficulty: 'Advanced',
+    category: 'Senam',
+    description: 'Gerakan berat badan tingkat lanjut yang menggabungkan pull-up dan dip dalam satu gerakan yang mengalir.',
+    primaryMuscles: ['Latissimus', 'Trisep', 'Dada'],
+    secondaryMuscles: ['Inti', 'Bahu', 'Lengan Bawah'],
+    equipment: ['Palang Pull-up', 'Ring Senam'],
+    difficulty: 'Lanjutan',
     instructions: [
-      'Start hanging from bar or rings',
-      'Perform explosive pull-up',
-      'Transition by leaning forward and pushing',
-      'Press to support position',
-      'Lower under control'
+      'Mulai bergantung dari palang atau ring',
+      'Lakukan pull-up eksplosif',
+      'Transisi dengan condong ke depan dan mendorong',
+      'Tekan ke posisi support',
+      'Turun dengan kontrol'
     ],
     tips: [
-      'Master pull-ups and dips first',
-      'Practice transition separately',
-      'Use false grip on rings'
+      'Kuasai pull-up dan dip terlebih dahulu',
+      'Latih transisi secara terpisah',
+      'Gunakan false grip pada ring'
     ],
     variations: ['Ring Muscle-up', 'Bar Muscle-up', 'Strict Muscle-up', 'Kipping Muscle-up']
   },
   {
     id: 'handstand-push-up',
     name: 'Handstand Push-up',
-    category: 'Gymnastics',
-    description: 'Advanced inverted pressing movement requiring significant shoulder strength and balance.',
-    primaryMuscles: ['Shoulders', 'Triceps'],
-    secondaryMuscles: ['Core', 'Upper Traps'],
-    equipment: ['Wall', 'Bodyweight'],
-    difficulty: 'Advanced',
+    category: 'Senam',
+    description: 'Gerakan tekan terbalik tingkat lanjut yang memerlukan kekuatan bahu dan keseimbangan yang signifikan.',
+    primaryMuscles: ['Bahu', 'Trisep'],
+    secondaryMuscles: ['Inti', 'Trapezius Atas'],
+    equipment: ['Dinding', 'Berat Badan'],
+    difficulty: 'Lanjutan',
     instructions: [
-      'Start in handstand position against wall',
-      'Lower head toward ground',
-      'Press back to starting position',
-      'Maintain straight body line',
-      'Control the movement'
+      'Mulai dalam posisi handstand menghadap dinding',
+      'Turunkan kepala menuju lantai',
+      'Tekan kembali ke posisi awal',
+      'Jaga garis tubuh tetap lurus',
+      'Kontrol gerakan'
     ],
     tips: [
-      'Master wall-supported handstand first',
-      'Build up shoulder strength with pike push-ups',
-      'Practice hollow body holds'
+      'Kuasai handstand dengan support dinding terlebih dahulu',
+      'Bangun kekuatan bahu dengan pike push-up',
+      'Latih hollow body hold'
     ],
     variations: ['Pike Push-up', 'Wall Handstand Push-up', 'Freestanding Handstand Push-up']
   }
 ];
 
 export const categories = [
-  'Upper Body - Push',
-  'Upper Body - Pull', 
-  'Lower Body - Squat',
-  'Lower Body - Hinge',
-  'Core',
+  'Tubuh Bagian Atas - Dorong',
+  'Tubuh Bagian Atas - Tarik', 
+  'Tubuh Bagian Bawah - Squat',
+  'Tubuh Bagian Bawah - Engsel',
+  'Inti',
   'MetCon/CrossFit',
-  'Hyrox/Functional',
-  'Military/Tactical',
-  'Olympic Lifting',
-  'Gymnastics'
+  'Hyrox/Fungsional',
+  'Militer/Taktis',
+  'Angkat Besi Olimpiade',
+  'Senam'
 ];
 
 export const muscleGroups = [
-  'Chest',
-  'Shoulders', 
-  'Triceps',
-  'Biceps',
-  'Lats',
-  'Rhomboids',
-  'Traps',
-  'Core',
-  'Quadriceps',
-  'Hamstrings',
-  'Glutes',
-  'Calves',
-  'Forearms'
+  'Dada',
+  'Bahu', 
+  'Trisep',
+  'Bisep',
+  'Latissimus',
+  'Rhomboid',
+  'Trapezius',
+  'Inti',
+  'Kuadrisep',
+  'Hamstring',
+  'Gluteus',
+  'Betis',
+  'Lengan Bawah'
 ];
 
 export const equipment = [
-  'Bodyweight',
-  'Barbell',
-  'Dumbbells',
+  'Berat Badan',
+  'Barbel',
+  'Dumbel',
   'Kettlebell',
-  'Pull-up Bar',
-  'Cable',
-  'Medicine Ball',
-  'Rings',
+  'Palang Pull-up',
+  'Kabel',
+  'Bola Medis',
+  'Ring Senam',
   'Sled',
-  'Wall'
+  'Dinding'
 ];

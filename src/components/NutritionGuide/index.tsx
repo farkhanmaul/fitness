@@ -69,7 +69,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <Icon name="apple" size={24} />
-              Nutrition Guide
+              Panduan Nutrisi
             </h2>
             <button
               onClick={onClose}
@@ -84,7 +84,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
             <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
               <div className="flex items-center gap-2 mb-3">
                 <Icon name="star" size={16} className="text-green-600 dark:text-green-400" />
-                <span className="font-medium text-green-800 dark:text-green-200">Essential Tips</span>
+                <span className="font-medium text-green-800 dark:text-green-200">Tips Penting</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {highPriorityTips.slice(0, 4).map(tip => (
@@ -111,7 +111,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
               }`}
             >
               <Icon name="lightbulb" size={16} className="mr-2" />
-              Nutrition Tips
+              Tips Nutrisi
             </button>
             <button
               onClick={() => setActiveView('meals')}
@@ -122,7 +122,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
               }`}
             >
               <Icon name="utensils" size={16} className="mr-2" />
-              Meal Plans
+              Rencana Makan
             </button>
           </div>
 
@@ -229,26 +229,26 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
 
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                        <div className="text-sm text-gray-500 dark:text-gray-400">Calories</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Kalori</div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.calories}</div>
                       </div>
                       <div className="bg-white dark:bg-gray-800 p-3 rounded">
-                        <div className="text-sm text-gray-500 dark:text-gray-400">Duration</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Durasi</div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
                       </div>
                     </div>
 
                     <div className="mb-4">
-                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Macros</div>
+                      <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Makro</div>
                       <div className="flex gap-3">
                         <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded">
                           Protein: {plan.macros.protein}%
                         </span>
                         <span className="text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 px-2 py-1 rounded">
-                          Carbs: {plan.macros.carbs}%
+                          Karbohidrat: {plan.macros.carbs}%
                         </span>
                         <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded">
-                          Fats: {plan.macros.fats}%
+                          Lemak: {plan.macros.fats}%
                         </span>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
                       onClick={() => setSelectedMealPlan(plan)}
                       className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors mobile-button-lg"
                     >
-                      View Full Plan
+                      Lihat Rencana Lengkap
                     </button>
                   </div>
                 ))}
@@ -273,7 +273,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
                 className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-6 mobile-touch-target"
               >
                 <Icon name="arrowLeft" size={16} />
-                Back to Meal Plans
+                Kembali ke Rencana Makan
               </button>
 
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
@@ -294,7 +294,7 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{selectedMealPlan.calories}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Daily Calories</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Kalori Harian</div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-green-600 dark:text-green-400">{selectedMealPlan.macros.protein}%</div>
@@ -302,12 +302,12 @@ export function NutritionGuide({ isVisible, onClose }: NutritionGuideProps) {
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{selectedMealPlan.duration}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Duration</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Durasi</div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Daily Meal Schedule</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Jadwal Makan Harian</h4>
                   {selectedMealPlan.meals.map((meal, index) => (
                     <div key={index} className="bg-white dark:bg-gray-800 p-4 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
