@@ -6,6 +6,7 @@ import { workoutPrograms, WorkoutProgram } from '@/data/programs';
 import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
 import { trainingPrinciples, TrainingPrinciple } from '@/data/training-principles';
 import { CategoryNavigation } from '@/components/CategoryNavigation';
+import { ExerciseMedia } from '@/components/ExerciseMedia';
 
 // Tab type - simplified to focus on knowledge only
 type TabType = 'exercises' | 'programs' | 'movements' | 'principles' | 'nutrition';
@@ -287,6 +288,14 @@ export default function Home() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {selectedExercise && (
+              <ExerciseMedia
+                exerciseId={selectedExercise.id}
+                exerciseName={selectedExercise.name}
+                hasVideo={true}
+                hasImages={true}
+              />
+            )}
             {selectedExercise && (
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                 <div className="flex justify-between items-start mb-4">
