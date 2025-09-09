@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface ExerciseMediaProps {
   exerciseId: string;
@@ -61,12 +62,13 @@ export const ExerciseMedia: React.FC<ExerciseMediaProps> = ({
         {imageUrls.map((imageUrl, index) => (
           <div key={index} className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
             {!imageError ? (
-              <img
+              <Image
                 src={imageUrl}
                 alt={`${exerciseName} - Posisi ${index + 1}`}
+                width={300}
+                height={300}
                 className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
                 onError={() => setImageError(true)}
-                loading="lazy"
               />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 dark:text-gray-400">

@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { WorkoutProgression, ProgressionHistory, AdaptiveWorkout } from '@/types/progression';
+import { WorkoutProgression, ProgressionHistory } from '@/types/progression';
+
+// Define internal types
+type ScheduleEntry = {
+  id: string;
+  date: string;
+  status: string;
+  workout: string;
+};
 import { getProgressionRule, getUserDifficultyLevel, calculateNextProgression, difficultyLevels } from '@/data/progressionRules';
 
 export function useProgression() {
@@ -28,12 +36,12 @@ export function useProgression() {
     const schedule = JSON.parse(localStorage.getItem('fitness-schedule') || '[]');
     const achievementProgress = JSON.parse(localStorage.getItem('fitness-achievements-progress') || '{}');
 
-    const completedWorkouts = schedule.filter((w: any) => w.status === 'completed');
+    const completedWorkouts = (schedule as ScheduleEntry[]).filter((w) => w.status === 'completed');
     
     // Calculate current streak
     let currentStreak = 0;
     const sortedWorkouts = completedWorkouts
-      .sort((a: any, b: any) => b.date.localeCompare(a.date));
+      .sort((a, b) => b.date.localeCompare(a.date));
     
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
