@@ -114,7 +114,7 @@ export const exerciseCategories: ExerciseCategory[] = [
   }
 ];
 
-export const getExercisesByCategory = (categoryId: string) => {
+export const getExercisesByCategory = () => {
   // This will be implemented to filter exercises by category
   return [];
 };

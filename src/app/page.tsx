@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import { exercises, Exercise } from '@/data/exercises';
 import { workoutPrograms, WorkoutProgram } from '@/data/programs';
-import { movementPatterns, MovementPattern } from '@/data/movement-patterns';
-import { trainingPrinciples, TrainingPrinciple } from '@/data/training-principles';
 import { CategoryNavigation } from '@/components/CategoryNavigation';
 import { ExerciseMedia } from '@/components/ExerciseMedia';
 
@@ -17,8 +15,6 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
-  const [selectedMovement, setSelectedMovement] = useState<MovementPattern | null>(null);
-  const [selectedPrinciple, setSelectedPrinciple] = useState<TrainingPrinciple | null>(null);
   const [darkMode, setDarkMode] = useState(false);
 
   // Filter exercises based on search and category
@@ -37,20 +33,8 @@ export default function Home() {
     return matchesSearch && matchesCategory;
   });
 
-  const filteredMovements = movementPatterns.filter(movement => {
-    const matchesSearch = movement.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         movement.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
-  });
 
-  const filteredPrinciples = trainingPrinciples.filter(principle => {
-    const matchesSearch = principle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         principle.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
-  });
-
-  const TabButton = ({ tab, label, isActive, onClick }: {
-    tab: TabType;
+  const TabButton = ({ label, isActive, onClick }: {
     label: string;
     isActive: boolean;
     onClick: () => void;
@@ -177,31 +161,26 @@ export default function Home() {
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-6">
           <TabButton
-            tab="exercises"
             label="Latihan"
             isActive={activeTab === 'exercises'}
             onClick={() => setActiveTab('exercises')}
           />
           <TabButton
-            tab="programs"
             label="Program"
             isActive={activeTab === 'programs'}
             onClick={() => setActiveTab('programs')}
           />
           <TabButton
-            tab="movements"
             label="Pola Gerakan"
             isActive={activeTab === 'movements'}
             onClick={() => setActiveTab('movements')}
           />
           <TabButton
-            tab="principles"
             label="Prinsip Latihan"
             isActive={activeTab === 'principles'}
             onClick={() => setActiveTab('principles')}
           />
           <TabButton
-            tab="nutrition"
             label="Nutrisi"
             isActive={activeTab === 'nutrition'}
             onClick={() => setActiveTab('nutrition')}

@@ -1,11 +1,33 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { WorkoutAnalytics, ProgressTrend, AnalyticsChartData, WorkoutHeatmapData, ExerciseVolumeData, AnalyticsTimeframe, AnalyticsFilter } from '@/types/analytics';
 
+// Define additional types for internal use
+type WorkoutSession = {
+  id: string;
+  date: string;
+  duration: number;
+  exercises: Array<{name: string; sets: number; reps: number; weight?: number;}>;
+};
+
+type ExerciseLog = {
+  id: string;
+  exerciseName: string;
+  date: string;
+  sets: Array<{reps: number; weight?: number;}>;
+};
+
+type ProgressionData = Record<string, unknown>;
+type ScheduleEntry = {
+  id: string;
+  date: string;
+  workout: string;
+};
+
 export function useAnalytics() {
-  const [workoutHistory, setWorkoutHistory] = useState<any[]>([]);
-  const [exerciseLogs, setExerciseLogs] = useState<any[]>([]);
-  const [progressions, setProgressions] = useState<any>({});
-  const [scheduleData, setScheduleData] = useState<any[]>([]);
+  const [workoutHistory, setWorkoutHistory] = useState<WorkoutSession[]>([]);
+  const [exerciseLogs, setExerciseLogs] = useState<ExerciseLog[]>([]);
+  const [progressions] = useState<ProgressionData>({});
+  const [scheduleData, setScheduleData] = useState<ScheduleEntry[]>([]);
 
   useEffect(() => {
     loadData();
@@ -194,8 +216,8 @@ export function useAnalytics() {
     return { currentStreak, longestStreak };
   };
 
-  const calculateProgressTrends = (logs: any[]): ProgressTrend[] => {
-    const exerciseGroups: { [key: string]: any[] } = {};
+  const calculateProgressTrends = (logs: ExerciseLog[]): ProgressTrend[] => {
+    const exerciseGroups: { [key: string]: ExerciseLog[] } = {};
     
     logs.forEach(log => {
       if (!exerciseGroups[log.exerciseId]) {
@@ -289,7 +311,7 @@ export function useAnalytics() {
     const cutoffDate = new Date(now.getTime() - timeframeDays * 24 * 60 * 60 * 1000);
 
     const filteredLogs = exerciseLogs.filter(log => new Date(log.date) >= cutoffDate);
-    const exerciseGroups: { [key: string]: any[] } = {};
+    const exerciseGroups: { [key: string]: ExerciseLog[] } = {};
     
     filteredLogs.forEach(log => {
       if (!exerciseGroups[log.exerciseName]) {

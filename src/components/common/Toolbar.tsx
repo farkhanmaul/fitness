@@ -34,7 +34,7 @@ export function Toolbar({ buttons, className = '' }: ToolbarProps) {
           }`}
           title={button.title}
         >
-          <Icon name={button.icon as any} size={20} />
+          <Icon name={button.icon} size={20} />
         </button>
       ))}
     </div>
