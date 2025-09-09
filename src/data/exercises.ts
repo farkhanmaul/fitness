@@ -22,7 +22,7 @@ export const exercises: Exercise[] = [
   // Upper Body - Push
   {
     id: 'push-up',
-    name: 'Push-up',
+    name: 'Push-up (Dorong Naik)',
     category: 'Tubuh Bagian Atas - Dorong',
     description: 'Latihan dasar dengan berat badan yang memperkuat dada, bahu, dan trisep.',
     primaryMuscles: ['Dada', 'Trisep', 'Deltoid Depan'],
@@ -44,7 +44,7 @@ export const exercises: Exercise[] = [
     variations: ['Incline Push-up', 'Decline Push-up', 'Diamond Push-up', 'Wide-grip Push-up'],
     progressions: [
       {
-        name: 'Wall Push-up',
+        name: 'Push-up Dinding',
         description: 'Push-up berdiri menghadap dinding untuk pemula',
         difficulty: 'Pemula',
         instructions: [
@@ -54,7 +54,7 @@ export const exercises: Exercise[] = [
         ]
       },
       {
-        name: 'Incline Push-up',
+        name: 'Push-up Miring',
         description: 'Push-up dengan tangan di permukaan yang lebih tinggi',
         difficulty: 'Pemula',
         instructions: [
@@ -64,7 +64,7 @@ export const exercises: Exercise[] = [
         ]
       },
       {
-        name: 'Standard Push-up',
+        name: 'Push-up Standar',
         description: 'Push-up penuh dari ujung kaki',
         difficulty: 'Menengah',
         instructions: [
@@ -74,7 +74,7 @@ export const exercises: Exercise[] = [
         ]
       },
       {
-        name: 'Archer Push-up',
+        name: 'Push-up Pemanah',
         description: 'Variasi push-up dengan fokus satu lengan',
         difficulty: 'Lanjutan',
         instructions: [
@@ -112,7 +112,7 @@ export const exercises: Exercise[] = [
   // Upper Body - Pull
   {
     id: 'pull-up',
-    name: 'Pull-up',
+    name: 'Pull-up (Tarik Naik)',
     category: 'Tubuh Bagian Atas - Tarik',
     description: 'Raja latihan tarik tubuh bagian atas, menargetkan latissimus, rhomboid, dan bisep.',
     primaryMuscles: ['Latissimus', 'Rhomboid', 'Trapezius Tengah'],
@@ -135,7 +135,7 @@ export const exercises: Exercise[] = [
   },
   {
     id: 'row',
-    name: 'Bent-over Row',
+    name: 'Bent-over Row (Dayung Membungkuk)',
     category: 'Tubuh Bagian Atas - Tarik',
     description: 'Latihan tarik esensial untuk membangun punggung yang kuat dan tebal serta memperbaiki postur.',
     primaryMuscles: ['Latissimus', 'Rhomboid', 'Trapezius Tengah'],
@@ -160,7 +160,7 @@ export const exercises: Exercise[] = [
   // Lower Body - Squat Pattern
   {
     id: 'squat',
-    name: 'Back Squat',
+    name: 'Squat Belakang',
     category: 'Tubuh Bagian Bawah - Squat',
     description: 'Latihan fundamental tubuh bagian bawah yang membangun kekuatan di kuadrisep, gluteus, dan inti.',
     primaryMuscles: ['Kuadrisep', 'Gluteus'],
@@ -208,7 +208,7 @@ export const exercises: Exercise[] = [
   // Lower Body - Hinge Pattern
   {
     id: 'deadlift',
-    name: 'Deadlift',
+    name: 'Deadlift (Angkat Mati)',
     category: 'Tubuh Bagian Bawah - Engsel',
     description: 'Latihan rantai posterior utama, membangun kekuatan di hamstring, gluteus, dan punggung.',
     primaryMuscles: ['Hamstring', 'Gluteus', 'Punggung Bawah'],
@@ -231,7 +231,7 @@ export const exercises: Exercise[] = [
   },
   {
     id: 'romanian-deadlift',
-    name: 'Romanian Deadlift (RDL)',
+    name: 'Romanian Deadlift (Angkat Mati Rumania)',
     category: 'Tubuh Bagian Bawah - Engsel',
     description: 'Gerakan engsel pinggul yang menargetkan hamstring dan gluteus sambil meningkatkan fleksibilitas rantai posterior.',
     primaryMuscles: ['Hamstring', 'Gluteus'],
@@ -256,7 +256,7 @@ export const exercises: Exercise[] = [
   // Core
   {
     id: 'plank',
-    name: 'Plank',
+    name: 'Plank (Papan)',
     category: 'Inti',
     description: 'Latihan inti isometrik yang membangun stabilitas dan daya tahan di seluruh muskulatur inti.',
     primaryMuscles: ['Inti', 'Transverse Abdominis'],
