@@ -56,7 +56,7 @@ export function CardList({
   if (items.length === 0) {
     return (
       <div className="text-center py-8 sm:py-12">
-        <Icon name={emptyIcon} size={48} className="mx-auto mb-4 text-gray-300" />
+        <Icon name={emptyIcon as 'search'} size={48} className="mx-auto mb-4 text-gray-300" />
         <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg mb-2 sm:mb-4">
           {emptyMessage}
         </p>
@@ -105,7 +105,7 @@ export function CardList({
                   className={`p-1 rounded-full transition-colors ${action.className || 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'}`}
                   title={action.label}
                 >
-                  <Icon name={action.icon} size={16} />
+                  <Icon name={action.icon as 'star'} size={16} />
                 </button>
               ))}
               

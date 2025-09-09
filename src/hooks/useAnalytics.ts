@@ -14,6 +14,9 @@ type ExerciseLog = {
   exerciseName: string;
   date: string;
   sets: Array<{reps: number; weight?: number;}>;
+  rpe?: number;
+  weight?: number;
+  reps?: number;
 };
 
 type ProgressionData = Record<string, unknown>;
@@ -21,12 +24,13 @@ type ScheduleEntry = {
   id: string;
   date: string;
   workout: string;
+  status?: string;
 };
 
 export function useAnalytics() {
   const [workoutHistory, setWorkoutHistory] = useState<WorkoutSession[]>([]);
   const [exerciseLogs, setExerciseLogs] = useState<ExerciseLog[]>([]);
-  const [progressions] = useState<ProgressionData>({});
+  const [progressions, setProgressions] = useState<ProgressionData>({});
   const [scheduleData, setScheduleData] = useState<ScheduleEntry[]>([]);
 
   useEffect(() => {
@@ -72,7 +76,7 @@ export function useAnalytics() {
       : 100;
 
     // Calculate RPE average
-    const rpeValues = filteredLogs.filter(log => log.rpe).map(log => log.rpe);
+    const rpeValues = filteredLogs.filter(log => log.rpe).map(log => log.rpe!);
     const averageRPE = rpeValues.length > 0 
       ? Math.round(rpeValues.reduce((sum, rpe) => sum + rpe, 0) / rpeValues.length * 10) / 10
       : 0;
@@ -121,15 +125,15 @@ export function useAnalytics() {
     // Progress trends
     const progressTrends = calculateProgressTrends(filteredLogs);
 
-    // RPE history
+    // RPE history  
     const rpeHistory = filteredLogs
       .filter(log => log.rpe)
       .map(log => ({
         date: log.date,
         exerciseName: log.exerciseName,
-        rpe: log.rpe,
-        weight: log.weight,
-        reps: log.reps
+        rpe: log.rpe!,
+        weight: log.weight || 0,
+        reps: log.reps || 0
       }))
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
@@ -220,10 +224,10 @@ export function useAnalytics() {
     const exerciseGroups: { [key: string]: ExerciseLog[] } = {};
     
     logs.forEach(log => {
-      if (!exerciseGroups[log.exerciseId]) {
-        exerciseGroups[log.exerciseId] = [];
+      if (!exerciseGroups[log.exerciseName]) {
+        exerciseGroups[log.exerciseName] = [];
       }
-      exerciseGroups[log.exerciseId].push(log);
+      exerciseGroups[log.exerciseName].push(log);
     });
 
     return Object.entries(exerciseGroups).map(([exerciseId, exerciseLogs]) => {

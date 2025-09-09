@@ -14,7 +14,6 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
-  const [selectedProgram, setSelectedProgram] = useState<WorkoutProgram | null>(null);
   const [darkMode, setDarkMode] = useState(false);
 
   // Filter exercises based on search and category
@@ -102,7 +101,6 @@ export default function Home() {
   const ProgramCard = ({ program }: { program: WorkoutProgram }) => (
     <div
       className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
-      onClick={() => setSelectedProgram(program)}
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{program.name}</h3>
       <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">{program.description}</p>

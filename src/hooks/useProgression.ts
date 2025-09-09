@@ -72,7 +72,7 @@ export function useProgression() {
     localStorage.setItem('fitness-progressions', JSON.stringify(newProgressions));
   };
 
-  const initializeProgression = (exerciseId: string, exerciseName: string): WorkoutProgression => {
+  const initializeProgression = (exerciseId: string): WorkoutProgression => {
     const rule = getProgressionRule(exerciseId);
     const userLevel = getUserDifficultyLevel(userStats);
     
@@ -87,9 +87,9 @@ export function useProgression() {
     return progression;
   };
 
-  const getProgression = (exerciseId: string, exerciseName: string): WorkoutProgression => {
+  const getProgression = (exerciseId: string): WorkoutProgression => {
     if (!progressions[exerciseId]) {
-      const newProgression = initializeProgression(exerciseId, exerciseName);
+      const newProgression = initializeProgression(exerciseId);
       const updated = { ...progressions, [exerciseId]: newProgression };
       saveProgressions(updated);
       return newProgression;
