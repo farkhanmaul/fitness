@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import { Exercise, WorkoutProgram } from '@/data/exercises';
+import { Exercise } from '@/data/exercises';
+import { WorkoutProgram } from '@/data/programs';
 import { MovementPattern } from '@/data/movement-patterns';
 import { TrainingPrinciple } from '@/data/training-principles';
 

@@ -235,10 +235,10 @@ export function useAnalytics() {
       
       const dataPoints = sortedLogs.map(log => ({
         date: log.date,
-        weight: log.weight,
-        reps: log.reps,
-        volume: (log.sets || 1) * log.reps * (log.weight || 1),
-        rpe: log.rpe
+        weight: log.weight || 0,
+        reps: log.reps || 1,
+        volume: (log.sets?.length || 1) * (log.reps || 1) * (log.weight || 1),
+        rpe: log.rpe || 0
       }));
 
       // Calculate trend direction
@@ -326,10 +326,10 @@ export function useAnalytics() {
 
     return Object.entries(exerciseGroups).map(([exerciseName, logs]) => {
       const totalVolume = logs.reduce((sum, log) => 
-        sum + ((log.sets || 1) * log.reps * (log.weight || 1)), 0
+        sum + ((log.sets?.length || 1) * (log.reps || 1) * (log.weight || 1)), 0
       );
       
-      const rpeValues = logs.filter(log => log.rpe).map(log => log.rpe);
+      const rpeValues = logs.filter(log => log.rpe).map(log => log.rpe!);
       const averageRPE = rpeValues.length > 0 
         ? rpeValues.reduce((sum, rpe) => sum + rpe, 0) / rpeValues.length 
         : 0;
@@ -341,8 +341,8 @@ export function useAnalytics() {
       if (sortedLogs.length >= 2) {
         const firstSession = sortedLogs[0];
         const lastSession = sortedLogs[sortedLogs.length - 1];
-        const firstVolume = (firstSession.sets || 1) * firstSession.reps * (firstSession.weight || 1);
-        const lastVolume = (lastSession.sets || 1) * lastSession.reps * (lastSession.weight || 1);
+        const firstVolume = (firstSession.sets?.length || 1) * (firstSession.reps || 1) * (firstSession.weight || 1);
+        const lastVolume = (lastSession.sets?.length || 1) * (lastSession.reps || 1) * (lastSession.weight || 1);
         
         progressRate = ((lastVolume - firstVolume) / firstVolume) * 100;
       }
